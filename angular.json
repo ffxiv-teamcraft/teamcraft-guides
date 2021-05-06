@@ -1,6 +1,7 @@
 {
   "version": 1,
   "cli": {
+    "analytics": "0b54a900-6131-4837-9e6e-4b38f0110334",
     "defaultCollection": "@nrwl/angular"
   },
   "defaultProject": "guides",
@@ -36,18 +37,18 @@
       "projectType": "application",
       "root": "apps/guides",
       "sourceRoot": "apps/guides/src",
-      "prefix": "teamcraft-guides",
+      "prefix": "guides",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/apps/guides",
+            "outputPath": "dist/guides/browser",
             "index": "apps/guides/src/index.html",
             "main": "apps/guides/src/main.ts",
             "polyfills": "apps/guides/src/polyfills.ts",
             "tsConfig": "apps/guides/tsconfig.app.json",
             "aot": true,
-            "assets": ["apps/guides/src/favicon.ico", "apps/guides/src/assets"],
+            "assets": ["apps/guides/src/favicon.ico", "apps/guides/src/assets", {"glob":"**/*","input":"./node_modules/@ant-design/icons-angular/src/inline-svg/","output":"/assets/"}],
             "styles": ["apps/guides/src/styles.less"],
             "scripts": []
           },
@@ -113,6 +114,53 @@
           "options": {
             "jestConfig": "apps/guides/jest.config.js",
             "passWithNoTests": true
+          }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/guides/server",
+            "main": "apps/guides/server.ts",
+            "tsConfig": "apps/guides/tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "apps/guides/src/environments/environment.ts",
+                  "with": "apps/guides/src/environments/environment.prod.ts"
+                }
+              ],
+              "sourceMap": false,
+              "optimization": true
+            }
+          }
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "options": {
+            "browserTarget": "guides:build",
+            "serverTarget": "guides:server"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "guides:build:production",
+              "serverTarget": "guides:server:production"
+            }
+          }
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "browserTarget": "guides:build:production",
+            "serverTarget": "guides:server:production",
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {}
           }
         }
       }
