@@ -1,1 +1,12 @@
-<guides-guide-content [markdown]="testMarkdown"></guides-guide-content>
+<div fxLayout="column" *ngIf="guide$ | async as guide">
+  <div fxLayout="row" fxLayoutAlign="space-between flex-start">
+    <h1>{{guide.title}}</h1>
+    <div>
+      <a nz-button routerLink="/editor/{{guide.slug}}" nzType="primary">
+        <i nz-icon nzType="edit"></i>
+      </a>
+    </div>
+  </div>
+
+  <guides-guide-content [markdown]="guide.content"></guides-guide-content>
+</div>

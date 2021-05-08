@@ -6,6 +6,12 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { CoreModule } from '../../core/core.module';
+import { DatabaseModule } from '../../database/database.module';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzInputModule } from 'ng-zorro-antd/input';
 
 const routes: Routes = [
   {
@@ -26,10 +32,16 @@ const routes: Routes = [
     CommonModule,
     NzCodeEditorModule,
     FormsModule,
+    DatabaseModule,
+    FlexLayoutModule,
 
     RouterModule.forChild(routes),
     NzTabsModule,
-    CoreModule
+    CoreModule,
+    NzButtonModule,
+    NzIconModule,
+    NzFormModule,
+    NzInputModule
   ]
 })
 export class EditorModule {

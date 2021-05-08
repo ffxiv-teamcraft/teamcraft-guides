@@ -1,10 +1,67 @@
-<nz-tabset>
-  <nz-tab nzTitle="Editor">
+<nz-tabset *ngIf="guide$ | async as guide" [nzSelectedIndex]="selectedTab" (nzSelectChange)="editor.layout()" [nzTabBarExtraContent]="extra">
+  <ng-template #extra>
+    <div fxLayout="row" fxLayoutGap="10px">
+      <div>
+        <button nz-button nzType="primary"
+                [disabled]="!guide.slug || !guide.content || !guide.title || !guide.description" (click)="save(guide)">
+          <i nz-icon nzType="save"></i>
+        </button>
+      </div>
+      <div>
+        <button nz-button nzType="primary"
+                [disabled]="!guide.slug || !guide.content || !guide.title || !guide.description"
+                (click)="publish(guide)">
+          Publish
+        </button>
+      </div>
+    </div>
+  </ng-template>
+  <nz-tab nzTitle="Meta">
     <div class="editor-container">
-      <nz-code-editor [(ngModel)]="content" [nzEditorOption]="{ language: 'markdown' }"></nz-code-editor>
+      <form nz-form>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzRequired>Title</nz-form-label>
+          <nz-form-control [nzSpan]="12">
+            <input [(ngModel)]="guide.title" name="title" (ngModelChange)="updateGuideSlug(guide)" nz-input
+                   placeholder="Guide's title" />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzRequired>Slug</nz-form-label>
+          <nz-form-control [nzSpan]="12"
+                           nzExtra="Will be updated automatically with title if guide has no content yet, will become readonly once it's published.">
+            <input [(ngModel)]="guide.slug" [disabled]="guide.published" name="slug" nz-input
+                   placeholder="Guide's slug" />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzRequired>Description</nz-form-label>
+          <nz-form-control [nzSpan]="12">
+            <nz-textarea-count [nzMaxCharacterCount]="256">
+            <textarea [(ngModel)]="guide.description" name="description" nz-input
+                      rows="3"
+                      placeholder="A clear description for good SEO"></textarea>
+            </nz-textarea-count>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control [nzSpan]="12" [nzOffset]="7">
+            <button nz-button nzType="primary"
+                    (click)="selectedTab = 1"
+                    [disabled]="!guide.slug || !guide.title || !guide.description">
+              Go to content edition
+            </button>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </div>
+  </nz-tab>
+  <nz-tab nzTitle="Content" [nzDisabled]="!guide.slug || !guide.title || !guide.description">
+    <div class="editor-container">
+      <nz-code-editor #editor [(ngModel)]="guide.content" [nzEditorOption]="{ language: 'markdown' }"></nz-code-editor>
     </div>
   </nz-tab>
   <nz-tab nzTitle="Preview">
-    <guides-guide-content [markdown]="content"></guides-guide-content>
+    <guides-guide-content [markdown]="guide.content"></guides-guide-content>
   </nz-tab>
 </nz-tabset>

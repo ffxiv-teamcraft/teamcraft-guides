@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Guide } from '../../../database/+state/guide';
+import { map, switchMapTo, tap } from 'rxjs/operators';
+import { GuidesFacade } from '../../../database/+state/guides.facade';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'guides-guide',
@@ -7,6 +12,17 @@ import { Component } from '@angular/core';
 })
 export class GuideComponent {
 
-  testMarkdown = `I am using __Markdown__. *lmao*. Hey, what about this: [Action:100005]`;
+  guide$: Observable<Guide> = this.route.paramMap.pipe(
+    map(params => params.get('slug')),
+    tap((slug: string) => {
+      this.guidesFacade.select(slug);
+    }),
+    switchMapTo(this.guidesFacade.selectedGuides$)
+  );
+
+  constructor(private guidesFacade: GuidesFacade,
+              private route: ActivatedRoute) {
+    this.guidesFacade.init();
+  }
 
 }

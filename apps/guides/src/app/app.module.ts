@@ -16,6 +16,9 @@ import { MarkdownModule } from 'ngx-markdown';
 import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 registerLocaleData(en);
 
@@ -27,6 +30,9 @@ registerLocaleData(en);
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
 
+    StoreModule.forRoot([]),
+    EffectsModule.forRoot(),
+
     MarkdownModule.forRoot(),
     FormsModule,
     HttpClientModule,
@@ -34,7 +40,10 @@ registerLocaleData(en);
     AppRoutingModule,
     IconsProviderModule,
     NzLayoutModule,
-    NzMenuModule
+    NzMenuModule,
+    !environment.production ? StoreDevtoolsModule.instrument({
+      name: 'Teamcraft Guides'
+    }) : []
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

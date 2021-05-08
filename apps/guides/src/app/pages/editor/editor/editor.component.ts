@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
 import { NzConfigService } from 'ng-zorro-antd/core/config';
+import { ActivatedRoute } from '@angular/router';
+import { GuidesFacade } from '../../../database/+state/guides.facade';
+import { Guide } from '../../../database/+state/guide';
+import { Observable, of } from 'rxjs';
+import { filter, map, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'guides-editor',
@@ -8,9 +13,40 @@ import { NzConfigService } from 'ng-zorro-antd/core/config';
 })
 export class EditorComponent {
 
-  content = `I am using __Markdown__. *lmao*. Hey, what about this: [Action:100005]`;
+  selectedTab = 0;
 
-  constructor(private nzConfigService: NzConfigService) {
+  guide$: Observable<Guide> = this.route.paramMap.pipe(
+    map(params => params.get('slug')),
+    tap((slug: string) => {
+      if (slug) {
+        this.guidesFacade.select(slug);
+      }
+    }),
+    switchMap(slug => {
+      if (slug) {
+        return this.guidesFacade.selectedGuides$.pipe(
+          map(guide => ({ ...guide }))
+        );
+      }
+      return of({
+        author: '',
+        slug: '',
+        title: '',
+        content: '',
+        description: '',
+        published: false
+      } as Guide);
+    }),
+    filter(guide => !!guide),
+    tap(guide => {
+      if (guide.content) {
+        this.selectedTab = 1;
+      }
+    })
+  );
+
+  constructor(private nzConfigService: NzConfigService, private guidesFacade: GuidesFacade,
+              private route: ActivatedRoute) {
     const defaultEditorOption = this.nzConfigService.getConfigForComponent('codeEditor')?.defaultEditorOption || {};
     this.nzConfigService.set('codeEditor', {
       defaultEditorOption: {
@@ -18,6 +54,23 @@ export class EditorComponent {
         theme: 'vs-dark'
       }
     });
+    this.guidesFacade.init();
   }
 
+  save(guide: Guide): void {
+    this.guidesFacade.save({ ...guide });
+  }
+
+  publish(guide: Guide): void {
+    this.guidesFacade.save({
+      ...guide,
+      published: true
+    });
+  }
+
+  updateGuideSlug(guide: Guide): void {
+    if (!guide.content) {
+      guide.slug = guide.title.toLowerCase().replace(/[^\w]+/gmi, '-').slice(0, 32);
+    }
+  }
 }
