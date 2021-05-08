@@ -30,6 +30,9 @@
     },
     "@nrwl/angular:component": {
       "style": "less"
+    },
+    "@schematics/angular:component": {
+      "style": "less"
     }
   },
   "projects": {
@@ -48,8 +51,23 @@
             "polyfills": "apps/guides/src/polyfills.ts",
             "tsConfig": "apps/guides/tsconfig.app.json",
             "aot": true,
-            "assets": ["apps/guides/src/favicon.ico", "apps/guides/src/assets", {"glob":"**/*","input":"./node_modules/@ant-design/icons-angular/src/inline-svg/","output":"/assets/"}],
-            "styles": ["apps/guides/src/styles.less"],
+            "assets": [
+              "apps/guides/src/favicon.ico",
+              "apps/guides/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              },
+              {
+                "glob": "**/*",
+                "input": "./node_modules/monaco-editor/min/vs",
+                "output": "/assets/vs/"
+              }
+            ],
+            "styles": [
+              "apps/guides/src/styles.less"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -110,7 +128,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/guides"],
+          "outputs": [
+            "coverage/apps/guides"
+          ],
           "options": {
             "jestConfig": "apps/guides/jest.config.js",
             "passWithNoTests": true
@@ -186,7 +206,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/guides-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/guides-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }

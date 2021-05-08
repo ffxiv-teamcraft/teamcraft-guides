@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { NZ_I18N } from 'ng-zorro-antd/i18n';
-import { en_US } from 'ng-zorro-antd/i18n';
+import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { FormsModule } from '@angular/forms';
@@ -13,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { IconsProviderModule } from './icons-provider.module';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { MarkdownModule } from 'ngx-markdown';
 
 registerLocaleData(en);
 
@@ -20,6 +20,7 @@ registerLocaleData(en);
   declarations: [AppComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: 'teamcraft-guides' }),
+    MarkdownModule.forRoot(),
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,

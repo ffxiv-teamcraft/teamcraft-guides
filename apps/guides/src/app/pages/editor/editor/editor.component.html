@@ -1,0 +1,10 @@
+<nz-tabset>
+  <nz-tab nzTitle="Editor">
+    <div class="editor-container">
+      <nz-code-editor [(ngModel)]="content" [nzEditorOption]="{ language: 'markdown' }"></nz-code-editor>
+    </div>
+  </nz-tab>
+  <nz-tab nzTitle="Preview">
+    <guides-guide-content [markdown]="content"></guides-guide-content>
+  </nz-tab>
+</nz-tabset>
