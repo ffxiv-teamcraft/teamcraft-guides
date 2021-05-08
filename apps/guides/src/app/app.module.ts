@@ -13,6 +13,9 @@ import { IconsProviderModule } from './icons-provider.module';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { MarkdownModule } from 'ngx-markdown';
+import { environment } from '../environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 registerLocaleData(en);
 
@@ -20,6 +23,10 @@ registerLocaleData(en);
   declarations: [AppComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: 'teamcraft-guides' }),
+
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+
     MarkdownModule.forRoot(),
     FormsModule,
     HttpClientModule,

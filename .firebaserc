@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "ffxiv-teamcraft-beta": {
+      "hosting": {
+        "guides": [
+          "ffxiv-teamcraft-beta"
+        ]
+      }
+    }
+  }
+}
