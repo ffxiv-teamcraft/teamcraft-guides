@@ -12,6 +12,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 
 const routes: Routes = [
   {
@@ -41,7 +42,8 @@ const routes: Routes = [
     NzButtonModule,
     NzIconModule,
     NzFormModule,
-    NzInputModule
+    NzInputModule,
+    NzSelectModule
   ]
 })
 export class EditorModule {

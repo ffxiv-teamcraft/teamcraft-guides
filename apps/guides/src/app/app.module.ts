@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -19,6 +19,15 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { NzMessageModule } from 'ng-zorro-antd/message';
+import { CoreModule } from './core/core.module';
+import { XivapiClientModule } from '@xivapi/angular-client';
+import { DatabaseModule } from './database/database.module';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 registerLocaleData(en);
 
@@ -29,12 +38,16 @@ registerLocaleData(en);
 
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    AngularFireAuthModule,
 
     StoreModule.forRoot([]),
     EffectsModule.forRoot(),
 
+    XivapiClientModule.forRoot(),
     MarkdownModule.forRoot(),
     FormsModule,
+    ReactiveFormsModule,
+    NzMessageModule,
     HttpClientModule,
     BrowserAnimationsModule,
     AppRoutingModule,
@@ -43,7 +56,13 @@ registerLocaleData(en);
     NzMenuModule,
     !environment.production ? StoreDevtoolsModule.instrument({
       name: 'Teamcraft Guides'
-    }) : []
+    }) : [],
+    FlexLayoutModule,
+    NzButtonModule,
+    NzModalModule,
+    CoreModule,
+    DatabaseModule,
+    NzToolTipModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

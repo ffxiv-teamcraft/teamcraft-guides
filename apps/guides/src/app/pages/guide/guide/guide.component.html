@@ -1,12 +1,21 @@
 <div fxLayout="column" *ngIf="guide$ | async as guide">
   <div fxLayout="row" fxLayoutAlign="space-between flex-start">
-    <h1>{{guide.title}}</h1>
-    <div>
+    <h1 class="guide-title">{{guide.title}}</h1>
+    <div *ngIf="isEditor$ | async">
       <a nz-button routerLink="/editor/{{guide.slug}}" nzType="primary">
         <i nz-icon nzType="edit"></i>
       </a>
     </div>
   </div>
+  <ng-template #authorTpl>
+    <div class="author" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="flex-start center"
+         *ngIf="guide.author | character | async as author; else loader">
+      <img [src]="author.Avatar" alt="" class="author-avatar">
+      <div>{{author.Name}}</div>
+    </div>
+  </ng-template>
+  <ng-template #loader><nz-spin></nz-spin></ng-template>
+  <nz-divider [nzText]="authorTpl" nzOrientation="left"></nz-divider>
 
   <guides-guide-content [markdown]="guide.content"></guides-guide-content>
 </div>

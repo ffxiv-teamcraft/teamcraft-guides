@@ -1,22 +1,18 @@
 import { Injectable } from '@angular/core';
 import { FirestoreService } from '../firestore.service';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Guide } from '../+state/model/guide';
+import { TeamcraftUser } from './teamcraft-user';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GuidesService extends FirestoreService<Guide> {
+export class UsersService extends FirestoreService<TeamcraftUser> {
 
   constructor(af: AngularFirestore) {
     super(af);
   }
 
-  protected getKeyField(): keyof Guide {
-    return 'slug';
-  }
-
   protected getBaseUrl(): string {
-    return 'guides';
+    return 'users';
   }
 }

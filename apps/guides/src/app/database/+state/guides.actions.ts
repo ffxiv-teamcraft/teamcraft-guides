@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Guide } from './guide';
+import { Guide } from './model/guide';
 
 export const init = createAction('[Guides Page] Init');
 

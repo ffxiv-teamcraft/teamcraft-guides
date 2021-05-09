@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 
 import * as GuidesActions from './guides.actions';
 import * as GuidesSelectors from './guides.selectors';
-import { Guide } from './guide';
+import { Guide } from './model/guide';
 
 @Injectable()
 export class GuidesFacade {

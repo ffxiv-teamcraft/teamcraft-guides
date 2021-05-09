@@ -2,7 +2,7 @@ import { Action, createReducer, on } from '@ngrx/store';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
 import * as GuidesActions from './guides.actions';
-import { Guide } from './guide';
+import { Guide } from './model/guide';
 
 export const GUIDES_FEATURE_KEY = 'guides';
 

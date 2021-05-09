@@ -2,9 +2,11 @@ import { Component } from '@angular/core';
 import { NzConfigService } from 'ng-zorro-antd/core/config';
 import { ActivatedRoute } from '@angular/router';
 import { GuidesFacade } from '../../../database/+state/guides.facade';
-import { Guide } from '../../../database/+state/guide';
 import { Observable, of } from 'rxjs';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
+import { Guide } from '../../../database/+state/model/guide';
+import { GuideCategory } from '../../../database/+state/model/guide-category';
+import { uniq } from 'lodash';
 
 @Component({
   selector: 'guides-editor',
@@ -44,6 +46,8 @@ export class EditorComponent {
       }
     })
   );
+
+  availableCategories = uniq(Object.keys(GuideCategory));
 
   constructor(private nzConfigService: NzConfigService, private guidesFacade: GuidesFacade,
               private route: ActivatedRoute) {

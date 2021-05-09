@@ -7,6 +7,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { DatabaseModule } from '../../database/database.module';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 const routes: Routes = [{
   path: ':slug',
@@ -25,7 +27,9 @@ const routes: Routes = [{
     CoreModule,
     FlexLayoutModule,
     NzButtonModule,
-    NzIconModule
+    NzIconModule,
+    NzDividerModule,
+    NzSpinModule
   ]
 })
 export class GuideModule {

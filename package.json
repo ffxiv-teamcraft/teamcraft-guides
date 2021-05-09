@@ -55,6 +55,7 @@
     "@xivapi/angular-client": "^1.8.1",
     "express": "^4.15.2",
     "firebase": "^7.0 || ^8.0",
+    "lodash": "^4.17.21",
     "monaco-editor": "^0.23.0",
     "ng-zorro-antd": "^11.4.1",
     "ngx-markdown": "^11.1.3",

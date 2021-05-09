@@ -1,15 +1,17 @@
-<nz-tabset *ngIf="guide$ | async as guide" [nzSelectedIndex]="selectedTab" (nzSelectChange)="editor.layout()" [nzTabBarExtraContent]="extra">
+<nz-tabset *ngIf="guide$ | async as guide" [nzSelectedIndex]="selectedTab" #tabset (nzSelectChange)="editor.layout()"
+           [nzTabBarExtraContent]="extra">
   <ng-template #extra>
     <div fxLayout="row" fxLayoutGap="10px">
       <div>
         <button nz-button nzType="primary"
-                [disabled]="!guide.slug || !guide.content || !guide.title || !guide.description" (click)="save(guide)">
+                [disabled]="!formRef.form.valid || !guide.content || !guide.category" (click)="save(guide)">
           <i nz-icon nzType="save"></i>
         </button>
       </div>
       <div>
         <button nz-button nzType="primary"
-                [disabled]="!guide.slug || !guide.content || !guide.title || !guide.description"
+                *ngIf="!guide.published"
+                [disabled]="!formRef.form.valid || !guide.content || !guide.category"
                 (click)="publish(guide)">
           Publish
         </button>
@@ -18,19 +20,35 @@
   </ng-template>
   <nz-tab nzTitle="Meta">
     <div class="editor-container">
-      <form nz-form>
+      <form nz-form #formRef="ngForm">
         <nz-form-item>
           <nz-form-label [nzSpan]="7" nzRequired>Title</nz-form-label>
           <nz-form-control [nzSpan]="12">
-            <input [(ngModel)]="guide.title" name="title" (ngModelChange)="updateGuideSlug(guide)" nz-input
-                   placeholder="Guide's title" />
+            <input required [(ngModel)]="guide.title" name="title" (ngModelChange)="updateGuideSlug(guide)" nz-input
+                   placeholder="Title for the full display" />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzRequired>Category</nz-form-label>
+          <nz-form-control [nzSpan]="12" nzExtra="The navbar category for this guide. Need more? Ask Miu :)">
+            <nz-select [(ngModel)]="guide.category" name="category" required>
+              <nz-option *ngFor="let category of availableCategories" [nzLabel]="category"
+                         [nzValue]="category"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzRequired>Navigation title</nz-form-label>
+          <nz-form-control [nzSpan]="12">
+            <input required [(ngModel)]="guide.navTitle" name="navTitle" nz-input
+                   placeholder="Title for the sidebar integration" maxlength="32" />
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
           <nz-form-label [nzSpan]="7" nzRequired>Slug</nz-form-label>
           <nz-form-control [nzSpan]="12"
                            nzExtra="Will be updated automatically with title if guide has no content yet, will become readonly once it's published.">
-            <input [(ngModel)]="guide.slug" [disabled]="guide.published" name="slug" nz-input
+            <input required [(ngModel)]="guide.slug" [disabled]="guide.published" name="slug" nz-input
                    placeholder="Guide's slug" />
           </nz-form-control>
         </nz-form-item>
@@ -38,7 +56,7 @@
           <nz-form-label [nzSpan]="7" nzRequired>Description</nz-form-label>
           <nz-form-control [nzSpan]="12">
             <nz-textarea-count [nzMaxCharacterCount]="256">
-            <textarea [(ngModel)]="guide.description" name="description" nz-input
+            <textarea required [(ngModel)]="guide.description" name="description" nz-input
                       rows="3"
                       placeholder="A clear description for good SEO"></textarea>
             </nz-textarea-count>
@@ -47,8 +65,8 @@
         <nz-form-item>
           <nz-form-control [nzSpan]="12" [nzOffset]="7">
             <button nz-button nzType="primary"
-                    (click)="selectedTab = 1"
-                    [disabled]="!guide.slug || !guide.title || !guide.description">
+                    (click)="save(guide);tabset.setSelectedIndex(1)"
+                    [disabled]="!formRef.form.valid">
               Go to content edition
             </button>
           </nz-form-control>
