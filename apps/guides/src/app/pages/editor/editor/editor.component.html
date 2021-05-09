@@ -80,6 +80,8 @@
     </div>
   </nz-tab>
   <nz-tab nzTitle="Preview">
-    <guides-guide-content [markdown]="guide.content"></guides-guide-content>
+    <ng-template nz-tab>
+      <guides-guide-content [markdown]="guide.content"></guides-guide-content>
+    </ng-template>
   </nz-tab>
 </nz-tabset>

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { GuideContentComponent } from './guide-content/guide-content.component';
-import { DYNAMIC_COMPONENTS } from './dynamic-html/dynamic-component';
+import { DYNAMIC_COMPONENTS, DynamicComponent } from './dynamic-html/dynamic-component';
 import { ActionComponent } from './custom-markdown-elements/action/action.component';
 import { DynamicHTMLRenderer } from './dynamic-html/dynamic-html-renderer';
 import { LoginPopupComponent } from './login-popup/login-popup.component';
@@ -13,6 +13,8 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { CharacterPipe } from './pipes/character.pipe';
+import { XivapiClientModule } from '@xivapi/angular-client';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 @NgModule({
   declarations: [GuideContentComponent, ActionComponent, LoginPopupComponent, CharacterPipe],
@@ -26,12 +28,19 @@ import { CharacterPipe } from './pipes/character.pipe';
     NzButtonModule,
     NzFormModule,
     ReactiveFormsModule,
-    NzInputModule
+    NzInputModule,
+    XivapiClientModule,
+    NzToolTipModule
   ],
   providers: [
     {
       provide: DYNAMIC_COMPONENTS,
-      useValue: { selector: 'action', component: ActionComponent },
+      useValue: {
+        selector: 'action',
+        component: ActionComponent,
+        contentLoader: 'getCraftActions',
+        getId: args => +args[0]
+      } as DynamicComponent,
       multi: true
     },
     DynamicHTMLRenderer

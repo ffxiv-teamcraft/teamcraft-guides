@@ -1,1 +1,3 @@
-<b>Action#{{args[0]}}</b>
+<div class="action-container" nz-tooltip [nzTooltipTitle]="action.Name_en" *ngIf="action$ | async as action">
+  <img src="https://xivapi.com{{action.IconHD}}" alt="{{action.Name_en}}">
+</div>
