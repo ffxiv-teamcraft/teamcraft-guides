@@ -1,4 +1,4 @@
-<div fxLayout="column" *ngIf="guide$ | async as guide">
+<div fxLayout="column" *ngIf="guide$ | async as guide; else notFound">
   <div fxLayout="row" fxLayoutAlign="space-between flex-start">
     <h1 class="guide-title">{{guide.title}}</h1>
     <div *ngIf="isEditor$ | async">
@@ -19,3 +19,6 @@
 
   <guides-guide-content [markdown]="guide.content"></guides-guide-content>
 </div>
+<ng-template #notFound>
+  <nz-empty nzNotFoundContent="Guide not found"></nz-empty>
+</ng-template>

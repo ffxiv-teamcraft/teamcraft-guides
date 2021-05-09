@@ -7,6 +7,7 @@ import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { Guide } from '../../../database/+state/model/guide';
 import { GuideCategory } from '../../../database/+state/model/guide-category';
 import { uniq } from 'lodash';
+import { NzCodeEditorComponent } from 'ng-zorro-antd/code-editor';
 
 @Component({
   selector: 'guides-editor',
@@ -70,6 +71,10 @@ export class EditorComponent {
       ...guide,
       published: true
     });
+  }
+
+  reloadEditor(editor: NzCodeEditorComponent): void {
+    editor.layout();
   }
 
   updateGuideSlug(guide: Guide): void {
