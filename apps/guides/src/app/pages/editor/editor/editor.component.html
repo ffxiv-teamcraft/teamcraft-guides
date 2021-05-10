@@ -11,7 +11,7 @@
         </div>
         <div>
           <button nz-button nzType="primary"
-                  *ngIf="!guide.published"
+                  *ngIf="guide.published === false"
                   [disabled]="!formRef.form.valid || !guide.content || !guide.category"
                   (click)="publish(guide)">
             Publish

@@ -10,10 +10,10 @@
       </a>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" fxLayout="column" class="nav-bar">
-      <li nz-menu-item nzMatchRouter>
+      <li nz-menu-item nzMatchRouter nzMatchRouterExact="true">
         <i nz-icon nzType="home"></i>
         <span>
-          <a routerLink="/home">Home</a>
+          <a routerLink="/">Home</a>
         </span>
       </li>
       <ng-container *ngIf="navBarContent$ | async as navBarContent">

@@ -2,12 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { canActivate } from '@angular/fire/auth-guard';
+import { HomeModule } from './pages/home/home.module';
+import { HomeComponent } from './pages/home/home/home.component';
 
 const redirectToHomeIfNotLoggedIn = () => map(user => user ? true : ['home']);
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: '/home' },
-  { path: 'home', loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) },
+  { path: '', component: HomeComponent },
   { path: 'guide', loadChildren: () => import('./pages/guide/guide.module').then(m => m.GuideModule) },
   {
     path: 'editor',
@@ -18,9 +19,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {
-    initialNavigation: 'enabled'
-  })],
+  imports: [
+    HomeModule,
+    RouterModule.forRoot(routes, {
+      initialNavigation: 'enabled'
+    })
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

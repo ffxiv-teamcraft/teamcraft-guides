@@ -23,6 +23,11 @@ export const getSelectedId = createSelector(
   (state: State) => state.selectedId
 );
 
+export const getLoaded = createSelector(
+  getGuidesState,
+  (state: State) => state.loaded
+);
+
 export const getSelected = createSelector(
   getGuidesEntities,
   getSelectedId,

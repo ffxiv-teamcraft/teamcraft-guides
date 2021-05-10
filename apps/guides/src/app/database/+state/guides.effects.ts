@@ -13,10 +13,10 @@ export class GuidesEffects {
       ofType(GuidesActions.init),
       switchMapTo(this.authService.user$),
       switchMap((user) => {
-        if(user){
+        if (user) {
           return this.guidesService.getAll();
         } else {
-          return this.guidesService.getAll(ref => ref.where('published', '==', true))
+          return this.guidesService.getAll(ref => ref.where('published', '==', true));
         }
       }),
       map(guides => GuidesActions.loadGuidesSuccess({ guides }))

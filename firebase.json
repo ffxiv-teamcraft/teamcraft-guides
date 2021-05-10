@@ -2,7 +2,7 @@
   "hosting": [
     {
       "target": "guides",
-      "public": "dist\\guides\\browser",
+      "public": "./dist/guides/dist/guides/browser",
       "ignore": [
         "**/.*"
       ],
@@ -24,5 +24,8 @@
         }
       ]
     }
-  ]
+  ],
+  "functions": {
+    "source": "./dist/guides"
+  }
 }

@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { en_US, NZ_I18N, NzI18nModule } from 'ng-zorro-antd/i18n';
+import { FlexLayoutServerModule } from '@angular/flex-layout/server';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { en_US, NZ_I18N, NzI18nModule } from 'ng-zorro-antd/i18n';
     ServerModule,
     HttpClientModule,
     NoopAnimationsModule,
-    NzI18nModule
+    NzI18nModule,
+    FlexLayoutServerModule
   ],
   bootstrap: [AppComponent],
   providers: [

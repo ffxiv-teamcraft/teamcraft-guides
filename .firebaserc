@@ -1,9 +1,9 @@
 {
   "targets": {
-    "ffxiv-teamcraft-beta": {
+    "ffxivteamcraft": {
       "hosting": {
         "guides": [
-          "ffxiv-teamcraft-beta"
+          "teamcraft-guides"
         ]
       }
     }
