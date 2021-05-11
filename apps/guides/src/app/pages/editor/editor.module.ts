@@ -13,6 +13,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzSwitchModule } from 'ng-zorro-antd/switch';
 
 const routes: Routes = [
   {
@@ -43,7 +46,10 @@ const routes: Routes = [
     NzIconModule,
     NzFormModule,
     NzInputModule,
-    NzSelectModule
+    NzSelectModule,
+    NzCheckboxModule,
+    NzCardModule,
+    NzSwitchModule
   ]
 })
 export class EditorModule {

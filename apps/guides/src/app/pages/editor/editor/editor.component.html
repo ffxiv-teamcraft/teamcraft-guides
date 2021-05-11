@@ -63,6 +63,13 @@
               </nz-textarea-count>
             </nz-form-control>
           </nz-form-item>
+          <nz-form-item class="empty-label">
+            <nz-form-label [nzSpan]="7"></nz-form-label>
+            <nz-form-control [nzSpan]="12">
+              <label nz-checkbox [(ngModel)]="guide.showInHomePage" name="showInHomePage"></label>
+              Show in home page
+            </nz-form-control>
+          </nz-form-item>
           <nz-form-item>
             <nz-form-control [nzSpan]="12" [nzOffset]="7">
               <button nz-button nzType="primary"
@@ -75,12 +82,52 @@
         </form>
       </div>
     </nz-tab>
-    <nz-tab nzTitle="Content" [nzDisabled]="!guide.slug || !guide.title || !guide.description" (nzSelect)="reloadEditor(editor)">
-      <nz-code-editor #editor [(ngModel)]="guide.content" [nzEditorOption]="{ language: 'markdown' }"></nz-code-editor>
+    <nz-tab nzTitle="Content" [nzDisabled]="!guide.slug || !guide.title || !guide.description"
+            (nzSelect)="reloadEditor(editor)">
+      <div fxLayout="column" fxLayoutAlign="stretch stretch" fxLayoutGap="5px">
+        <nz-card>
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutGap="10px">
+              <div class="example-input">
+                <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+                  <nz-select [(ngModel)]="selectedAction" nzShowSearch nzServerSearch
+                             nzPlaceHolder="Insert action"
+                             (keydown.enter)="addAction(guide)"
+                             (nzOnSearch)="actionsFilter$.next($event)" style="width: 200px">
+                    <nz-option *ngFor="let action of actionsAutocomplete$ | async"
+                               [nzValue]="action.ID" [nzLabel]="action.Name_en">
+                    </nz-option>
+                  </nz-select>
+                </nz-input-group>
+                <ng-template #suffixIconButton>
+                  <button nz-button nzType="primary" nzSearch (click)="addAction(guide)">
+                    <i nz-icon nzType="plus" nzTheme="outline"></i>
+                  </button>
+                </ng-template>
+              </div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="flex-start center" fxLayoutGap="5px">
+              <nz-switch [(ngModel)]="showPreviewIneditor" (ngModelChange)="editor.layout()"></nz-switch>
+              <div>Show preview</div>
+            </div>
+          </div>
+        </nz-card>
+        <div fxLayout="row" class="border-split">
+          <div fxFlex="1 1 {{showPreviewIneditor?'50%':'auto'}}">
+            <nz-code-editor #editor [(ngModel)]="guide.content"
+                            [nzEditorOption]="{ language: 'markdown' }"></nz-code-editor>
+          </div>
+          <div fxFlex="1 1 50%" *ngIf="showPreviewIneditor" class="preview-side">
+            <guides-guide-content [markdown]="guide.content"></guides-guide-content>
+          </div>
+        </div>
+      </div>
     </nz-tab>
     <nz-tab nzTitle="Preview">
       <ng-template nz-tab>
-        <guides-guide-content [markdown]="guide.content"></guides-guide-content>
+        <div class="border-split">
+          <guides-guide-content [markdown]="guide.content"></guides-guide-content>
+        </div>
       </ng-template>
     </nz-tab>
   </nz-tabset>

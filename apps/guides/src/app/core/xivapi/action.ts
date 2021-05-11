@@ -1,4 +1,5 @@
 export interface Action {
+  ID: number;
   Name_en: string;
   Name_fr: string;
   Name_ja: string;

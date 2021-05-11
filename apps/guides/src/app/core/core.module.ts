@@ -38,7 +38,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
       useValue: {
         selector: 'action',
         component: ActionComponent,
-        contentLoader: 'getCraftActions',
+        contentLoader: 'getActions',
         getId: args => +args[0]
       } as DynamicComponent,
       multi: true

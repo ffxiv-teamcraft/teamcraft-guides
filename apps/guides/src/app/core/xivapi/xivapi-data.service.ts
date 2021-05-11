@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { XivapiEndpoint, XivapiService } from '@xivapi/angular-client';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { distinctUntilChanged, filter, map, tap } from 'rxjs/operators';
+import { XivapiEndpoint, XivapiList, XivapiSearchOptions, XivapiService } from '@xivapi/angular-client';
+import { BehaviorSubject, combineLatest, EMPTY, Observable, of } from 'rxjs';
+import { distinctUntilChanged, expand, filter, last, map, tap } from 'rxjs/operators';
 import { Action } from './action';
 
 @Injectable({
@@ -48,11 +48,14 @@ export class XivapiDataService {
   }
 
   public getActions(ids: number[]): Observable<Action[]> {
-    return this.preload<Action>(XivapiEndpoint.Action, ['Name_*', 'Description_*', 'IconHD'], ids);
-  }
-
-  public getCraftActions(ids: number[]): Observable<Action[]> {
-    return this.preload<Action>(XivapiEndpoint.CraftAction, ['Name_*', 'Description_*', 'IconHD'], ids);
+    const craftActions = ids.filter(id => id >= 100000);
+    const actions = ids.filter(id => id < 100000);
+    return combineLatest([
+      this.preload<Action>(XivapiEndpoint.CraftAction, ['Name_*', 'Description_*', 'IconHD'], craftActions),
+      this.preload<Action>(XivapiEndpoint.Action, ['Name_*', 'Description_*', 'IconHD'], actions)
+    ]).pipe(
+      map(([craftActions, actions]) => [...actions, ...craftActions])
+    );
   }
 
   public get<T>(endpoint: XivapiEndpoint, id: number): Observable<T> {
@@ -61,6 +64,27 @@ export class XivapiDataService {
       filter(endpointCache => !!endpointCache),
       map(endpointCache => endpointCache[id]),
       distinctUntilChanged()
+    );
+  }
+
+  public getAllPages<T>(searchOptions: XivapiSearchOptions): Observable<T[]> {
+    return of({ done: false, content: [], next: 1 }).pipe(
+      expand((acc) => {
+        if (!acc.next) {
+          return EMPTY;
+        }
+        return this.xivapi.search({ ...searchOptions, page: +acc.next, limit: 250 }).pipe(
+          map((res: XivapiList<T>) => {
+            return {
+              ...acc,
+              content: [...acc.content, ...res.Results],
+              next: res.Pagination.PageNext
+            };
+          })
+        );
+      }),
+      map(acc => acc.content),
+      last()
     );
   }
 }

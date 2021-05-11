@@ -12,6 +12,10 @@
 @layout-header-background: @component-background;
 @menu-dark-inline-submenu-bg: darken(@component-background, 5%);
 @menu-dark-bg: darken(@component-background, 2%);
+@card-padding-base: 10px;
+@card-background: @menu-dark-inline-submenu-bg;
+@border-color-base: #666;
+@border-color-split: #555;
 
 // @primary-color: #1890ff;
 /* You can add global styles to this file, and also import other style files */
@@ -28,4 +32,9 @@
 
 .nav-bar {
   height: ~'calc(100% - @{layout-trigger-height} - 64px)';
+}
+
+.border-split {
+  border: 1px solid @border-color-split;
+  border-radius: @border-radius-base;
 }

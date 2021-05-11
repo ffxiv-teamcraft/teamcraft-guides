@@ -19,6 +19,11 @@ export class ActionComponent extends CustomMarkdownElement implements OnInit {
   }
 
   ngOnInit(): void {
-    this.action$ = this.xivapiData.get<Action>(XivapiEndpoint.CraftAction, +this.args[0]);
+    const actionId = +this.args[0];
+    if (actionId >= 100000) {
+      this.action$ = this.xivapiData.get<Action>(XivapiEndpoint.CraftAction, actionId);
+    } else {
+      this.action$ = this.xivapiData.get<Action>(XivapiEndpoint.Action, actionId);
+    }
   }
 }
