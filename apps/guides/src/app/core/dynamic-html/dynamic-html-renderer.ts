@@ -16,7 +16,7 @@ export interface DynamicHTMLRef {
 }
 
 function isBrowserPlatform() {
-  return window != null && window.document != null;
+  return !!window && !!window.document;
 }
 
 @Injectable()

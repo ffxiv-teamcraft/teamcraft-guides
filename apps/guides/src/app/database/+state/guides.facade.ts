@@ -11,10 +11,13 @@ import { Guide } from './model/guide';
 
 @Injectable()
 export class GuidesFacade {
-  /**
-   * Combine pieces of state using createSelector,
-   * and expose them as observables through the facade.
-   */
+
+  loading$ = this.store.pipe(
+    select(GuidesSelectors.getLoaded),
+    map(loaded => !loaded),
+    firstIfServer(this.platform)
+  );
+
   allGuides$ = combineLatest([
     this.store.pipe(select(GuidesSelectors.getAllGuides)),
     this.store.pipe(select(GuidesSelectors.getLoaded))
@@ -23,6 +26,7 @@ export class GuidesFacade {
     map(([guides]) => guides),
     firstIfServer(this.platform)
   );
+
   selectedGuides$ = this.store.pipe(select(GuidesSelectors.getSelected)).pipe(
     filter(guide => guide !== undefined),
     firstIfServer(this.platform)

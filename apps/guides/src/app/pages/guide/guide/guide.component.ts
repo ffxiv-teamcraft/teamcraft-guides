@@ -13,13 +13,15 @@ import { Guide } from '../../../database/+state/model/guide';
 })
 export class GuideComponent {
 
-  guide$: Observable<Guide> = this.route.paramMap.pipe(
+  public guide$: Observable<Guide> = this.route.paramMap.pipe(
     map(params => params.get('slug')),
     tap((slug: string) => {
       this.guidesFacade.select(slug);
     }),
     switchMapTo(this.guidesFacade.selectedGuides$)
   );
+
+  public loading$ = this.guidesFacade.loading$;
 
   public isEditor$ = combineLatest([this.guide$, this.authService.user$]).pipe(
     map(([guide, user]) => user?.admin || user?.$key === guide.author)

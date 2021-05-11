@@ -15,15 +15,13 @@ const routes: Routes = [
     loadChildren: () => import('./pages/editor/editor.module').then(m => m.EditorModule),
     ...canActivate(redirectToHomeIfNotLoggedIn)
   },
-  { path: '**', pathMatch: 'full', redirectTo: '/home' }
+  { path: '**', pathMatch: 'full', redirectTo: '' }
 ];
 
 @NgModule({
   imports: [
     HomeModule,
-    RouterModule.forRoot(routes, {
-      initialNavigation: 'enabled'
-    })
+    RouterModule.forRoot(routes)
   ],
   exports: [RouterModule]
 })

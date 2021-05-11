@@ -1,4 +1,4 @@
-<div fxLayout="column" *ngIf="guide$ | async as guide; else notFound">
+<div fxLayout="column" *ngIf="guide$ | async as guide; else loadingTpl">
   <div fxLayout="row" fxLayoutAlign="space-between flex-start">
     <h1 class="guide-title">{{guide.title}}</h1>
     <div *ngIf="isEditor$ | async">
@@ -14,11 +14,18 @@
       <div>{{author.Name}}</div>
     </div>
   </ng-template>
-  <ng-template #loader><nz-spin></nz-spin></ng-template>
+  <ng-template #loader>
+    <nz-spin></nz-spin>
+  </ng-template>
   <nz-divider [nzText]="authorTpl" nzOrientation="left"></nz-divider>
 
   <guides-guide-content [markdown]="guide.content"></guides-guide-content>
 </div>
-<ng-template #notFound>
+<ng-template #loadingTpl>
+  <div *ngIf="loading$ | async; else notFoundTpl">
+    <nz-spin nzSize="large"></nz-spin>
+  </div>
+</ng-template>
+<ng-template #notFoundTpl>
   <nz-empty nzNotFoundContent="Guide not found"></nz-empty>
 </ng-template>

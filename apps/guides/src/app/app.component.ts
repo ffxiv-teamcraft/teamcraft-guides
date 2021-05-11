@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { LoginPopupComponent } from './core/login-popup/login-popup.component';
 import { AuthService } from './database/auth.service';
 import { GuidesFacade } from './database/+state/guides.facade';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { GuideCategory } from './database/+state/model/guide-category';
 import { Guide } from './database/+state/model/guide';
+import { LoginPopupComponent } from './core/login-popup/login-popup.component';
 
 @Component({
   selector: 'guides-root',
@@ -37,7 +37,8 @@ export class AppComponent {
 
   constructor(private nzModal: NzModalService,
               private authService: AuthService,
-              private guidesFacade: GuidesFacade) {
+              private guidesFacade: GuidesFacade,
+              private ngZone: NgZone) {
     this.guidesFacade.init();
   }
 

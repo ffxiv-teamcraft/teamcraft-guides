@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   DoCheck,
   ElementRef,
@@ -7,18 +6,19 @@ import {
   Input,
   OnChanges,
   OnDestroy,
+  PLATFORM_ID,
   SimpleChanges
 } from '@angular/core';
 import { MarkdownService } from 'ngx-markdown';
 import { DynamicHTMLRef, DynamicHTMLRenderer } from '../dynamic-html/dynamic-html-renderer';
 import { DYNAMIC_COMPONENTS, DynamicComponent } from '../dynamic-html/dynamic-component';
 import { XivapiDataService } from '../xivapi/xivapi-data.service';
+import { isPlatformServer } from '@angular/common';
 
 @Component({
   selector: 'guides-guide-content',
   template: '',
-  styleUrls: ['./guide-content.component.less'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./guide-content.component.less']
 })
 export class GuideContentComponent implements DoCheck, OnChanges, OnDestroy {
 
@@ -31,10 +31,14 @@ export class GuideContentComponent implements DoCheck, OnChanges, OnDestroy {
               private renderer: DynamicHTMLRenderer,
               private elementRef: ElementRef,
               private xivapiData: XivapiDataService,
-              @Inject(DYNAMIC_COMPONENTS) private components: DynamicComponent[]) {
+              @Inject(DYNAMIC_COMPONENTS) private components: DynamicComponent[],
+              @Inject(PLATFORM_ID) private platform: Object) {
   }
 
   private prepareCustomElements(html: string): string {
+    if (isPlatformServer(this.platform)) {
+      return html;
+    }
     const loadingQueue: Partial<Record<keyof XivapiDataService, number[]>> = {};
     const transformed = this.components.reduce((str, component) => {
       if (component.contentLoader) {

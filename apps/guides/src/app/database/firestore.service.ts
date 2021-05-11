@@ -1,6 +1,6 @@
 import { AngularFirestore } from '@angular/fire/firestore';
 import { from, Observable } from 'rxjs';
-import { first, map } from 'rxjs/operators';
+import { first, map, take } from 'rxjs/operators';
 import { DataModel } from './data-model';
 import { QueryFn } from '@angular/fire/firestore/interfaces';
 
@@ -14,28 +14,28 @@ export abstract class FirestoreService<T extends DataModel> {
   }
 
   public get(key: string): Observable<T> {
-    return this.af.doc<T>(`${this.getBaseUrl()}/${key}`).get({ source: 'server' }).pipe(
-      map(snapshot => {
+    return this.af.doc<T>(`${this.getBaseUrl()}/${key}`).snapshotChanges().pipe(
+      map(change => {
         return {
-          [this.getKeyField()]: snapshot.id,
-          ...snapshot.data({ serverTimestamps: 'estimate' })
+          [this.getKeyField()]: change.payload.id,
+          ...change.payload.data({ serverTimestamps: 'estimate' })
         };
       }),
-      first()
+      take(2)
     );
   }
 
   public getAll(query?: QueryFn): Observable<T[]> {
-    return this.af.collection<T>(this.getBaseUrl(), query).get({ source: 'server' }).pipe(
+    return this.af.collection<T>(this.getBaseUrl(), query).snapshotChanges().pipe(
       map(snapshots => {
-        return snapshots.docs.map(snapshot => {
+        return snapshots.map(snapshot => {
           return {
-            [this.getKeyField()]: snapshot.id,
-            ...snapshot.data({ serverTimestamps: 'estimate' })
+            [this.getKeyField()]: snapshot.payload.doc.id,
+            ...snapshot.payload.doc.data({ serverTimestamps: 'estimate' })
           };
         });
       }),
-      first()
+      take(2)
     );
   }
 
