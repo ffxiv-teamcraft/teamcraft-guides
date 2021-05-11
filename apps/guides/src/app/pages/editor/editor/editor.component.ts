@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { NzConfigService } from 'ng-zorro-antd/core/config';
 import { ActivatedRoute } from '@angular/router';
 import { GuidesFacade } from '../../../database/+state/guides.facade';
@@ -11,13 +11,15 @@ import { NzCodeEditorComponent } from 'ng-zorro-antd/code-editor';
 import { XivapiDataService } from '../../../core/xivapi/xivapi-data.service';
 import { SearchIndex } from '@xivapi/angular-client';
 import { Action } from '../../../core/xivapi/action';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { ImageUploadPopupComponent } from '../image-upload-popup/image-upload-popup.component';
 
 @Component({
   selector: 'guides-editor',
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.less']
 })
-export class EditorComponent {
+export class EditorComponent implements OnDestroy {
 
   selectedTab = 0;
 
@@ -97,8 +99,11 @@ export class EditorComponent {
 
   availableCategories = uniq(Object.keys(GuideCategory));
 
+  private onDestroy$ = new Subject<void>();
+
   constructor(private nzConfigService: NzConfigService, private guidesFacade: GuidesFacade,
-              private route: ActivatedRoute, private xivapi: XivapiDataService) {
+              private route: ActivatedRoute, private xivapi: XivapiDataService,
+              private modal: NzModalService) {
     const defaultEditorOption = this.nzConfigService.getConfigForComponent('codeEditor')?.defaultEditorOption || {};
     this.nzConfigService.set('codeEditor', {
       defaultEditorOption: {
@@ -133,5 +138,22 @@ export class EditorComponent {
   addAction(guide: Guide): void {
     guide.content += `[Action:${this.selectedAction}]`;
     delete this.selectedAction;
+  }
+
+  addImages(guide: Guide): void {
+    this.modal.create({
+      nzTitle: 'Add images',
+      nzContent: ImageUploadPopupComponent,
+      nzFooter: null
+    }).afterClose
+      .subscribe((files: string[]) => {
+        files.forEach(file => {
+          guide.content += `\n\n![](${file})`;
+        });
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.onDestroy$.next();
   }
 }

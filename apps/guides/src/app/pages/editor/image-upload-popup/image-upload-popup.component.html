@@ -1,0 +1,33 @@
+<div class="clearfix">
+  <nz-upload
+    nzMultiple
+    nzAccept="image/png, image/jpg, image/gif"
+    nzListType="picture-card"
+    [(nzFileList)]="fileList"
+    [nzCustomRequest]="upload"
+    [nzRemove]="remove"
+    [nzPreview]="handlePreview">
+    <div>
+      <i nz-icon nzType="plus"></i>
+      <div style="margin-top: 8px">Upload</div>
+    </div>
+  </nz-upload>
+  <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null"
+            (nzOnCancel)="previewVisible = false">
+    <ng-template #modalContent>
+      <img [src]="previewImage" [ngStyle]="{ width: '100%' }" />
+    </ng-template>
+  </nz-modal>
+</div>
+<div fxLayout="row" fxLayoutGap="5px">
+  <div>
+    <button nz-button nzType="primary" (click)="importImages()">
+      Insert
+    </button>
+  </div>
+  <div>
+    <button nz-button nzDanger (click)="cancel()">
+      Cancel
+    </button>
+  </div>
+</div>

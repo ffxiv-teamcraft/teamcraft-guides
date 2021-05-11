@@ -88,7 +88,7 @@
         <nz-card>
           <div fxLayout="row" fxLayoutAlign="space-between center">
             <div fxLayout="row" fxLayoutGap="10px">
-              <div class="example-input">
+              <div>
                 <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
                   <nz-select [(ngModel)]="selectedAction" nzShowSearch nzServerSearch
                              nzPlaceHolder="Insert action"
@@ -104,6 +104,12 @@
                     <i nz-icon nzType="plus" nzTheme="outline"></i>
                   </button>
                 </ng-template>
+              </div>
+              <div>
+                <button nz-button nzType="primary" (click)="addImages(guide)">
+                  <i nz-icon nzType="file-image" nzTheme="outline"></i>
+                  Add images
+                </button>
               </div>
             </div>
             <div fxLayout="row" fxLayoutAlign="flex-start center" fxLayoutGap="5px">

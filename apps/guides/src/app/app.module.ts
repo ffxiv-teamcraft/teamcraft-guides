@@ -28,6 +28,7 @@ import { CoreModule } from './core/core.module';
 import { XivapiClientModule } from '@xivapi/angular-client';
 import { DatabaseModule } from './database/database.module';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 registerLocaleData(en);
 
@@ -39,6 +40,7 @@ registerLocaleData(en);
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    AngularFireStorageModule,
 
     StoreModule.forRoot([]),
     EffectsModule.forRoot(),

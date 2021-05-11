@@ -16,6 +16,9 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
+import { ImageUploadPopupComponent } from './image-upload-popup/image-upload-popup.component';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
 
 const routes: Routes = [
   {
@@ -30,7 +33,8 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    EditorComponent
+    EditorComponent,
+    ImageUploadPopupComponent
   ],
   imports: [
     CommonModule,
@@ -49,7 +53,9 @@ const routes: Routes = [
     NzSelectModule,
     NzCheckboxModule,
     NzCardModule,
-    NzSwitchModule
+    NzSwitchModule,
+    NzModalModule,
+    NzUploadModule
   ]
 })
 export class EditorModule {
