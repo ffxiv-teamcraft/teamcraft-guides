@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, SecurityContext } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -46,7 +46,9 @@ registerLocaleData(en);
     EffectsModule.forRoot(),
 
     XivapiClientModule.forRoot(),
-    MarkdownModule.forRoot(),
+    MarkdownModule.forRoot({
+      sanitize: SecurityContext.NONE
+    }),
     FormsModule,
     ReactiveFormsModule,
     NzMessageModule,

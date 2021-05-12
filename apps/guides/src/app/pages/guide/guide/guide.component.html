@@ -19,7 +19,34 @@
   </ng-template>
   <nz-divider [nzText]="authorTpl" nzOrientation="left"></nz-divider>
 
-  <guides-guide-content [markdown]="guide.content"></guides-guide-content>
+  <div fxLayout="row" fxLayoutGap="5px">
+    <div fxFlex="1 1 auto" class="guide-content-container">
+      <guides-guide-content [markdown]="guide.content"
+                            (registerTableOfContents)="tableOfContents$.next($event)"></guides-guide-content>
+    </div>
+    <div fxFlex="1 0 200px">
+      <nz-anchor nzOffsetTop="20" nzContainer=".content-container">
+        <nz-link *ngFor="let rootEntry of tableOfContents$ | async"
+                 [nzHref]="rootEntry.link" [nzTitle]="title">
+          <ng-template #title>
+            <span [innerHTML]="rootEntry.name"></span>
+          </ng-template>
+          <nz-link *ngFor="let level1Entry of rootEntry.children"
+                   [nzHref]="level1Entry.link" [nzTitle]="title">
+            <ng-template #title>
+              <span [innerHTML]="level1Entry.name"></span>
+            </ng-template>
+            <nz-link *ngFor="let level2Entry of level1Entry.children"
+                     [nzHref]="level2Entry.link" [nzTitle]="title">
+              <ng-template #title>
+                <span [innerHTML]="level2Entry.name"></span>
+              </ng-template>
+            </nz-link>
+          </nz-link>
+        </nz-link>
+      </nz-anchor>
+    </div>
+  </div>
 </div>
 <ng-template #loadingTpl>
   <div *ngIf="loading$ | async; else notFoundTpl">

@@ -10,6 +10,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { NzAnchorModule } from 'ng-zorro-antd/anchor';
 
 const routes: Routes = [{
   path: ':slug',
@@ -31,7 +32,8 @@ const routes: Routes = [{
     NzIconModule,
     NzDividerModule,
     NzSpinModule,
-    NzEmptyModule
+    NzEmptyModule,
+    NzAnchorModule
   ]
 })
 export class GuideModule {
