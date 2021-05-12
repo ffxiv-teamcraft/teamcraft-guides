@@ -90,7 +90,6 @@ export class EditorComponent implements OnDestroy {
 
   actionsAutocomplete$ = combineLatest([this.actions$, this.actionsFilter$]).pipe(
     map(([actions, actionsFilter]) => {
-      console.log(actions);
       return actions.filter(action => action.Name_en.includes(actionsFilter));
     })
   );
@@ -136,13 +135,17 @@ export class EditorComponent implements OnDestroy {
     }
   }
 
-  addAction(guide: Guide): void {
-    guide.content += `[Action:${this.selectedAction}]`;
+  private insertText(editor: NzCodeEditorComponent, text: string): void {
+    editor['editorInstance'].trigger('keyboard', 'type', { text });
     this.guidesFacade.dirty = true;
+  }
+
+  addAction(editor: NzCodeEditorComponent): void {
+    this.insertText(editor, `[Action:${this.selectedAction}]`);
     delete this.selectedAction;
   }
 
-  addImages(guide: Guide): void {
+  addImages(editor: NzCodeEditorComponent): void {
     this.modal.create({
       nzTitle: 'Add images',
       nzContent: ImageUploadPopupComponent,
@@ -150,9 +153,8 @@ export class EditorComponent implements OnDestroy {
     }).afterClose
       .subscribe((files: string[]) => {
         files.forEach(file => {
-          guide.content += `\n\n![](${file})`;
+          this.insertText(editor, `\n\n![](${file})`);
         });
-        this.guidesFacade.dirty = true;
       });
   }
 
