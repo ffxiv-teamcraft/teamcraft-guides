@@ -1,12 +1,13 @@
-import { Component, NgZone } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AuthService } from './database/auth.service';
 import { GuidesFacade } from './database/+state/guides.facade';
-import { map } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { GuideCategory } from './database/+state/model/guide-category';
 import { Guide } from './database/+state/model/guide';
 import { LoginPopupComponent } from './core/login-popup/login-popup.component';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'guides-root',
@@ -35,11 +36,21 @@ export class AppComponent {
     })
   );
 
+  @ViewChild('scrollContainerRef', { static: false })
+  scrollContainer: ElementRef;
+
   constructor(private nzModal: NzModalService,
               private authService: AuthService,
               private guidesFacade: GuidesFacade,
-              private ngZone: NgZone) {
+              private router: Router) {
     this.guidesFacade.init();
+    router.events.pipe(
+      filter(e => e instanceof NavigationEnd)
+    ).subscribe(() => {
+      if (this.scrollContainer) {
+        this.scrollContainer.nativeElement.scrollTop = 0;
+      }
+    });
   }
 
   login(): void {
