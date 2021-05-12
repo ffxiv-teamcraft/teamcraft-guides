@@ -65,6 +65,8 @@ export class GuideContentComponent implements DoCheck, OnChanges, OnDestroy {
     if (this.markdown && this.elementRef) {
       const content = this.prepareCustomElements(this.markdownService.compile(this.markdown));
       this.ref = this.renderer.renderInnerHTML(this.elementRef, content);
+    } else {
+      this.ref = this.renderer.renderInnerHTML(this.elementRef, '');
     }
   }
 
