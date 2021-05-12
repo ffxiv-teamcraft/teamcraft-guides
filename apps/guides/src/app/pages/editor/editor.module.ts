@@ -19,15 +19,18 @@ import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { ImageUploadPopupComponent } from './image-upload-popup/image-upload-popup.component';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { DirtyGuard } from './dirty.guard';
 
 const routes: Routes = [
   {
     path: ':slug',
-    component: EditorComponent
+    component: EditorComponent,
+    canDeactivate: [DirtyGuard]
   },
   {
     path: '',
-    component: EditorComponent
+    component: EditorComponent,
+    canDeactivate: [DirtyGuard]
   }
 ];
 
@@ -56,6 +59,9 @@ const routes: Routes = [
     NzSwitchModule,
     NzModalModule,
     NzUploadModule
+  ],
+  providers: [
+    DirtyGuard
   ]
 })
 export class EditorModule {

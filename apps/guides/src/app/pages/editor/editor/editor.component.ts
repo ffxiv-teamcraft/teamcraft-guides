@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, HostListener, OnDestroy } from '@angular/core';
 import { NzConfigService } from 'ng-zorro-antd/core/config';
 import { ActivatedRoute } from '@angular/router';
 import { GuidesFacade } from '../../../database/+state/guides.facade';
@@ -101,7 +101,7 @@ export class EditorComponent implements OnDestroy {
 
   private onDestroy$ = new Subject<void>();
 
-  constructor(private nzConfigService: NzConfigService, private guidesFacade: GuidesFacade,
+  constructor(private nzConfigService: NzConfigService, public guidesFacade: GuidesFacade,
               private route: ActivatedRoute, private xivapi: XivapiDataService,
               private modal: NzModalService) {
     const defaultEditorOption = this.nzConfigService.getConfigForComponent('codeEditor')?.defaultEditorOption || {};
@@ -132,11 +132,13 @@ export class EditorComponent implements OnDestroy {
   updateGuideSlug(guide: Guide): void {
     if (!guide.content) {
       guide.slug = guide.title.toLowerCase().replace(/[^\w]+/gmi, '-').slice(0, 32);
+      this.guidesFacade.dirty = true;
     }
   }
 
   addAction(guide: Guide): void {
     guide.content += `[Action:${this.selectedAction}]`;
+    this.guidesFacade.dirty = true;
     delete this.selectedAction;
   }
 
@@ -150,10 +152,18 @@ export class EditorComponent implements OnDestroy {
         files.forEach(file => {
           guide.content += `\n\n![](${file})`;
         });
+        this.guidesFacade.dirty = true;
       });
   }
 
   ngOnDestroy(): void {
     this.onDestroy$.next();
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  onBeforeUnload($event: Event): void {
+    if (this.guidesFacade.dirty) {
+      $event.returnValue = true;
+    }
   }
 }

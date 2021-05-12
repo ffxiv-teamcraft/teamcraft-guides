@@ -32,6 +32,8 @@ export class GuidesFacade {
     firstIfServer(this.platform)
   );
 
+  dirty = false;
+
   constructor(private store: Store,
               @Inject(PLATFORM_ID) private platform: Object) {
   }
@@ -50,5 +52,6 @@ export class GuidesFacade {
 
   save(guide: Guide): void {
     this.store.dispatch(GuidesActions.saveGuide({ guide }));
+    this.dirty = false;
   }
 }

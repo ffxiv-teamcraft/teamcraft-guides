@@ -48,8 +48,8 @@
           <nz-form-item>
             <nz-form-label [nzSpan]="7" nzRequired>Slug</nz-form-label>
             <nz-form-control [nzSpan]="12"
-                             nzExtra="Will be updated automatically with title if guide has no content yet, will become readonly once it's published.">
-              <input required [(ngModel)]="guide.slug" [disabled]="guide.published" name="slug" nz-input
+                             nzExtra="Will be updated automatically with title if guide has no content yet, will become readonly once you confirm the meta.">
+              <input required [(ngModel)]="guide.slug" [disabled]="!!guide.content" name="slug" nz-input
                      placeholder="Guide's slug" />
             </nz-form-control>
           </nz-form-item>
@@ -121,6 +121,7 @@
         <div fxLayout="row" class="border-split">
           <div fxFlex="1 1 {{showPreviewIneditor?'50%':'auto'}}">
             <nz-code-editor #editor [(ngModel)]="guide.content"
+                            (ngModelChange)="guidesFacade.dirty = true"
                             [nzEditorOption]="{ language: 'markdown' }"></nz-code-editor>
           </div>
           <div fxFlex="1 1 50%" *ngIf="showPreviewIneditor" class="preview-side">
