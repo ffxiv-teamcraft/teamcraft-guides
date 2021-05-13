@@ -14,8 +14,8 @@
 @menu-dark-bg: darken(@component-background, 2%);
 @card-padding-base: 10px;
 @card-background: @menu-dark-inline-submenu-bg;
-@border-color-base: #666;
-@border-color-split: #555;
+@border-color-base: #555;
+@border-color-split: #444;
 @border-radius-base: 4px;
 
 // @primary-color: #1890ff;
@@ -61,17 +61,20 @@ img {
 }
 
 .tc-card-container {
-  border: 1px solid darken(@border-color-split, 10%);
+  border: 1px solid @border-color-split;
   border-radius: @border-radius-base;
   background-color: @card-background;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+  margin: 0 10px;
 
   .tc-card-title {
-    background-color: @border-color-split;
+    background-color: @card-background;
+    border-bottom: 1px solid @border-color-split;
     padding: 5px 24px 5px;
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .tc-card-content {
