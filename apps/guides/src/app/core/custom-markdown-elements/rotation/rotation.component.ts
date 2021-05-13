@@ -84,11 +84,11 @@ export class RotationComponent extends CustomMarkdownElement implements OnInit {
       totalDuration += action.getWaitDuration();
       totalLength++;
 
-      const doneWithChunk = macroFragment.length === 14 && rotation.length > totalLength + 1;
-      if (doneWithChunk) {
+      if (macroFragment.length === 14 && rotation.length > totalLength + 1) {
         let seNumber = Math.min(echoSeNumber - 1 + macro.length, 16);
         macroFragment.push(`/echo Macro #${macro.length} finished <se.${seNumber}>`);
         totalLength++;
+        macro.push([]);
       }
     });
     if (macro[macro.length - 1].length < 15) {
