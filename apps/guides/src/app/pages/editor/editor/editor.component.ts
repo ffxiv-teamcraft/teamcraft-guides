@@ -3,7 +3,7 @@ import { NzConfigService } from 'ng-zorro-antd/core/config';
 import { ActivatedRoute } from '@angular/router';
 import { GuidesFacade } from '../../../database/+state/guides.facade';
 import { combineLatest, Observable, of, Subject } from 'rxjs';
-import { filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { filter, first, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { Guide } from '../../../database/+state/model/guide';
 import { GuideCategory } from '../../../database/+state/model/guide-category';
 import { uniq, uniqBy } from 'lodash';
@@ -57,7 +57,8 @@ export class EditorComponent implements OnDestroy {
       if (guide.content) {
         this.selectedTab = 1;
       }
-    })
+    }),
+    first()
   );
 
   actions$ = combineLatest([
