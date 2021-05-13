@@ -3,6 +3,7 @@ import { GuideCategory } from './guide-category';
 
 export interface Guide extends DataModel {
   author: string;
+  contributors: string[];
   slug: string;
   title: string;
   navTitle: string;

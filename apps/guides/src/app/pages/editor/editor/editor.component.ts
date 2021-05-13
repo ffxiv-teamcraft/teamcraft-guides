@@ -13,6 +13,9 @@ import { SearchIndex } from '@xivapi/angular-client';
 import { Action } from '../../../core/xivapi/action';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ImageUploadPopupComponent } from '../image-upload-popup/image-upload-popup.component';
+import { TeamcraftUser } from '../../../database/user/teamcraft-user';
+import { UsersService } from '../../../database/user/users.service';
+import { AuthService } from '../../../database/auth.service';
 
 @Component({
   selector: 'guides-editor',
@@ -44,7 +47,9 @@ export class EditorComponent implements OnDestroy {
         title: '',
         content: '',
         description: '',
-        published: false
+        published: false,
+        showInHomePage: true,
+        contributors: []
       } as Guide);
     }),
     filter(guide => !!guide),
@@ -94,15 +99,33 @@ export class EditorComponent implements OnDestroy {
     })
   );
 
+  otherEditors$: Observable<TeamcraftUser[]> = combineLatest([
+    this.usersService.getAll(ref => ref.where('editor', '==', true)),
+    this.guide$
+  ]).pipe(
+    map(([users, guide]) => {
+      return users.filter(user => !(guide.contributors || []).includes(user.$key) && guide.author !== user.$key);
+    })
+  );
+
   selectedAction: number;
 
+  selectedEditor: string;
+
   availableCategories = uniq(Object.keys(GuideCategory));
+
+  public isAuthor$ = combineLatest([this.guide$, this.authService.user$]).pipe(
+    map(([guide, user]) => {
+      return user?.admin || user?.$key === guide.author;
+    })
+  );
 
   private onDestroy$ = new Subject<void>();
 
   constructor(private nzConfigService: NzConfigService, public guidesFacade: GuidesFacade,
               private route: ActivatedRoute, private xivapi: XivapiDataService,
-              private modal: NzModalService) {
+              private modal: NzModalService, private usersService: UsersService,
+              private authService: AuthService) {
     const defaultEditorOption = this.nzConfigService.getConfigForComponent('codeEditor')?.defaultEditorOption || {};
     this.nzConfigService.set('codeEditor', {
       defaultEditorOption: {
@@ -143,6 +166,11 @@ export class EditorComponent implements OnDestroy {
   addAction(editor: NzCodeEditorComponent): void {
     this.insertText(editor, `[Action:${this.selectedAction}]`);
     delete this.selectedAction;
+  }
+
+  addContributor(guide: Guide): void {
+    guide.contributors.push(this.selectedEditor);
+    delete this.selectedEditor;
   }
 
   addImages(editor: NzCodeEditorComponent): void {

@@ -20,12 +20,14 @@ import { ImageUploadPopupComponent } from './image-upload-popup/image-upload-pop
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { DirtyGuard } from './dirty.guard';
+import { GuideContributorGuard } from './guide-contributor.guard';
 
 const routes: Routes = [
   {
     path: ':slug',
     component: EditorComponent,
-    canDeactivate: [DirtyGuard]
+    canDeactivate: [DirtyGuard],
+    canActivate: [GuideContributorGuard]
   },
   {
     path: '',
@@ -61,7 +63,8 @@ const routes: Routes = [
     NzUploadModule
   ],
   providers: [
-    DirtyGuard
+    DirtyGuard,
+    GuideContributorGuard
   ]
 })
 export class EditorModule {

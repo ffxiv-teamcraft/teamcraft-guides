@@ -29,7 +29,9 @@ export class GuideComponent extends SeoComponent implements AfterContentInit {
   public loading$ = this.guidesFacade.loading$;
 
   public isEditor$ = combineLatest([this.guide$, this.authService.user$]).pipe(
-    map(([guide, user]) => user?.admin || user?.$key === guide.author)
+    map(([guide, user]) => {
+      return user?.admin || user?.$key === guide.author || (guide.contributors || []).includes(user?.$key);
+    })
   );
 
   public tableOfContents$ = new Subject<TableOfContentEntry[]>();

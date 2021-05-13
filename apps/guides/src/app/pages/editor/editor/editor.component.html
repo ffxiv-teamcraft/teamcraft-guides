@@ -9,7 +9,27 @@
             <i nz-icon nzType="save"></i>
           </button>
         </div>
-        <div>
+        <div *ngIf="isAuthor$ | async" fxLayout="row" fxLayoutGap="10px">
+          <div>
+            <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton"
+                            *ngIf="otherEditors$ | async as editors">
+              <nz-select [(ngModel)]="selectedEditor" nzShowSearch
+                         nzPlaceHolder="Add contributor"
+                         (keydown.enter)="addContributor(guide)"
+                         style="width: 200px">
+                <ng-container *ngFor="let editor of editors">
+                  <nz-option *ngIf="editor.$key | character | async as character"
+                             [nzValue]="editor.$key" [nzLabel]="character.Name">
+                  </nz-option>
+                </ng-container>
+              </nz-select>
+            </nz-input-group>
+          </div>
+          <ng-template #suffixIconButton>
+            <button nz-button nzType="primary" nzSearch (click)="addContributor(guide)">
+              <i nz-icon nzType="plus" nzTheme="outline"></i>
+            </button>
+          </ng-template>
           <button nz-button nzType="primary"
                   *ngIf="guide.published === false"
                   [disabled]="!formRef.form.valid || !guide.content || !guide.category"
