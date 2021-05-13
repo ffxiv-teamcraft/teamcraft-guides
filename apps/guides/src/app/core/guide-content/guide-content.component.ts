@@ -15,7 +15,7 @@ import { MarkdownService } from 'ngx-markdown';
 import { DynamicHTMLRef, DynamicHTMLRenderer } from '../dynamic-html/dynamic-html-renderer';
 import { DYNAMIC_COMPONENTS, DynamicComponent } from '../dynamic-html/dynamic-component';
 import { XivapiDataService } from '../xivapi/xivapi-data.service';
-import { isPlatformServer, Location } from '@angular/common';
+import { isPlatformServer } from '@angular/common';
 import { TableOfContentEntry } from './table-of-content-entry';
 
 @Component({
@@ -46,6 +46,11 @@ export class GuideContentComponent implements DoCheck, OnChanges, OnDestroy {
             #
           </a>
         </h${level}>`;
+    };
+
+    this.markdownService.renderer.paragraph = (text: string) => {
+      const p = text.includes('<img') ? `p class="with-image"`: `p`;
+      return `<${p}>${text}</p>`;
     };
   }
 
