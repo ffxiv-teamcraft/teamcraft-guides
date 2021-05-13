@@ -16,6 +16,7 @@
 @card-background: @menu-dark-inline-submenu-bg;
 @border-color-base: #666;
 @border-color-split: #555;
+@border-radius-base: 4px;
 
 // @primary-color: #1890ff;
 /* You can add global styles to this file, and also import other style files */
@@ -56,5 +57,30 @@ img {
 
   &:hover {
     color: @primary-color;
+  }
+}
+
+.tc-card-container {
+  border: 1px solid darken(@border-color-split, 10%);
+  border-radius: @border-radius-base;
+  background-color: @card-background;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  .tc-card-title {
+    background-color: @border-color-split;
+    padding: 5px 24px 5px;
+    font-size: 18px;
+  }
+
+  .tc-card-content {
+    padding: 10px;
+  }
+
+  .tc-card-footer {
+    font-size: 12px;
+    border-top: 1px solid @border-color-split;
+    padding: 5px;
   }
 }

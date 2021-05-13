@@ -1,0 +1,32 @@
+<div class="tc-card-container">
+  <ng-container *ngIf="rotationDisplay$ | async as rotation">
+    <ng-container *ngIf="!rotation.notFound; else notFoundTpl">
+      <div class="tc-card-title">
+        <i nz-icon nzType="appstore-add" nzTheme="outline"></i> {{rotation.name}}
+      </div>
+      <div class="tc-card-content" fxLayout="row wrap" fxLayoutGap="5px">
+        <guides-action *ngFor="let action of rotation.actions" [action]="action"></guides-action>
+      </div>
+      <div class="tc-card-footer" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="flex-start center">
+        <div>
+          <a nz-button nzSize="small" href="https://ffxivteamcraft.com/{{rotation.link}}" target="_blank">Open in Teamcraft</a>
+        </div>
+        <div>
+          <nz-divider nzType="vertical"></nz-divider>
+        </div>
+        <div fxLayout="row" fxLayoutGap="5px">
+          <button nz-button nzSize="small" *ngFor="let fragment of rotation.macro;index as i"
+                  (click)="copyMacro(fragment)">
+            Copy macro #{{i + 1}}
+          </button>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #notFoundTpl>
+      <div class="tc-card-content">
+        <nz-empty nzNotFoundContent="Rotation not found"></nz-empty>
+      </div>
+    </ng-template>
+  </ng-container>
+</div>

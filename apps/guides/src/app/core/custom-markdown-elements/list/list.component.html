@@ -1,0 +1,35 @@
+<div class="tc-card-container">
+  <ng-container *ngIf="listDisplay$ | async as list">
+    <ng-container *ngIf="!list.notFound; else notFoundTpl">
+      <div class="tc-card-title">
+        <i nz-icon nzType="unordered-list" nzTheme="outline"></i> {{list.name}}
+      </div>
+      <div class="tc-card-content" fxLayout="column" fxLayoutGap="5px">
+        <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="flex-start center"
+             *ngFor="let item of list.finalItems">
+          <img src="https://xivapi.com/{{item.IconHD}}" alt="" class="item-icon">
+          <div>{{item.Name_en}}</div>
+          <div>x{{item.amount}}</div>
+        </div>
+      </div>
+      <div class="tc-card-footer" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="flex-start center">
+        <div>
+          <a nz-button nzSize="small" href="https://ffxivteamcraft.com/list/{{list.$key}}" target="_blank">Open in Teamcraft</a>
+        </div>
+        <div>
+          <nz-divider nzType="vertical"></nz-divider>
+        </div>
+        <div>
+          <a nz-button nzSize="small" href="https://ffxivteamcraft.com/import/{{list.importData}}" target="_blank">Import in your Teamcraft
+            account</a>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #notFoundTpl>
+      <div class="tc-card-content">
+        <nz-empty nzNotFoundContent="List not found"></nz-empty>
+      </div>
+    </ng-template>
+  </ng-container>
+</div>

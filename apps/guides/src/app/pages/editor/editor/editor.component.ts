@@ -158,7 +158,7 @@ export class EditorComponent implements OnDestroy {
     }
   }
 
-  private insertText(editor: NzCodeEditorComponent, text: string): void {
+  insertText(editor: NzCodeEditorComponent, text: string): void {
     editor['editorInstance'].trigger('keyboard', 'type', { text });
     this.guidesFacade.dirty = true;
   }

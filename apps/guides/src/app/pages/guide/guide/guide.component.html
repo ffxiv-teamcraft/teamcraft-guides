@@ -24,7 +24,7 @@
       <guides-guide-content [markdown]="guide.content"
                             (registerTableOfContents)="tableOfContents$.next($event)"></guides-guide-content>
     </div>
-    <div fxFlex="1 0 200px">
+    <div fxFlex="0 0 200px">
       <nz-anchor nzOffsetTop="20" nzContainer=".content-container">
         <nz-link *ngFor="let rootEntry of tableOfContents$ | async"
                  [nzHref]="rootEntry.link" [nzTitle]="title">

@@ -131,6 +131,18 @@
                   Add images
                 </button>
               </div>
+              <div>
+                <button nz-button nzType="primary" (click)="insertText(editor, '[List:<ID>]')">
+                  <i nz-icon nzType="unordered-list" nzTheme="outline"></i>
+                  Add TC list
+                </button>
+              </div>
+              <div>
+                <button nz-button nzType="primary"  (click)="insertText(editor, '[Rotation:<ID>]')">
+                  <i nz-icon nzType="appstore-add" nzTheme="outline"></i>
+                  Add TC rotation
+                </button>
+              </div>
             </div>
             <div fxLayout="row" fxLayoutAlign="flex-start center" fxLayoutGap="5px">
               <nz-switch [(ngModel)]="showPreviewIneditor" (ngModelChange)="editor.layout()"></nz-switch>

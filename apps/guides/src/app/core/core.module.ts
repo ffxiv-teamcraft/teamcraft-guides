@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { GuideContentComponent } from './guide-content/guide-content.component';
-import { DYNAMIC_COMPONENTS, DynamicComponent } from './dynamic-html/dynamic-component';
 import { ActionComponent } from './custom-markdown-elements/action/action.component';
 import { DynamicHTMLRenderer } from './dynamic-html/dynamic-html-renderer';
 import { LoginPopupComponent } from './login-popup/login-popup.component';
@@ -15,9 +14,16 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { CharacterPipe } from './pipes/character.pipe';
 import { XivapiClientModule } from '@xivapi/angular-client';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { ListComponent } from './custom-markdown-elements/list/list.component';
+import { RotationComponent } from './custom-markdown-elements/rotation/rotation.component';
+import { CUSTOM_MARKDOWN_ELEMENTS } from './custom-markdown-elements';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 @NgModule({
-  declarations: [GuideContentComponent, ActionComponent, LoginPopupComponent, CharacterPipe],
+  declarations: [GuideContentComponent, ActionComponent, LoginPopupComponent, CharacterPipe, ListComponent, RotationComponent],
   exports: [GuideContentComponent, LoginPopupComponent, CharacterPipe],
   imports: [
     CommonModule,
@@ -30,19 +36,14 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
     ReactiveFormsModule,
     NzInputModule,
     XivapiClientModule,
-    NzToolTipModule
+    NzToolTipModule,
+    FlexLayoutModule,
+    NzEmptyModule,
+    NzIconModule,
+    NzMessageModule
   ],
   providers: [
-    {
-      provide: DYNAMIC_COMPONENTS,
-      useValue: {
-        selector: 'action',
-        component: ActionComponent,
-        contentLoader: 'getActions',
-        getId: args => +args[0]
-      } as DynamicComponent,
-      multi: true
-    },
+    ...CUSTOM_MARKDOWN_ELEMENTS,
     DynamicHTMLRenderer
   ]
 })

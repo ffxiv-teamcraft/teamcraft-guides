@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CustomMarkdownElement } from '../custom-markdown-element';
 import { XivapiDataService } from '../../xivapi/xivapi-data.service';
 import { Observable } from 'rxjs';
@@ -14,16 +14,26 @@ export class ActionComponent extends CustomMarkdownElement implements OnInit {
 
   public action$: Observable<Action>;
 
+  @Input()
+  action: number;
+
+  get actionId(): number {
+    if (this.args) {
+      return +this.args[0];
+    } else {
+      return this.action;
+    }
+  }
+
   constructor(private xivapiData: XivapiDataService) {
     super();
   }
 
   ngOnInit(): void {
-    const actionId = +this.args[0];
-    if (actionId >= 100000) {
-      this.action$ = this.xivapiData.get<Action>(XivapiEndpoint.CraftAction, actionId);
+    if (this.actionId >= 100000) {
+      this.action$ = this.xivapiData.get<Action>(XivapiEndpoint.CraftAction, this.actionId);
     } else {
-      this.action$ = this.xivapiData.get<Action>(XivapiEndpoint.Action, actionId);
+      this.action$ = this.xivapiData.get<Action>(XivapiEndpoint.Action, this.actionId);
     }
   }
 }

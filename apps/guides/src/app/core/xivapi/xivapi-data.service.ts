@@ -3,6 +3,7 @@ import { XivapiEndpoint, XivapiList, XivapiSearchOptions, XivapiService } from '
 import { BehaviorSubject, combineLatest, EMPTY, Observable, of } from 'rxjs';
 import { distinctUntilChanged, expand, filter, last, map, tap } from 'rxjs/operators';
 import { Action } from './action';
+import { Item } from './item';
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +57,10 @@ export class XivapiDataService {
     ]).pipe(
       map(([craftActions, actions]) => [...actions, ...craftActions])
     );
+  }
+
+  public getItems(ids: number[]): Observable<Item[]> {
+    return this.preload<Item>(XivapiEndpoint.Item, ['Name_*', 'IconHD'], ids);
   }
 
   public get<T>(endpoint: XivapiEndpoint, id: number): Observable<T> {

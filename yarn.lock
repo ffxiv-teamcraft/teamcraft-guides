@@ -1451,6 +1451,13 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@ffxiv-teamcraft/simulator@^2.10.8":
+  version "2.10.8"
+  resolved "https://registry.yarnpkg.com/@ffxiv-teamcraft/simulator/-/simulator-2.10.8.tgz#76c753bf07f8f9bb8f8ba9af619a9b17682328a2"
+  integrity sha512-Po9tmmAHvh9BsVEbBTeqQAucvvUUa6d2hvt0zcabZkN4euVnsyFwJ951b9B7OB1qcsqDaYHxDhy4CtbQ9ya6QQ==
+  dependencies:
+    "@kaiu/serializer" "^1.4.0"
+
 "@firebase/analytics-types@0.4.0":
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/@firebase/analytics-types/-/analytics-types-0.4.0.tgz#d6716f9fa36a6e340bc0ecfe68af325aa6f60508"
@@ -2059,6 +2066,11 @@
   version "7.1.3"
   resolved "https://registry.yarnpkg.com/@jsdevtools/ono/-/ono-7.1.3.tgz#9df03bbd7c696a5c58885c34aa06da41c8543796"
   integrity sha512-4JQNk+3mVzK3xh2rqd6RB4J46qUR19azEHBneZyTZM+c456qOrbbM/5xcR8huNCCcbVt7+UmizG6GuUvPvKUYg==
+
+"@kaiu/serializer@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@kaiu/serializer/-/serializer-1.4.0.tgz#e26fff9ab04652c573f41d4049d41be0605455f3"
+  integrity sha512-DJ+TwTV7pIR3Ac8AVVOVAYqZqLezBW32fWB/tDrhsMotd9gQ+jmorxwBr5kntEfwIDXWghhEQ7twCWNVqCXKYA==
 
 "@ngrx/component-store@^11.1.0":
   version "11.1.1"
