@@ -19,7 +19,7 @@
   </ng-template>
   <nz-divider [nzText]="authorTpl" nzOrientation="left"></nz-divider>
 
-  <div fxLayout="row" fxLayoutGap="5px">
+  <div fxLayout="row" fxLayoutGap="10px">
     <div fxFlex="1 1 auto" class="guide-content-container">
       <guides-guide-content [markdown]="guide.content"
                             (registerTableOfContents)="tableOfContents$.next($event)"></guides-guide-content>
