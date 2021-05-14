@@ -21,9 +21,20 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { XivapiActionTooltipDirective } from './xivapi/xivapi-action-tooltip/xivapi-action-tooltip.directive';
+import { XivapiActionTooltipComponent } from './xivapi/xivapi-action-tooltip/xivapi-action-tooltip.component';
 
 @NgModule({
-  declarations: [GuideContentComponent, ActionComponent, LoginPopupComponent, CharacterPipe, ListComponent, RotationComponent],
+  declarations: [
+    GuideContentComponent,
+    ActionComponent,
+    LoginPopupComponent,
+    CharacterPipe,
+    ListComponent,
+    RotationComponent,
+    XivapiActionTooltipDirective,
+    XivapiActionTooltipComponent
+  ],
   exports: [GuideContentComponent, LoginPopupComponent, CharacterPipe],
   imports: [
     CommonModule,

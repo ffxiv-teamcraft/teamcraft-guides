@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { XivapiEndpoint, XivapiList, XivapiSearchOptions, XivapiService } from '@xivapi/angular-client';
 import { BehaviorSubject, combineLatest, EMPTY, Observable, of } from 'rxjs';
-import { distinctUntilChanged, expand, filter, last, map, tap } from 'rxjs/operators';
+import { distinctUntilChanged, expand, filter, last, map, shareReplay, tap } from 'rxjs/operators';
 import { Action } from './action';
 import { Item } from './item';
 
@@ -9,6 +9,8 @@ import { Item } from './item';
   providedIn: 'root'
 })
 export class XivapiDataService {
+
+  private actions: { [index: number]: Observable<any> } = {};
 
   private cache$ = new BehaviorSubject<Partial<Record<XivapiEndpoint, Record<number, any>>>>({});
 
@@ -57,6 +59,21 @@ export class XivapiDataService {
     ]).pipe(
       map(([craftActions, actions]) => [...actions, ...craftActions])
     );
+  }
+
+  public getActionTooltipData(id: number): Observable<any> {
+    if (this.actions[id] === undefined) {
+      if (id > 99999) {
+        this.actions[id] = this.xivapi.get(XivapiEndpoint.CraftAction, id).pipe(
+          shareReplay(1)
+        );
+      } else {
+        this.actions[id] = this.xivapi.get(XivapiEndpoint.Action, id).pipe(
+          shareReplay(1)
+        );
+      }
+    }
+    return this.actions[id];
   }
 
   public getItems(ids: number[]): Observable<Item[]> {

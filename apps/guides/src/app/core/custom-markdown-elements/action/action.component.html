@@ -1,3 +1,5 @@
-<div class="action-container" nz-tooltip [nzTooltipTitle]="action.Name_en" *ngIf="action$ | async as action">
+<div class="action-container"
+     [guidesXivapiActionTooltip]="action.ID"
+     *ngIf="action$ | async as action">
   <img src="https://xivapi.com{{action.IconHD}}" alt="{{action.Name_en}}">
 </div>

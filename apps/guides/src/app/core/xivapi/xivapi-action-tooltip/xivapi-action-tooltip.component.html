@@ -1,0 +1,31 @@
+<div class="tooltip-container">
+  <div fxLayout="row" fxLayoutAlign="flex-start center" fxLayoutGap="10px">
+    <div class="icon">
+      <img alt="{{action.Name_en}}" src="https://xivapi.com{{action.IconHD}}">
+    </div>
+    <div class="name">
+      <div>{{action.Name_en}}</div>
+    </div>
+  </div>
+  <div class="description">
+    <span [innerHtml]="getDescription(action)"></span>
+  </div>
+  <div class="details">
+    <div *ngFor="let row of details" nz-row nzGutter="10">
+      <div [nzXs]="12" nz-col>
+        <p class="detail-name">
+          {{row.name}}
+        </p>
+      </div>
+      <div [nzXs]="12" nz-col>
+        <p *ngIf="!row.requiresPipe" class="detail-value">
+          {{row.value}}
+        </p>
+        <p *ngIf="row.requiresPipe" class="detail-value">
+          {{row.value}}
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="xivapi">xivapi.com</div>
+</div>
