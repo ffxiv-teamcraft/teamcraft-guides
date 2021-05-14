@@ -2,12 +2,14 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AuthService } from './database/auth.service';
 import { GuidesFacade } from './database/+state/guides.facade';
-import { filter, map } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { GuideCategory } from './database/+state/model/guide-category';
 import { Guide } from './database/+state/model/guide';
 import { LoginPopupComponent } from './core/login-popup/login-popup.component';
 import { NavigationEnd, Router } from '@angular/router';
+
+declare const gtag: Function;
 
 @Component({
   selector: 'guides-root',
@@ -53,6 +55,22 @@ export class AppComponent {
         this.scrollContainer.nativeElement.scrollTop = 0;
       }
     });
+
+    router.events
+      .pipe(
+        distinctUntilChanged((previous: any, current: any) => {
+          if (current instanceof NavigationEnd) {
+            return previous.url === current.url;
+          }
+          return true;
+        })
+      ).subscribe((event: any) => {
+      gtag('set', 'page', event.url);
+      gtag('event', 'page_view', {
+        page_path: event.urlAfterRedirects
+      });
+    });
+
   }
 
   login(): void {
