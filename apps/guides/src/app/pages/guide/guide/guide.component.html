@@ -1,7 +1,12 @@
 <div fxLayout="column" *ngIf="guide$ | async as guide; else loadingTpl">
   <div fxLayout="row" fxLayoutAlign="space-between flex-start">
-    <h1 class="guide-title">{{guide.title}}</h1>
-    <div *ngIf="isEditor$ | async"  fxShow fxHide.lt-md>
+    <h1 class="guide-title" fxLayout="row" fxLayoutAlign="flex-start center" fxLayoutGap="5px">
+      {{guide.title}}
+      <button nz-button nzType="link" (click)="copyPath()" nz-tooltip nzTooltipTitle="Get share link">
+        <i nz-icon nzType="share-alt" nzTheme="outline"></i>
+      </button>
+    </h1>
+    <div *ngIf="isEditor$ | async" fxShow fxHide.lt-md>
       <a nz-button routerLink="/editor/{{guide.slug}}" nzType="primary">
         <i nz-icon nzType="edit"></i>
       </a>

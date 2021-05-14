@@ -10,6 +10,8 @@ import { TableOfContentEntry } from '../../../core/guide-content/table-of-conten
 import { SeoComponent } from '../../../core/seo/seo-component';
 import { Meta, Title } from '@angular/platform-browser';
 import { SeoMetaConfig } from '../../../core/seo/seo-meta-config';
+import { Clipboard } from '@angular/cdk/clipboard';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'guides-guide',
@@ -41,8 +43,8 @@ export class GuideComponent extends SeoComponent implements AfterContentInit {
               private route: ActivatedRoute,
               @Inject(PLATFORM_ID) private platform: Object,
               @Inject(DOCUMENT) private document: Document,
-              private location: Location,
-              meta: Meta, title: Title) {
+              private location: Location, private message: NzMessageService,
+              private clipboard: Clipboard, meta: Meta, title: Title) {
     super(meta, title);
     this.guidesFacade.init();
   }
@@ -59,6 +61,14 @@ export class GuideComponent extends SeoComponent implements AfterContentInit {
           }
         }
       });
+    }
+  }
+
+  copyPath(): void {
+    if (this.clipboard.copy(`https://guides.ffxivteamcraft.com${this.location.path()}`)) {
+      this.message.success('Share link copied to your clipboard');
+    } else {
+      this.message.error('Failed to share link to your clipboard');
     }
   }
 
