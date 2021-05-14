@@ -1,6 +1,6 @@
 import { AfterContentInit, Component, Inject, PLATFORM_ID } from '@angular/core';
 import { combineLatest, Observable, Subject } from 'rxjs';
-import { first, map, switchMapTo, tap } from 'rxjs/operators';
+import { delay, first, map, startWith, switchMapTo, tap } from 'rxjs/operators';
 import { GuidesFacade } from '../../../database/+state/guides.facade';
 import { ActivatedRoute } from '@angular/router';
 import { DOCUMENT, isPlatformBrowser, Location } from '@angular/common';
@@ -51,8 +51,9 @@ export class GuideComponent extends SeoComponent implements AfterContentInit {
 
   ngAfterContentInit(): void {
     if (isPlatformBrowser(this.platform)) {
-      combineLatest([this.route.fragment, this.tableOfContents$]).pipe(
-        first()
+      combineLatest([this.route.fragment.pipe(startWith(null)), this.tableOfContents$]).pipe(
+        first(),
+        delay(1000)
       ).subscribe(([fragment]) => {
         if (fragment) {
           const matchingTitle = document.getElementById(fragment);
