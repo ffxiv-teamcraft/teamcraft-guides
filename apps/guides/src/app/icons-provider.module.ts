@@ -13,11 +13,12 @@ import {
   PlusOutline,
   SaveOutline,
   UnorderedListOutline,
-  AppstoreAddOutline
+  AppstoreAddOutline,
+  ShareAltOutline
 } from '@ant-design/icons-angular/icons';
 
 const icons = [MenuFoldOutline, MenuUnfoldOutline, DashboardOutline, FormOutline, SaveOutline, EditOutline, DisconnectOutline, HomeOutline,
-  PlusOutline, FileImageOutline, UnorderedListOutline, AppstoreAddOutline];
+  PlusOutline, FileImageOutline, UnorderedListOutline, AppstoreAddOutline, ShareAltOutline];
 
 @NgModule({
   imports: [NzIconModule],
