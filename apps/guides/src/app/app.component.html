@@ -7,7 +7,7 @@
           <span>Crafting</span>
         </span>
         <ul>
-          <li nz-menu-item nzMatchRouter *ngFor="let guide of navBarContent.Crafting" (click)="isCollapsed = true">
+          <li class="menu-entry" nz-menu-item nzMatchRouter *ngFor="let guide of navBarContent.Crafting" (click)="isCollapsed = true">
             <a routerLink="/guide/{{guide.slug}}">{{guide.navTitle}}
               <i *ngIf="!guide.published" nz-icon nzType="form"
                  nz-tooltip
@@ -22,7 +22,7 @@
           <span>Gathering</span>
         </span>
         <ul>
-          <li nz-menu-item nzMatchRouter *ngFor="let guide of navBarContent.Gathering" (click)="isCollapsed = true">
+          <li class="menu-entry" nz-menu-item nzMatchRouter *ngFor="let guide of navBarContent.Gathering" (click)="isCollapsed = true">
             <a routerLink="/guide/{{guide.slug}}">{{guide.navTitle}}
               <i *ngIf="!guide.published" nz-icon nzType="form"
                  nz-tooltip
@@ -37,7 +37,7 @@
           <span>Other</span>
         </span>
         <ul>
-          <li nz-menu-item nzMatchRouter *ngFor="let guide of navBarContent.Other" (click)="isCollapsed = true">
+          <li class="menu-entry" nz-menu-item nzMatchRouter *ngFor="let guide of navBarContent.Other" (click)="isCollapsed = true">
             <a routerLink="/guide/{{guide.slug}}">{{guide.navTitle}}
               <i *ngIf="!guide.published" nz-icon nzType="form"
                  nz-tooltip
