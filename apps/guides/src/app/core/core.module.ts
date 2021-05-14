@@ -23,6 +23,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { XivapiActionTooltipDirective } from './xivapi/xivapi-action-tooltip/xivapi-action-tooltip.directive';
 import { XivapiActionTooltipComponent } from './xivapi/xivapi-action-tooltip/xivapi-action-tooltip.component';
+import { IfMobilePipe } from './pipes/if-mobile.pipe';
 
 @NgModule({
   declarations: [
@@ -33,9 +34,10 @@ import { XivapiActionTooltipComponent } from './xivapi/xivapi-action-tooltip/xiv
     ListComponent,
     RotationComponent,
     XivapiActionTooltipDirective,
-    XivapiActionTooltipComponent
+    XivapiActionTooltipComponent,
+    IfMobilePipe
   ],
-  exports: [GuideContentComponent, LoginPopupComponent, CharacterPipe],
+  exports: [GuideContentComponent, LoginPopupComponent, CharacterPipe, IfMobilePipe],
   imports: [
     CommonModule,
 

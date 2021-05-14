@@ -18,6 +18,8 @@ export class AppComponent {
 
   user$ = this.authService.user$;
 
+  isCollapsed = true;
+
   navBarContent$: Observable<Record<GuideCategory, Partial<Guide>[]>> = this.guidesFacade.allGuides$.pipe(
     map(guides => {
       return guides.reduce((navbar, guide) => {

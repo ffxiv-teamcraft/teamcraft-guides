@@ -29,13 +29,16 @@
 }
 
 .sidebar-logo {
-  position: relative;
   height: 64px;
   padding: 0 24px;
   overflow: hidden;
   line-height: 64px;
   background: #001529;
   transition: all .3s;
+
+  &.mobile {
+    width: 100%;
+  }
 }
 
 .sidebar-logo img {
@@ -56,10 +59,14 @@
 }
 
 nz-header {
-  padding: 0 24px;
+  padding: 0 24px 0 0;
   width: 100%;
   z-index: 2;
   box-shadow: 0 3px 3px rgba(0, 0, 0, .2);
+
+  &.mobile {
+    padding: 0;
+  }
 }
 
 .app-header {
@@ -78,6 +85,9 @@ nz-content {
   overflow: auto;
   padding: 24px 48px;
   height: 100%;
+  @media screen and (max-width: 959px) {
+    padding: 12px;
+  }
 }
 
 .inner-content {

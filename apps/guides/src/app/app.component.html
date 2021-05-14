@@ -1,98 +1,106 @@
-<nz-layout class="app-layout">
-  <nz-sider class="menu-sidebar"
-            nzCollapsible
-            nzWidth="256px"
-            nzBreakpoint="md">
-    <div class="sidebar-logo">
-      <a href="https://ng.ant.design/" target="_blank">
-        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
-        <h1>Teamcraft guides</h1>
-      </a>
-    </div>
-    <ul nz-menu nzTheme="dark" nzMode="inline" fxLayout="column" class="nav-bar">
-      <li nz-menu-item nzMatchRouter nzMatchRouterExact="true">
-        <i nz-icon nzType="home"></i>
-        <span>
-          <a routerLink="/">Home</a>
-        </span>
-      </li>
-      <ng-container *ngIf="navBarContent$ | async as navBarContent">
-        <li nz-submenu nzOpen>
+<ng-template #menu let-mode let-flex="flex">
+  <ul nz-menu [nzMode]="mode" [fxLayout]="flex" [nzInlineCollapsed]="false | ifMobile: isCollapsed">
+    <ng-container *ngIf="navBarContent$ | async as navBarContent">
+      <li nz-submenu>
         <span title>
           <i class="companion-svg anticon">&#x0F008;</i>
           <span>Crafting</span>
         </span>
-          <ul>
-            <li nz-menu-item nzMatchRouter *ngFor="let guide of navBarContent.Crafting">
-              <a routerLink="/guide/{{guide.slug}}">{{guide.navTitle}} <i *ngIf="!guide.published" nz-icon nzType="form"
-                                                                          nz-tooltip
-                                                                          nzTooltipTitle="Unpublished, only editors can see this"></i></a>
-            </li>
-          </ul>
-        </li>
-        <li nz-submenu nzOpen>
+        <ul>
+          <li nz-menu-item nzMatchRouter *ngFor="let guide of navBarContent.Crafting" (click)="isCollapsed = true">
+            <a routerLink="/guide/{{guide.slug}}">{{guide.navTitle}}
+              <i *ngIf="!guide.published" nz-icon nzType="form"
+                 nz-tooltip
+                 nzTooltipTitle="Unpublished, only editors can see this"></i>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu>
         <span title>
           <i class="companion-svg anticon">&#x0F120;</i>
           <span>Gathering</span>
         </span>
-          <ul>
-            <li nz-menu-item nzMatchRouter *ngFor="let guide of navBarContent.Gathering">
-              <a routerLink="/guide/{{guide.slug}}">{{guide.navTitle}} <i *ngIf="!guide.published" nz-icon nzType="form"
-                                                                          nz-tooltip
-                                                                          nzTooltipTitle="Unpublished, only editors can see this"></i></a>
-            </li>
-          </ul>
-        </li>
-        <li nz-submenu nzOpen>
+        <ul>
+          <li nz-menu-item nzMatchRouter *ngFor="let guide of navBarContent.Gathering" (click)="isCollapsed = true">
+            <a routerLink="/guide/{{guide.slug}}">{{guide.navTitle}}
+              <i *ngIf="!guide.published" nz-icon nzType="form"
+                 nz-tooltip
+                 nzTooltipTitle="Unpublished, only editors can see this"></i>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu>
         <span title>
           <i class="companion-svg anticon">&#x0E411;</i>
           <span>Other</span>
         </span>
-          <ul>
-            <li nz-menu-item nzMatchRouter *ngFor="let guide of navBarContent.Other">
-              <a routerLink="/guide/{{guide.slug}}">{{guide.navTitle}} <i *ngIf="!guide.published" nz-icon nzType="form"
-                                                                          nz-tooltip
-                                                                          nzTooltipTitle="Unpublished, only editors can see this"></i></a>
-            </li>
-          </ul>
-        </li>
-      </ng-container>
-      <div fxFlex="1 1 auto"></div>
-      <li nz-menu-item nzMatchRouter *ngIf="user$ | async">
-        <i nz-icon nzType="edit"></i>
-        <span>
-          <a routerLink="/editor">Editor</a>
-        </span>
+        <ul>
+          <li nz-menu-item nzMatchRouter *ngFor="let guide of navBarContent.Other" (click)="isCollapsed = true">
+            <a routerLink="/guide/{{guide.slug}}">{{guide.navTitle}}
+              <i *ngIf="!guide.published" nz-icon nzType="form"
+                 nz-tooltip
+                 nzTooltipTitle="Unpublished, only editors can see this"></i>
+            </a>
+          </li>
+        </ul>
       </li>
-    </ul>
-  </nz-sider>
-  <nz-layout>
-    <nz-header>
-      <div fxLayout="row">
-        <div fxFlex="1 1 auto"></div>
-        <div class="auth-topbar" fxLayout="row" fxLayoutAlign="center center">
-          <div *ngIf="user$ | async as user; else loginTpl">
-            <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="center center"
-                 *ngIf="user.$key | character | async as character">
-              <img src="{{character.Avatar}}" alt="" class="character-avatar">
-              <div>{{character.Name}}</div>
-              <div>
-                <button nz-button nzShape="circle" nzSize="small" nzDanger (click)="logout()">
-                  <i nz-icon nzType="disconnect" nzTheme="outline"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-          <ng-template #loginTpl>
+    </ng-container>
+    <div fxFlex="1 1 auto"></div>
+    <li nz-menu-item nzMatchRouter fxShow fxHide.lt-md *ngIf="user$ | async">
+      <i nz-icon nzType="edit"></i>
+      <span>
+        <a routerLink="/editor">Editor</a>
+      </span>
+    </li>
+  </ul>
+</ng-template>
+
+<nz-layout class="app-layout">
+  <nz-header [ngClass.lt-md]="['mobile']" fxLayout="row">
+    <div class="sidebar-logo" fxFlex="0 0 auto" fxFlex.lt-md="1 1 auto">
+      <a routerLink="/">
+        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
+        <h1>Teamcraft guides</h1>
+      </a>
+    </div>
+    <div fxLayout="row" fxFlex="1 1 auto" fxShow fxHide.lt-md>
+      <div fxFlex="1 1 auto">
+        <ng-container *ngTemplateOutlet="menu; context:{$implicit: 'horizontal', flex: 'row'}"></ng-container>
+      </div>
+      <div class="auth-topbar" fxLayout="row" fxLayoutAlign="center center">
+        <div *ngIf="user$ | async as user; else loginTpl">
+          <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="center center"
+               *ngIf="user.$key | character | async as character">
+            <img src="{{character.Avatar}}" alt="" class="character-avatar">
+            <div>{{character.Name}}</div>
             <div>
-              <button nz-button (click)="login()">
-                Sign in
+              <button nz-button nzShape="circle" nzSize="small" nzDanger (click)="logout()">
+                <i nz-icon nzType="disconnect" nzTheme="outline"></i>
               </button>
             </div>
-          </ng-template>
+          </div>
         </div>
+        <ng-template #loginTpl>
+          <div>
+            <button nz-button (click)="login()">
+              Sign in
+            </button>
+          </div>
+        </ng-template>
       </div>
-    </nz-header>
+    </div>
+  </nz-header>
+  <nz-layout>
+    <nz-sider class="menu-sidebar"
+              fxHide fxShow.lt-md
+              nzCollapsible
+              [(nzCollapsed)]="isCollapsed"
+              [nzCollapsedWidth]="0"
+              [nzWidth]="200">
+      <ng-container *ngTemplateOutlet="menu; context:{$implicit: 'inline', flex: 'column'}"></ng-container>
+    </nz-sider>
     <nz-content>
       <div class="content-container" #scrollContainerRef>
         <div class="inner-content">

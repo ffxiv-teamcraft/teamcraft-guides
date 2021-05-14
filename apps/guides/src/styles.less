@@ -53,6 +53,20 @@ img {
 p.with-image {
   display: flex;
 
+  @media screen and (max-width: 959px) {
+    > img {
+      max-width: 50vw;
+    }
+  }
+
+  @media screen and (max-width: 350px) {
+    flex-direction: column;
+    > img {
+      max-width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+
   > img {
     margin-right: 10px;
   }

@@ -1,7 +1,7 @@
 <div fxLayout="column" *ngIf="guide$ | async as guide; else loadingTpl">
   <div fxLayout="row" fxLayoutAlign="space-between flex-start">
     <h1 class="guide-title">{{guide.title}}</h1>
-    <div *ngIf="isEditor$ | async">
+    <div *ngIf="isEditor$ | async"  fxShow fxHide.lt-md>
       <a nz-button routerLink="/editor/{{guide.slug}}" nzType="primary">
         <i nz-icon nzType="edit"></i>
       </a>
@@ -24,7 +24,7 @@
       <guides-guide-content [markdown]="guide.content"
                             (registerTableOfContents)="tableOfContents$.next($event)"></guides-guide-content>
     </div>
-    <div fxFlex="0 0 200px">
+    <div fxFlex="0 0 200px" fxShow fxHide.lt-md>
       <nz-anchor nzOffsetTop="20" nzContainer=".content-container">
         <nz-link *ngFor="let rootEntry of tableOfContents$ | async"
                  [nzHref]="rootEntry.link" [nzTitle]="title">
