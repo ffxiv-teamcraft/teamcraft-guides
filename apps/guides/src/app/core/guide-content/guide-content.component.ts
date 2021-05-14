@@ -49,9 +49,13 @@ export class GuideContentComponent implements DoCheck, OnChanges, OnDestroy {
     };
 
     this.markdownService.renderer.paragraph = (text: string) => {
-      const p = text.includes('<img') ? `p class="with-image"`: `p`;
+      const p = text.includes('<img') ? `p class="with-image"`: `p class="clear-both"`;
       return `<${p}>${text}</p>`;
     };
+
+    this.markdownService.renderer.image = (href, title, text) => {
+      return `<img alt="${text}" src="${href}" class="md-img"/>`
+    }
   }
 
   private prepareCustomElements(html: string): string {

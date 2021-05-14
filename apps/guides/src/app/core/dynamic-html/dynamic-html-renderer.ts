@@ -5,18 +5,15 @@ import {
   ElementRef,
   Inject,
   Injectable,
-  Injector
+  Injector, PLATFORM_ID
 } from '@angular/core';
 import { OnMount } from './on-mount';
 import { DYNAMIC_COMPONENTS, DynamicComponent } from './dynamic-component';
+import { isPlatformBrowser } from '@angular/common';
 
 export interface DynamicHTMLRef {
   check: () => void;
   destroy: () => void;
-}
-
-function isBrowserPlatform() {
-  return !!window && !!window.document;
 }
 
 @Injectable()
@@ -26,7 +23,9 @@ export class DynamicHTMLRenderer {
 
   private componentRefs = new Map<any, Array<ComponentRef<any>>>();
 
-  constructor(@Inject(DYNAMIC_COMPONENTS) private components: DynamicComponent[], private cfr: ComponentFactoryResolver,
+  constructor(@Inject(DYNAMIC_COMPONENTS) private components: DynamicComponent[],
+              @Inject(PLATFORM_ID) private platform: Object,
+              private cfr: ComponentFactoryResolver,
               private injector: Injector) {
     this.components.forEach(({ selector, component }) => {
       let cf: ComponentFactory<any>;
@@ -36,7 +35,7 @@ export class DynamicHTMLRenderer {
   }
 
   renderInnerHTML(elementRef: ElementRef, html: string): DynamicHTMLRef {
-    if (!isBrowserPlatform()) {
+    if (!isPlatformBrowser(this.platform)) {
       return {
         check: () => {
         },

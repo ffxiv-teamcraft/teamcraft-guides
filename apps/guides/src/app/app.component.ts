@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, PLATFORM_ID, ViewChild } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AuthService } from './database/auth.service';
 import { GuidesFacade } from './database/+state/guides.facade';
@@ -8,6 +8,7 @@ import { GuideCategory } from './database/+state/model/guide-category';
 import { Guide } from './database/+state/model/guide';
 import { LoginPopupComponent } from './core/login-popup/login-popup.component';
 import { NavigationEnd, Router } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
 
 declare const gtag: Function;
 
@@ -46,7 +47,8 @@ export class AppComponent {
   constructor(private nzModal: NzModalService,
               private authService: AuthService,
               private guidesFacade: GuidesFacade,
-              private router: Router) {
+              private router: Router,
+              @Inject(PLATFORM_ID) private platform: Object) {
     this.guidesFacade.init();
     router.events.pipe(
       filter(e => e instanceof NavigationEnd)
@@ -65,10 +67,12 @@ export class AppComponent {
           return true;
         })
       ).subscribe((event: any) => {
-      gtag('set', 'page', event.url);
-      gtag('event', 'page_view', {
-        page_path: event.urlAfterRedirects
-      });
+      if (isPlatformBrowser(this.platform)) {
+        gtag('set', 'page', event.url);
+        gtag('event', 'page_view', {
+          page_path: event.urlAfterRedirects
+        });
+      }
     });
 
   }

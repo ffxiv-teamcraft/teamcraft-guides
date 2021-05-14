@@ -51,25 +51,31 @@ img {
 }
 
 p.with-image {
-  display: flex;
+  > .md-img {
+    float: left;
+  }
 
   @media screen and (max-width: 959px) {
-    > img {
+    > .md-img {
       max-width: 50vw;
     }
   }
 
   @media screen and (max-width: 350px) {
     flex-direction: column;
-    > img {
+    > .md-img {
       max-width: 100%;
       margin-bottom: 10px;
     }
   }
 
-  > img {
+  > .md-img {
     margin-right: 10px;
   }
+}
+
+P.clear-both {
+  clear: both;
 }
 
 .heading-anchor {
