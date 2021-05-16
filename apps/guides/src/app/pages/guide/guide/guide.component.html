@@ -18,6 +18,14 @@
       <img [src]="author.Avatar" alt="" class="author-avatar">
       <div>{{author.Name}}</div>
     </div>
+    <ng-container *ngFor="let contributor of guide.contributors">
+      <div class="author" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="flex-start center"
+           *ngIf="contributor | character | async as author; else loader">
+        ,&nbsp;
+        <img [src]="author.Avatar" alt="" class="author-avatar">
+        <div>{{author.Name}}</div>
+      </div>
+    </ng-container>
   </ng-template>
   <ng-template #loader>
     <nz-spin></nz-spin>
