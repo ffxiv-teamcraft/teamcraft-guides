@@ -9,10 +9,11 @@ export interface Guide extends DataModel {
   navTitle: string;
   content: string;
   description: string;
-  showInHomePage: boolean;
   published: boolean;
   category: GuideCategory;
 
   updated: number;
   publishDate?: number;
+
+  ribbon?: string;
 }

@@ -125,12 +125,24 @@ P.clear-both {
     .ant-ribbon {
       padding-right: 13px;
     }
-
-    &.empty {
-      .ant-ribbon {
-        display: none;
-      }
-    }
   }
+}
+
+.ant-ribbon-wrapper.empty {
+  .ant-ribbon {
+    display: none;
+  }
+}
+
+.slick-dots {
+  > li {
+    background-color: @border-color-base;
+    opacity: .4;
+  }
+}
+
+.ant-carousel .slick-dots li.slick-active button {
+  background-color: @primary-color;
+  opacity: .6;
 }
 

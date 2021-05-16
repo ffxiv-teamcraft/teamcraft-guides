@@ -83,13 +83,6 @@
               </nz-textarea-count>
             </nz-form-control>
           </nz-form-item>
-          <nz-form-item class="empty-label">
-            <nz-form-label [nzSpan]="7"></nz-form-label>
-            <nz-form-control [nzSpan]="12">
-              <label nz-checkbox [(ngModel)]="guide.showInHomePage" name="showInHomePage"></label>
-              Show in home page
-            </nz-form-control>
-          </nz-form-item>
           <nz-form-item>
             <nz-form-control [nzSpan]="12" [nzOffset]="7">
               <button nz-button nzType="primary"
@@ -150,19 +143,19 @@
                 Content update
               </label>
               <div fxLayout="row" fxLayoutAlign="flex-start center" fxLayoutGap="5px">
-                <nz-switch [(ngModel)]="showPreviewIneditor" (ngModelChange)="editor.layout()"></nz-switch>
+                <nz-switch [(ngModel)]="showPreviewInEditor" (ngModelChange)="editor.layout()"></nz-switch>
                 <div>Show preview</div>
               </div>
             </div>
           </div>
         </nz-card>
         <div fxLayout="row" class="border-split">
-          <div fxFlex="1 1 {{showPreviewIneditor?'50%':'auto'}}">
+          <div fxFlex="1 1 {{showPreviewInEditor?'50%':'auto'}}">
             <nz-code-editor #editor [(ngModel)]="guide.content"
                             (ngModelChange)="guidesFacade.dirty = true"
                             [nzEditorOption]="{ language: 'markdown' }"></nz-code-editor>
           </div>
-          <div fxFlex="1 1 50%" *ngIf="showPreviewIneditor" class="preview-side">
+          <div fxFlex="1 1 50%" *ngIf="showPreviewInEditor" class="preview-side">
             <guides-guide-content [markdown]="guide.content"></guides-guide-content>
           </div>
         </div>

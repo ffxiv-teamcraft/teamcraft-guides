@@ -24,6 +24,11 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 import { XivapiActionTooltipDirective } from './xivapi/xivapi-action-tooltip/xivapi-action-tooltip.directive';
 import { XivapiActionTooltipComponent } from './xivapi/xivapi-action-tooltip/xivapi-action-tooltip.component';
 import { IfMobilePipe } from './pipes/if-mobile.pipe';
+import { GuideCardComponent } from './guide-card/guide-card.component';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -35,9 +40,10 @@ import { IfMobilePipe } from './pipes/if-mobile.pipe';
     RotationComponent,
     XivapiActionTooltipDirective,
     XivapiActionTooltipComponent,
-    IfMobilePipe
+    IfMobilePipe,
+    GuideCardComponent
   ],
-  exports: [GuideContentComponent, LoginPopupComponent, CharacterPipe, IfMobilePipe],
+  exports: [GuideContentComponent, LoginPopupComponent, CharacterPipe, IfMobilePipe, GuideCardComponent],
   imports: [
     CommonModule,
 
@@ -53,7 +59,11 @@ import { IfMobilePipe } from './pipes/if-mobile.pipe';
     FlexLayoutModule,
     NzEmptyModule,
     NzIconModule,
-    NzMessageModule
+    NzMessageModule,
+    NzCardModule,
+    NzBadgeModule,
+    NzAvatarModule,
+    RouterModule
   ],
   providers: [
     ...CUSTOM_MARKDOWN_ELEMENTS,

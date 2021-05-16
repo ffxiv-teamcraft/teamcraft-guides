@@ -29,25 +29,13 @@ export class AppComponent {
         if (!GuideCategory[guide.category]) {
           guide.category = GuideCategory.Other;
         }
-        let ribbon: string = null;
-        if (guide.published) {
-          // New guide if it has been created less than a week ago
-          const isNew = (Date.now() - guide.publishDate) < 86_400_000 * 7;
-          // Updated if it has been updated less than a week ago
-          const isUpdated = (Date.now() - guide.updated) < 86_400_000 * 7;
-          if (isNew) {
-            ribbon = 'New !';
-          } else if (isUpdated) {
-            ribbon = 'Updated !';
-          }
-        }
         return {
           ...navbar,
           [guide.category]: [...(navbar[guide.category] || []), {
             slug: guide.slug,
             navTitle: guide.navTitle,
             published: guide.published,
-            ribbon
+            ribbon: guide.ribbon
           }]
         };
       }, {} as Record<GuideCategory, Partial<Guide>[]>);

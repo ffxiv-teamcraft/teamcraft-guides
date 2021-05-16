@@ -26,7 +26,7 @@ export class EditorComponent implements OnDestroy {
 
   selectedTab = 0;
 
-  showPreviewIneditor = false;
+  showPreviewInEditor = false;
 
   guide$: Observable<Guide> = this.route.paramMap.pipe(
     map(params => params.get('slug')),
@@ -48,7 +48,6 @@ export class EditorComponent implements OnDestroy {
         content: '',
         description: '',
         published: false,
-        showInHomePage: true,
         contributors: [],
         updated: Date.now()
       } as Guide);

@@ -1,8 +1,9 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Character, XivapiService } from '@xivapi/angular-client';
-import { interval, Observable, Subject } from 'rxjs';
+import { interval, Observable, of, Subject } from 'rxjs';
 import { map, shareReplay, switchMapTo } from 'rxjs/operators';
 import { firstIfServer } from './rxjs/first-if-server';
+import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 
 @Injectable({ providedIn: 'root' })
 export class LodestoneService {
@@ -13,15 +14,20 @@ export class LodestoneService {
 
   constructor(private xivapi: XivapiService,
               @Inject(PLATFORM_ID) private platform: Object) {
-    interval(1000).subscribe(() => {
-      const req = this.queue.shift();
-      if (req) {
-        req.next();
-      }
-    });
+    if (isPlatformBrowser(platform)) {
+      interval(500).subscribe(() => {
+        const req = this.queue.shift();
+        if (req) {
+          req.next();
+        }
+      });
+    }
   }
 
   public getCharacter(id: number): Observable<Character> {
+    if (isPlatformServer(this.platform)) {
+      return of(null);
+    }
     if (!this.cache[id]) {
       const trigger = new Subject<void>();
       this.cache[id] = trigger.pipe(
