@@ -49,7 +49,8 @@ export class EditorComponent implements OnDestroy {
         description: '',
         published: false,
         showInHomePage: true,
-        contributors: []
+        contributors: [],
+        updated: Date.now()
       } as Guide);
     }),
     filter(guide => !!guide),
@@ -113,6 +114,8 @@ export class EditorComponent implements OnDestroy {
 
   selectedEditor: string;
 
+  isContentUpdate = false;
+
   availableCategories = uniq(Object.keys(GuideCategory));
 
   public isAuthor$ = combineLatest([this.guide$, this.authService.user$]).pipe(
@@ -138,13 +141,20 @@ export class EditorComponent implements OnDestroy {
   }
 
   save(guide: Guide): void {
+    if (!guide.publishDate && guide.published) {
+      guide.publishDate = Date.now();
+    }
+    if (this.isContentUpdate) {
+      guide.updated = Date.now();
+    }
     this.guidesFacade.save({ ...guide });
   }
 
   publish(guide: Guide): void {
     this.guidesFacade.save({
       ...guide,
-      published: true
+      published: true,
+      publishDate: Date.now()
     });
   }
 

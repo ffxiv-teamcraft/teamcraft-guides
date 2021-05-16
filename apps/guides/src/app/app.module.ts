@@ -29,6 +29,7 @@ import { XivapiClientModule } from '@xivapi/angular-client';
 import { DatabaseModule } from './database/database.module';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
 
 registerLocaleData(en);
 
@@ -66,7 +67,8 @@ registerLocaleData(en);
     NzModalModule,
     CoreModule,
     DatabaseModule,
-    NzToolTipModule
+    NzToolTipModule,
+    NzBadgeModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

@@ -117,6 +117,20 @@ P.clear-both {
 }
 
 .ant-menu-vertical.ant-menu-sub, .ant-menu-vertical-left.ant-menu-sub, .ant-menu-vertical-right.ant-menu-sub {
-  min-width: 240px;
+  min-width: 320px;
+}
+
+.ant-menu {
+  .ant-ribbon-wrapper {
+    .ant-ribbon {
+      padding-right: 13px;
+    }
+
+    &.empty {
+      .ant-ribbon {
+        display: none;
+      }
+    }
+  }
 }
 

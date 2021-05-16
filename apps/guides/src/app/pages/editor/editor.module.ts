@@ -21,6 +21,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { DirtyGuard } from './dirty.guard';
 import { GuideContributorGuard } from './guide-contributor.guard';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 const routes: Routes = [
   {
@@ -60,7 +61,8 @@ const routes: Routes = [
     NzCardModule,
     NzSwitchModule,
     NzModalModule,
-    NzUploadModule
+    NzUploadModule,
+    NzToolTipModule
   ],
   providers: [
     DirtyGuard,

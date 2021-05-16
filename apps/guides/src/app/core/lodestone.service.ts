@@ -25,11 +25,10 @@ export class LodestoneService {
     if (!this.cache[id]) {
       const trigger = new Subject<void>();
       this.cache[id] = trigger.pipe(
-        switchMapTo(this.xivapi.getCharacter(id, { columns: ['Character.Avatar', 'Character.Name', 'Character.Title'] }).pipe(
-          map(response => response.Character),
-          shareReplay(),
-          firstIfServer(this.platform)
-        ))
+        switchMapTo(this.xivapi.getCharacter(id, { columns: ['Character.Avatar', 'Character.Name', 'Character.Title'] })),
+        map(response => response.Character),
+        shareReplay(),
+        firstIfServer(this.platform)
       );
       this.queue.push(trigger);
     }

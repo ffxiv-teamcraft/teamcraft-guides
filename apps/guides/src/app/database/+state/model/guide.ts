@@ -12,4 +12,7 @@ export interface Guide extends DataModel {
   showInHomePage: boolean;
   published: boolean;
   category: GuideCategory;
+
+  updated: number;
+  publishDate?: number;
 }

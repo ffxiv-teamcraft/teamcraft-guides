@@ -138,15 +138,21 @@
                 </button>
               </div>
               <div>
-                <button nz-button nzType="primary"  (click)="insertText(editor, '[Rotation:<ID>]')">
+                <button nz-button nzType="primary" (click)="insertText(editor, '[Rotation:<ID>]')">
                   <i nz-icon nzType="appstore-add" nzTheme="outline"></i>
                   Add TC rotation
                 </button>
               </div>
             </div>
-            <div fxLayout="row" fxLayoutAlign="flex-start center" fxLayoutGap="5px">
-              <nz-switch [(ngModel)]="showPreviewIneditor" (ngModelChange)="editor.layout()"></nz-switch>
-              <div>Show preview</div>
+            <div fxLayout="row" fxLayoutAlign="flex-end center" fxLayoutGap="10px">
+              <label nz-checkbox [(ngModel)]="isContentUpdate"
+                     nz-tooltip nzTooltipTitle="Mark the guide as updated once it's saved">
+                Content update
+              </label>
+              <div fxLayout="row" fxLayoutAlign="flex-start center" fxLayoutGap="5px">
+                <nz-switch [(ngModel)]="showPreviewIneditor" (ngModelChange)="editor.layout()"></nz-switch>
+                <div>Show preview</div>
+              </div>
             </div>
           </div>
         </nz-card>
