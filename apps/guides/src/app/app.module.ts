@@ -46,7 +46,7 @@ registerLocaleData(en);
     StoreModule.forRoot([]),
     EffectsModule.forRoot(),
 
-    XivapiClientModule.forRoot(),
+    XivapiClientModule.forRoot(environment.production ? 'https://us-central1-ffxivteamcraft.cloudfunctions.net/xivapi-proxy' : null),
     MarkdownModule.forRoot({
       sanitize: SecurityContext.NONE
     }),
