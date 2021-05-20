@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EditorComponent } from './editor/editor.component';
 import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { CoreModule } from '../../core/core.module';
@@ -22,6 +22,11 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { DirtyGuard } from './dirty.guard';
 import { GuideContributorGuard } from './guide-contributor.guard';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { LocationSelectionPopupComponent } from './location-selection-popup/location-selection-popup.component';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
 
 const routes: Routes = [
   {
@@ -40,7 +45,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     EditorComponent,
-    ImageUploadPopupComponent
+    ImageUploadPopupComponent,
+    LocationSelectionPopupComponent
   ],
   imports: [
     CommonModule,
@@ -62,7 +68,12 @@ const routes: Routes = [
     NzSwitchModule,
     NzModalModule,
     NzUploadModule,
-    NzToolTipModule
+    NzToolTipModule,
+    NzSpinModule,
+    ReactiveFormsModule,
+    NzInputNumberModule,
+    NzDividerModule,
+    NzEmptyModule
   ],
   providers: [
     DirtyGuard,

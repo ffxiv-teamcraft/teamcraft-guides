@@ -10,12 +10,13 @@ import { uniq, uniqBy } from 'lodash';
 import { NzCodeEditorComponent } from 'ng-zorro-antd/code-editor';
 import { XivapiDataService } from '../../../core/xivapi/xivapi-data.service';
 import { SearchIndex } from '@xivapi/angular-client';
-import { Action } from '../../../core/xivapi/action';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ImageUploadPopupComponent } from '../image-upload-popup/image-upload-popup.component';
 import { TeamcraftUser } from '../../../database/user/teamcraft-user';
 import { UsersService } from '../../../database/user/users.service';
 import { AuthService } from '../../../database/auth.service';
+import { XivAction } from '../../../core/xivapi/xiv-action';
+import { LocationSelectionPopupComponent } from '../location-selection-popup/location-selection-popup.component';
 
 @Component({
   selector: 'guides-editor',
@@ -62,7 +63,7 @@ export class EditorComponent implements OnDestroy {
   );
 
   actions$ = combineLatest([
-    this.xivapi.getAllPages<Action>({
+    this.xivapi.getAllSearchPages<XivAction>({
       indexes: [SearchIndex.CRAFT_ACTION],
       columns: ['Name_*', 'IconHD', 'ID'],
       filters: [{
@@ -71,7 +72,7 @@ export class EditorComponent implements OnDestroy {
         value: -1
       }]
     }),
-    this.xivapi.getAllPages<Action>({
+    this.xivapi.getAllSearchPages<XivAction>({
       indexes: [SearchIndex.ACTION],
       columns: ['Name_*', 'IconHD', 'ID'],
       filters: [{
@@ -176,6 +177,20 @@ export class EditorComponent implements OnDestroy {
   addAction(editor: NzCodeEditorComponent): void {
     this.insertText(editor, `[Action:${this.selectedAction}]`);
     delete this.selectedAction;
+  }
+
+  addLocation(editor: NzCodeEditorComponent): void {
+    this.modal.create({
+      nzTitle: 'Add location',
+      nzContent: LocationSelectionPopupComponent,
+      nzWidth: '570px',
+      nzFooter: null
+    }).afterClose
+      .subscribe(result => {
+        if (result) {
+          this.insertText(editor, result);
+        }
+      });
   }
 
   addContributor(guide: Guide): void {

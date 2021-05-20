@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { XivapiEndpoint, XivapiList, XivapiSearchOptions, XivapiService } from '@xivapi/angular-client';
 import { BehaviorSubject, combineLatest, EMPTY, Observable, of } from 'rxjs';
 import { distinctUntilChanged, expand, filter, last, map, shareReplay, tap } from 'rxjs/operators';
-import { Action } from './action';
-import { Item } from './item';
+import { XivAction } from './xiv-action';
+import { XivItem } from './xiv-item';
+import { XivMap } from './xiv-map';
 
 @Injectable({
   providedIn: 'root'
@@ -26,13 +27,10 @@ export class XivapiDataService {
     if (missing.length === 0) {
       return of(ids.map(id => endpointCache[id]));
     } else {
-      return this.xivapi.getList(endpoint, {
-        columns: ['ID', ...columns],
-        ids: missing
-      }).pipe(
+      return this.getAllContentPages(endpoint, columns, missing).pipe(
         map(list => {
           return [
-            ...list.Results,
+            ...list,
             ...ids.map(id => endpointCache && endpointCache[id]).filter(val => !!val)
           ];
         }),
@@ -50,12 +48,12 @@ export class XivapiDataService {
     }
   }
 
-  public getActions(ids: number[]): Observable<Action[]> {
+  public getActions(ids: number[]): Observable<XivAction[]> {
     const craftActions = ids.filter(id => id >= 100000);
     const actions = ids.filter(id => id < 100000);
     return combineLatest([
-      this.preload<Action>(XivapiEndpoint.CraftAction, ['Name_*', 'Description_*', 'IconHD'], craftActions),
-      this.preload<Action>(XivapiEndpoint.Action, ['Name_*', 'Description_*', 'IconHD'], actions)
+      this.preload<XivAction>(XivapiEndpoint.CraftAction, ['Name_*', 'Description_*', 'IconHD'], craftActions),
+      this.preload<XivAction>(XivapiEndpoint.Action, ['Name_*', 'Description_*', 'IconHD'], actions)
     ]).pipe(
       map(([craftActions, actions]) => [...actions, ...craftActions])
     );
@@ -76,8 +74,12 @@ export class XivapiDataService {
     return this.actions[id];
   }
 
-  public getItems(ids: number[]): Observable<Item[]> {
-    return this.preload<Item>(XivapiEndpoint.Item, ['Name_*', 'IconHD'], ids);
+  public getItems(ids: number[]): Observable<XivItem[]> {
+    return this.preload<XivItem>(XivapiEndpoint.Item, ['Name_*', 'IconHD'], ids);
+  }
+
+  public getMaps(ids: number[]): Observable<XivMap[]> {
+    return this.preload<XivMap>(XivapiEndpoint.Map, ['PlaceName', 'PlaceNameSub', 'SizeFactor', 'MapFilename', 'OffsetX', 'OffsetY'], ids);
   }
 
   public get<T>(endpoint: XivapiEndpoint, id: number): Observable<T> {
@@ -89,7 +91,33 @@ export class XivapiDataService {
     );
   }
 
-  public getAllPages<T>(searchOptions: XivapiSearchOptions): Observable<T[]> {
+  public getAllContentPages<T>(endpoint: XivapiEndpoint, columns: string[], ids: number[]): Observable<T[]> {
+    return of({ done: false, content: [], next: 1 }).pipe(
+      expand((acc) => {
+        if (!acc.next) {
+          return EMPTY;
+        }
+        return this.xivapi.getList<T>(endpoint, {
+          columns: ['ID', ...columns],
+          ids: ids,
+          page: +acc.next,
+          max_items: 1000
+        }).pipe(
+          map((res: XivapiList<T>) => {
+            return {
+              ...acc,
+              content: [...acc.content, ...res.Results],
+              next: res.Pagination.Page === res.Pagination.PageNext ? null : res.Pagination.PageNext
+            };
+          })
+        );
+      }),
+      map(acc => acc.content),
+      last()
+    );
+  }
+
+  public getAllSearchPages<T>(searchOptions: XivapiSearchOptions): Observable<T[]> {
     return of({ done: false, content: [], next: 1 }).pipe(
       expand((acc) => {
         if (!acc.next) {

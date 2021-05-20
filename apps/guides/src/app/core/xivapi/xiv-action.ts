@@ -1,4 +1,4 @@
-export interface Action {
+export interface XivAction {
   ID: number;
   Name_en: string;
   Name_fr: string;

@@ -29,6 +29,9 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { RouterModule } from '@angular/router';
+import { PositionComponent } from './custom-markdown-elements/position/position.component';
+import { MapPositionComponent } from './components/map-position/map-position.component';
+import { PositionTooltipComponent } from './custom-markdown-elements/position-tooltip/position-tooltip.component';
 
 @NgModule({
   declarations: [
@@ -41,9 +44,12 @@ import { RouterModule } from '@angular/router';
     XivapiActionTooltipDirective,
     XivapiActionTooltipComponent,
     IfMobilePipe,
-    GuideCardComponent
+    GuideCardComponent,
+    PositionComponent,
+    MapPositionComponent,
+    PositionTooltipComponent
   ],
-  exports: [GuideContentComponent, LoginPopupComponent, CharacterPipe, IfMobilePipe, GuideCardComponent],
+  exports: [GuideContentComponent, LoginPopupComponent, CharacterPipe, IfMobilePipe, GuideCardComponent, PositionComponent, PositionTooltipComponent],
   imports: [
     CommonModule,
 

@@ -9,6 +9,7 @@ import { Guide } from './database/+state/model/guide';
 import { LoginPopupComponent } from './core/login-popup/login-popup.component';
 import { NavigationEnd, Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
+import { NzIconService } from 'ng-zorro-antd/icon';
 
 declare const gtag: Function;
 
@@ -49,6 +50,7 @@ export class AppComponent {
               private authService: AuthService,
               private guidesFacade: GuidesFacade,
               private router: Router,
+              private iconService: NzIconService,
               @Inject(PLATFORM_ID) private platform: Object) {
     this.guidesFacade.init();
     router.events.pipe(
@@ -75,6 +77,10 @@ export class AppComponent {
         });
       }
     });
+
+    if (isPlatformBrowser(this.platform)) {
+      this.iconService.fetchFromIconfont({ scriptUrl: 'https://at.alicdn.com/t/font_931253_uosqqkkbvs.js' });
+    }
 
   }
 

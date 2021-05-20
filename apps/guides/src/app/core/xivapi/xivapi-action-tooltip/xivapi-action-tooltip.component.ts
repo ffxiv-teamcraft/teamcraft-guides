@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { Action } from '../action';
+import { XivAction } from '../xiv-action';
 
 @Component({
   selector: 'guides-xivdb-tooltip-component',
@@ -26,7 +26,7 @@ export class XivapiActionTooltipComponent implements OnInit {
     }
   }
 
-  public getDescription(action: Action): string {
+  public getDescription(action: XivAction): string {
     return action.Description_en;
   }
 }

@@ -1,0 +1,59 @@
+<form nz-form [formGroup]="form" (ngSubmit)="submit()">
+  <nz-form-item>
+    <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>Map</nz-form-label>
+    <nz-form-control [nzSm]="16" [nzXs]="24">
+      <nz-select *ngIf="maps$ | async as maps; else loading" formControlName="mapId" nzAllowClear nzShowSearch>
+        <nz-option *ngFor="let map of maps"
+                   nzLabel="{{map.PlaceName.Name_en}}{{map.PlaceNameSub ? ' - ' + map.PlaceNameSub?.Name_en:''}}"
+                   [nzValue]="map.ID"></nz-option>
+      </nz-select>
+      <ng-template #loading>
+        <nz-spin></nz-spin>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>X</nz-form-label>
+    <nz-form-control [nzSm]="16" [nzXs]="24">
+      <nz-input-number [nzMax]="42" [nzMin]="1" formControlName="x">
+      </nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>Y</nz-form-label>
+    <nz-form-control [nzSm]="16" [nzXs]="24">
+      <nz-input-number [nzMax]="42" [nzMin]="1" formControlName="y">
+      </nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="8" [nzXs]="24">Display as text + tooltip</nz-form-label>
+    <nz-form-control [nzSm]="16" [nzXs]="24">
+      <label formControlName="tooltip" nz-checkbox></label>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-divider nzText="Preview" nzOrientation="left"></nz-divider>
+  <div fxLayout="column" fxLayoutGap="10px">
+    <div *ngIf="form.valid; else noPreview">
+      <ng-container *ngIf="form.valueChanges | async as formState">
+        <guides-position *ngIf="!formState.tooltip"
+                         [args]="[formState.mapId, formState.x, formState.y]"
+                         preview="true"></guides-position>
+        <guides-position-tooltip *ngIf="formState.tooltip"
+                                 [args]="[formState.mapId, formState.x, formState.y]"
+                                 preview="true"></guides-position-tooltip>
+      </ng-container>
+    </div>
+    <ng-template #noPreview>
+      <nz-empty nzNotFoundContent="Please fill the form to have a preview"></nz-empty>
+    </ng-template>
+    <div fxLayout="row" fxLayoutGap="10px">
+      <div>
+        <button nz-button [nzType]="'primary'" type="submit">Insert</button>
+      </div>
+      <div>
+        <button nz-button nzDanger type="button" (click)="cancel()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,4 +1,4 @@
-export interface Item {
+export interface XivItem {
   ID: number;
   Name_en: string;
   Name_fr: string;

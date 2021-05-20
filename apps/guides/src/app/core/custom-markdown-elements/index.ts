@@ -2,6 +2,8 @@ import { DYNAMIC_COMPONENTS, DynamicComponent } from '../dynamic-html/dynamic-co
 import { ActionComponent } from './action/action.component';
 import { ListComponent } from './list/list.component';
 import { RotationComponent } from './rotation/rotation.component';
+import { PositionComponent } from './position/position.component';
+import { PositionTooltipComponent } from './position-tooltip/position-tooltip.component';
 
 export const CUSTOM_MARKDOWN_ELEMENTS = [
   {
@@ -30,4 +32,24 @@ export const CUSTOM_MARKDOWN_ELEMENTS = [
     } as DynamicComponent,
     multi: true
   },
-]
+  {
+    provide: DYNAMIC_COMPONENTS,
+    useValue: {
+      selector: 'position',
+      component: PositionComponent,
+      contentLoader: 'getMaps',
+      getId: args => +args[0]
+    } as DynamicComponent,
+    multi: true
+  },
+  {
+    provide: DYNAMIC_COMPONENTS,
+    useValue: {
+      selector: 'position-tooltip',
+      component: PositionTooltipComponent,
+      contentLoader: 'getMaps',
+      getId: args => +args[0]
+    } as DynamicComponent,
+    multi: true
+  }
+];

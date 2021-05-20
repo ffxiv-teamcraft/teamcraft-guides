@@ -49,13 +49,13 @@ export class GuideContentComponent implements DoCheck, OnChanges, OnDestroy {
     };
 
     this.markdownService.renderer.paragraph = (text: string) => {
-      const p = text.includes('<img') ? `p class="with-image"`: `p class="clear-both"`;
+      const p = text.includes('<img') ? `p class="with-image"` : `p class="clear-both"`;
       return `<${p}>${text}</p>`;
     };
 
     this.markdownService.renderer.image = (href, title, text) => {
-      return `<img alt="${text}" src="${href}" class="md-img"/>`
-    }
+      return `<img alt="${text}" src="${href}" class="md-img"/>`;
+    };
   }
 
   private prepareCustomElements(html: string): string {
@@ -67,11 +67,13 @@ export class GuideContentComponent implements DoCheck, OnChanges, OnDestroy {
       if (component.contentLoader) {
         loadingQueue[component.contentLoader] = loadingQueue[component.contentLoader] || [];
       }
-      return str.replace(new RegExp(`\\[(${component.selector}):?([^\\]]+)?\\]`, 'gmi'), (match, selector, args) => {
+      return str.replace(new RegExp(`\\[(${component.selector.split('-').join('')})(:[^\\]]+)?\\]`, 'gmi'), (match, selector, argsStr) => {
+        const htmlSelector = component.selector.replace(/([A-Z])/g, ' $1').split(' ').join('-').toLowerCase();
+        const args = argsStr.split(':').slice(1);
         if (component.contentLoader) {
-          loadingQueue[component.contentLoader].push(component.getId(args.split(':')));
+          loadingQueue[component.contentLoader].push(component.getId(args));
         }
-        return `<${selector.toLowerCase()}${args ? ` args="${args}"` : ''}></${selector.toLowerCase()}>`;
+        return `<${htmlSelector}${args ? ` args="${args.join(':')}"` : ''}></${htmlSelector.toLowerCase()}>`;
       });
     }, html);
     Object.entries<number[]>(loadingQueue).forEach(([method, ids]) => {

@@ -6,9 +6,9 @@ import { TeamcraftRotation } from '../../../database/rotation/teamcraft-rotation
 import { CustomMarkdownElement } from '../custom-markdown-element';
 import { XivapiDataService } from '../../xivapi/xivapi-data.service';
 import { CraftingAction, CraftingActionsRegistry } from '@ffxiv-teamcraft/simulator';
-import { Action } from '../../xivapi/action';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { XivAction } from '../../xivapi/xiv-action';
 
 @Component({
   selector: 'guides-rotation',
@@ -67,7 +67,7 @@ export class RotationComponent extends CustomMarkdownElement implements OnInit {
     }
   }
 
-  private getMacro(rotation: CraftingAction[], actions: Action[]): string[] {
+  private getMacro(rotation: CraftingAction[], actions: XivAction[]): string[] {
     const macro: string[][] = [[]];
     let totalLength = 0;
     let totalDuration = 0;
