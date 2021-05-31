@@ -1,28 +1,103 @@
-:host ::ng-deep {
-  .ant-card-cover {
-    flex: 1 1 auto;
-  }
-}
-
-nz-card {
-  height: 100%;
-  min-height: 500px;
-  display: flex;
-  flex-direction: column;
-}
-
 .guide-card-container {
-  width: 400px;
-  padding: 0 15px;
-}
+  width: 500px;
+  cursor: pointer;
+  --card-header: url('/assets/media/card_header_highlight.png') left top no-repeat;
+  --card-content: url('/assets/media/card_body_highlight.png') left top repeat-y;
+  --card-footer: url('/assets/media/card_footer_highlight.png') left bottom no-repeat;
 
-.cover {
-  padding: 10px;
-  overflow: hidden;
-}
+  &.large {
+    width: 1120px;
+    --card-header: url('/assets/media/card_header.png') left top no-repeat;
+    --card-content: url('/assets/media/card_body.png') left top repeat-y;
+    --card-footer: url('/assets/media/card_footer.png') left bottom no-repeat;
 
-.banner {
-  width: ~"calc(100% - 2px)";
-  margin: 1px;
-  max-width: 100%;
+    .card-title {
+      > .title {
+        padding: 36px 36px 14px;
+      }
+    }
+
+    .card-footer-border {
+      height: 48px;
+    }
+
+    .card-footer {
+      padding: 20px 48px 0;
+    }
+
+    .title-spacing {
+      background: var(--card-content);
+      background-size: 100%;
+      height: 20px;
+    }
+  }
+
+  .guide-banner {
+    margin: 0 auto;
+    max-height: 150px;
+    max-width: 95%;
+  }
+
+  .card-divider {
+    margin: 0 auto;
+    width: 90%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ccc;
+    box-shadow: 0 1px 3px black;
+    height: 1px;
+    border: 0;
+  }
+
+  .card-title {
+    background: var(--card-header);
+    background-size: 100%;
+    position: relative;
+    text-shadow: 0 1px 3px black;
+
+    > .title {
+      text-shadow: 1px 3px 2px black;
+      font-size: 16px;
+      padding: 24px 24px 10px;
+      text-align: center;
+      width: 100%;
+    }
+
+    > .card-divider {
+      bottom: 0;
+    }
+  }
+
+  .card-footer {
+    background: var(--card-content);
+    background-size: 100%;
+    padding: 20px 20px 0;
+    position: relative;
+
+    > .card-divider {
+      top: 0;
+    }
+
+    .companion-svg {
+      margin-right: 5px;
+    }
+  }
+
+  .card-content {
+    background: var(--card-content);
+    background-size: 100%;
+    padding: 20px;
+
+    > p {
+      width: 92%;
+      margin: 0 auto;
+    }
+  }
+
+  .card-footer-border {
+    background: var(--card-footer);
+    background-size: 100%;
+    height: 22px;
+  }
 }

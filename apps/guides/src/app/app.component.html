@@ -4,68 +4,63 @@
       <li nz-submenu>
         <span title>
           <i class="companion-svg anticon">&#x0F008;</i>
-          <span>Crafting</span>
+          <span>CRAFTING</span>
         </span>
         <ul>
           <ng-container *ngFor="let guide of navBarContent.Crafting">
-            <nz-ribbon [nzText]="guide.ribbon" [class.empty]="guide.ribbon === null">
-              <li class="menu-entry" nz-menu-item nzMatchRouter (click)="isCollapsed = true">
-                <a routerLink="/guide/{{guide.slug}}">{{guide.navTitle}}
-                  <i *ngIf="!guide.published" nz-icon nzType="form"
-                     nz-tooltip
-                     nzTooltipTitle="Unpublished, only editors can see this"></i>
-                </a>
-              </li>
-            </nz-ribbon>
+            <li class="menu-entry" nz-menu-item nzMatchRouter (click)="isCollapsed = true">
+              <a routerLink="/guide/{{guide.slug}}">{{guide.navTitle}}
+                <i *ngIf="!guide.published" nz-icon nzType="form"
+                   nz-tooltip
+                   nzTooltipTitle="Unpublished, only editors can see this"></i>
+              </a>
+            </li>
           </ng-container>
         </ul>
       </li>
       <li nz-submenu>
         <span title>
           <i class="companion-svg anticon">&#x0F120;</i>
-          <span>Gathering</span>
+          <span>GATHERING</span>
         </span>
         <ul>
           <ng-container *ngFor="let guide of navBarContent.Gathering">
-            <nz-ribbon [nzText]="guide.ribbon" [class.empty]="guide.ribbon === null">
-              <li class="menu-entry" nz-menu-item nzMatchRouter
-                  (click)="isCollapsed = true">
-                <a routerLink="/guide/{{guide.slug}}">{{guide.navTitle}}
-                  <i *ngIf="!guide.published" nz-icon nzType="form"
-                     nz-tooltip
-                     nzTooltipTitle="Unpublished, only editors can see this"></i>
-                </a>
-              </li>
-            </nz-ribbon>
+            <li class="menu-entry" nz-menu-item nzMatchRouter
+                (click)="isCollapsed = true">
+              <a routerLink="/guide/{{guide.slug}}">{{guide.navTitle}}
+                <i *ngIf="!guide.published" nz-icon nzType="form"
+                   nz-tooltip
+                   nzTooltipTitle="Unpublished, only editors can see this"></i>
+              </a>
+            </li>
           </ng-container>
         </ul>
       </li>
       <li nz-submenu>
         <span title>
-          <i class="companion-svg anticon">&#x0E411;</i>
-          <span>Other</span>
+          <i class="companion-svg anticon">&#x0F159;</i>
+          <span>OTHER</span>
         </span>
         <ul>
           <ng-container *ngFor="let guide of navBarContent.Other">
-            <nz-ribbon [nzText]="guide.ribbon" [class.empty]="guide.ribbon === null">
-              <li class="menu-entry" nz-menu-item nzMatchRouter
-                  (click)="isCollapsed = true">
-                <a routerLink="/guide/{{guide.slug}}">{{guide.navTitle}}
-                  <i *ngIf="!guide.published" nz-icon nzType="form"
-                     nz-tooltip
-                     nzTooltipTitle="Unpublished, only editors can see this"></i>
-                </a>
-              </li>
-            </nz-ribbon>
+            <li class="menu-entry" nz-menu-item nzMatchRouter
+                (click)="isCollapsed = true">
+              <a routerLink="/guide/{{guide.slug}}">{{guide.navTitle}}
+                <i *ngIf="!guide.published" nz-icon nzType="form"
+                   nz-tooltip
+                   nzTooltipTitle="Unpublished, only editors can see this"></i>
+              </a>
+            </li>
           </ng-container>
         </ul>
       </li>
     </ng-container>
     <div fxFlex="1 1 auto"></div>
-    <li nz-menu-item nzMatchRouter fxShow fxHide.lt-md *ngIf="user$ | async">
+    <li nz-menu-item nzMatchRouter fxShow fxHide.lt-md *ngIf="user$ | async"
+        class="ant-menu-submenu-title">
       <i nz-icon nzType="edit"></i>
       <span>
-        <a routerLink="/editor">Editor</a>
+        <a routerLink="/editor">EDITOR</a>
       </span>
     </li>
   </ul>
@@ -74,14 +69,22 @@
 <nz-layout class="app-layout">
   <nz-header [ngClass.lt-md]="['mobile']" fxLayout="row">
     <div class="sidebar-logo" fxFlex="0 0 auto" fxFlex.lt-md="1 1 auto">
-      <a routerLink="/">
-        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
-        <h1>Teamcraft guides</h1>
+      <a routerLink="/" fxLayout="row" fxLayoutAlign="flex-start center" fxLayoutGap="10px">
+        <img src="./assets/media/logo.png" alt="logo">
+        <h1 class="main-title">TEAMCRAFT<br>GUIDES</h1>
       </a>
     </div>
     <div fxLayout="row" fxFlex="1 1 auto" fxShow fxHide.lt-md>
       <div fxFlex="1 1 auto">
         <ng-container *ngTemplateOutlet="menu; context:{$implicit: 'horizontal', flex: 'row'}"></ng-container>
+      </div>
+      <div class="patreon-discord" fxFlex="0 0 auto">
+        <a href="https://www.patreon.com/bePatron?u=702160" target="_blank">
+          <img src="./assets/media/patreon_logo_white.png" alt="patreon" title="Support us on Patreon">
+        </a>
+        <a href="https://discord.gg/r6qxt6P" target="_blank">
+          <img src="./assets/media/discord_logo_white.png" alt="discord" title="Join us on Discord">
+        </a>
       </div>
       <div class="auth-topbar" fxLayout="row" fxLayoutAlign="center center">
         <div *ngIf="user$ | async as user; else loginTpl">
@@ -120,6 +123,31 @@
         <div class="inner-content">
           <router-outlet></router-outlet>
         </div>
+        <nz-footer fxLayout="column">
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="flex-start center">
+              <div class="sidebar-logo" fxFlex="0 0 auto" fxFlex.lt-md="1 1 auto">
+                <a routerLink="/" fxLayout="row" fxLayoutAlign="flex-start center" fxLayoutGap="10px">
+                  <img src="./assets/media/logo.png" alt="logo">
+                  <h1 class="main-title">TEAMCRAFT<br>GUIDES</h1>
+                </a>
+              </div>
+              <div class="footer-link">
+                <a href="https://github.com/ffxiv-teamcraft" target="_blank">About</a>
+              </div>
+              <div class="footer-link">
+                <a href="mailto:contact@ffxivteamcraft.com">Contact</a>
+              </div>
+            </div>
+            <div class="patreon-discord">
+              <img src="./assets/media/patreon_logo_white.png" alt="patreon" title="Support us on Patreon">
+              <img src="./assets/media/discord_logo_white.png" alt="discord" title="Join us on Discord">
+            </div>
+          </div>
+          <div class="copyright">© SQUARE ENIX CO., LTD. All Rights Reserved | FINAL FANTASY is a registered trademark
+            of Square Enix Holdings Co., Ltd.
+          </div>
+        </nz-footer>
       </div>
     </nz-content>
   </nz-layout>

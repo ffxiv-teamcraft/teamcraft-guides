@@ -35,8 +35,7 @@ export class AppComponent {
           [guide.category]: [...(navbar[guide.category] || []), {
             slug: guide.slug,
             navTitle: guide.navTitle,
-            published: guide.published,
-            ribbon: guide.ribbon
+            published: guide.published
           }]
         };
       }, {} as Record<GuideCategory, Partial<Guide>[]>);

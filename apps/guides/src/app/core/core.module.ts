@@ -32,6 +32,9 @@ import { RouterModule } from '@angular/router';
 import { PositionComponent } from './custom-markdown-elements/position/position.component';
 import { MapPositionComponent } from './components/map-position/map-position.component';
 import { PositionTooltipComponent } from './custom-markdown-elements/position-tooltip/position-tooltip.component';
+import { DividerComponent } from './components/divider/divider.component';
+import { XivHorizontalTabsComponent } from './components/xiv-horizontal-tabs/xiv-horizontal-tabs.component';
+import { NzTagModule } from 'ng-zorro-antd/tag';
 
 @NgModule({
   declarations: [
@@ -47,9 +50,11 @@ import { PositionTooltipComponent } from './custom-markdown-elements/position-to
     GuideCardComponent,
     PositionComponent,
     MapPositionComponent,
-    PositionTooltipComponent
+    PositionTooltipComponent,
+    DividerComponent,
+    XivHorizontalTabsComponent
   ],
-  exports: [GuideContentComponent, LoginPopupComponent, CharacterPipe, IfMobilePipe, GuideCardComponent, PositionComponent, PositionTooltipComponent],
+  exports: [GuideContentComponent, LoginPopupComponent, CharacterPipe, IfMobilePipe, GuideCardComponent, PositionComponent, PositionTooltipComponent, DividerComponent, XivHorizontalTabsComponent],
   imports: [
     CommonModule,
 
@@ -69,7 +74,8 @@ import { PositionTooltipComponent } from './custom-markdown-elements/position-to
     NzCardModule,
     NzBadgeModule,
     NzAvatarModule,
-    RouterModule
+    RouterModule,
+    NzTagModule
   ],
   providers: [
     ...CUSTOM_MARKDOWN_ELEMENTS,

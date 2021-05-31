@@ -1,8 +1,15 @@
 import { Guide } from '../../../database/+state/model/guide';
-import { GuideCategory } from '../../../database/+state/model/guide-category';
+import { GuideSubCategory } from '../../../database/+state/model/guide-sub-category';
+
+export interface CategorizedGuides {
+  subCategory: GuideSubCategory;
+  label: string;
+  guides: Guide[];
+}
 
 export interface HomePageDisplay {
-  news: Guide[];
-  random: Guide;
-  categorized: { category: GuideCategory, guides: Guide[] }[];
+  featured: Guide[];
+  crafting: CategorizedGuides[];
+  gathering: CategorizedGuides[];
+  other: CategorizedGuides[];
 }

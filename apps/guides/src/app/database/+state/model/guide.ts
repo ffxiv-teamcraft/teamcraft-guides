@@ -1,5 +1,6 @@
 import { DataModel } from '../../data-model';
 import { GuideCategory } from './guide-category';
+import { GuideSubCategory } from './guide-sub-category';
 
 export interface Guide extends DataModel {
   author: string;
@@ -11,9 +12,10 @@ export interface Guide extends DataModel {
   description: string;
   published: boolean;
   category: GuideCategory;
+  subCategory: GuideSubCategory;
 
   updated: number;
   publishDate?: number;
 
-  ribbon?: string;
+  banner?: string;
 }

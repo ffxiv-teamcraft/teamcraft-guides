@@ -98,6 +98,9 @@ export class GuideContentComponent implements DoCheck, OnChanges, OnDestroy {
       };
       while ((title = titleRegexp.exec(content)) !== null) {
         const [, level, link, name] = title;
+        if (link.includes('changelog')) {
+          continue;
+        }
         const entry = {
           name,
           link: `#${link}`,

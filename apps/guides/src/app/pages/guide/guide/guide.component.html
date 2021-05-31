@@ -1,71 +1,82 @@
-<div fxLayout="column" *ngIf="guide$ | async as guide; else loadingTpl">
-  <div fxLayout="row" fxLayoutAlign="space-between flex-start">
-    <h1 class="guide-title" fxLayout="row" fxLayoutAlign="flex-start center" fxLayoutGap="5px">
-      {{guide.title}}
-      <button nz-button nzType="link" (click)="copyPath()" nz-tooltip nzTooltipTitle="Get share link">
-        <i nz-icon nzType="share-alt" nzTheme="outline"></i>
-      </button>
-    </h1>
-    <div *ngIf="isEditor$ | async" fxShow fxHide.lt-md>
-      <a nz-button routerLink="/editor/{{guide.slug}}" nzType="primary">
-        <i nz-icon nzType="edit"></i>
-      </a>
+<div class="padding-container">
+  <div fxLayout="column" *ngIf="guide$ | async as guide; else loadingTpl">
+
+    <nz-divider [nzText]="titleTpl">
+      <ng-template #titleTpl>
+        <h1 class="guide-title" fxLayout="row" fxLayoutAlign="flex-start center" fxLayoutGap="5px">
+          {{guide.title}}
+        </h1>
+      </ng-template>
+    </nz-divider>
+
+    <div class="banner-container">
+      <img [src]="guide.banner || '/assets/media/banner_test.png'" alt="" class="guide-banner">
     </div>
-  </div>
-  <ng-template #authorTpl>
-    <div class="author" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="flex-start center"
-         *ngIf="guide.author | character | async as author; else loader">
-      <img [src]="author.Avatar" alt="" class="author-avatar">
-      <div>{{author.Name}}</div>
-    </div>
-    <ng-container *ngFor="let contributor of guide.contributors">
+
+    <ng-template #authorTpl>
       <div class="author" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="flex-start center"
-           *ngIf="contributor | character | async as author; else loader">
-        ,&nbsp;
+           *ngIf="guide.author | character | async as author; else loader">
         <img [src]="author.Avatar" alt="" class="author-avatar">
         <div>{{author.Name}}</div>
       </div>
-    </ng-container>
-  </ng-template>
-  <ng-template #loader>
-    <nz-spin></nz-spin>
-  </ng-template>
-  <nz-divider [nzText]="authorTpl" nzOrientation="left"></nz-divider>
+      <ng-container *ngFor="let contributor of guide.contributors">
+        <div class="author" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="flex-start center"
+             *ngIf="contributor | character | async as author; else loader">
+          ,&nbsp;
+          <img [src]="author.Avatar" alt="" class="author-avatar">
+          <div>{{author.Name}}</div>
+        </div>
+      </ng-container>
+    </ng-template>
+    <ng-template #loader>
+      <nz-spin></nz-spin>
+    </ng-template>
+    <nz-divider [nzText]="authorTpl" nzOrientation="left"></nz-divider>
 
-  <div fxLayout="row" fxLayoutGap="10px">
-    <div fxFlex="1 1 auto" class="guide-content-container">
-      <guides-guide-content [markdown]="guide.content"
-                            (registerTableOfContents)="tableOfContents$.next($event)"></guides-guide-content>
-    </div>
-    <div fxFlex="0 0 200px" fxShow fxHide.lt-md>
-      <nz-anchor nzOffsetTop="20" nzContainer=".content-container">
-        <nz-link *ngFor="let rootEntry of tableOfContents$ | async"
-                 [nzHref]="rootEntry.link" [nzTitle]="title">
-          <ng-template #title>
-            <span [innerHTML]="rootEntry.name"></span>
-          </ng-template>
-          <nz-link *ngFor="let level1Entry of rootEntry.children"
-                   [nzHref]="level1Entry.link" [nzTitle]="title">
+    <div fxLayout="row" fxLayoutGap="36px">
+      <div fxFlex="1 1 auto" class="guide-content-container">
+        <guides-guide-content [markdown]="guide.content"
+                              (registerTableOfContents)="tableOfContents$.next($event)"></guides-guide-content>
+      </div>
+      <div fxFlex="0 0 200px" fxShow fxHide.lt-md>
+        <div fxLayout="row" fxLayoutAlign="space-around center" class="side-buttons">
+          <button nzSize="large" nz-button nzType="text" (click)="copyPath()" nz-tooltip nzTooltipTitle="Get share link">
+            <i nz-icon nzType="share-alt" nzTheme="outline"></i>
+          </button>
+          <a *ngIf="isEditor$ | async" fxShow fxHide.lt-md nz-button routerLink="/editor/{{guide.slug}}"
+             nzType="text" nzSize="large"  nz-tooltip nzTooltipTitle="Edit this guide">
+            <i nz-icon nzType="edit"></i>
+          </a>
+        </div>
+        <nz-anchor nzOffsetTop="20" nzContainer=".content-container">
+          <nz-link *ngFor="let rootEntry of tableOfContents$ | async"
+                   [nzHref]="rootEntry.link" [nzTitle]="title">
             <ng-template #title>
-              <span [innerHTML]="level1Entry.name"></span>
+              <span [innerHTML]="rootEntry.name"></span>
             </ng-template>
-            <nz-link *ngFor="let level2Entry of level1Entry.children"
-                     [nzHref]="level2Entry.link" [nzTitle]="title">
+            <nz-link *ngFor="let level1Entry of rootEntry.children"
+                     [nzHref]="level1Entry.link" [nzTitle]="title">
               <ng-template #title>
-                <span [innerHTML]="level2Entry.name"></span>
+                <span [innerHTML]="level1Entry.name"></span>
               </ng-template>
+              <nz-link *ngFor="let level2Entry of level1Entry.children"
+                       [nzHref]="level2Entry.link" [nzTitle]="title">
+                <ng-template #title>
+                  <span [innerHTML]="level2Entry.name"></span>
+                </ng-template>
+              </nz-link>
             </nz-link>
           </nz-link>
-        </nz-link>
-      </nz-anchor>
+        </nz-anchor>
+      </div>
     </div>
   </div>
+  <ng-template #loadingTpl>
+    <div *ngIf="loading$ | async; else notFoundTpl">
+      <nz-spin nzSize="large"></nz-spin>
+    </div>
+  </ng-template>
+  <ng-template #notFoundTpl>
+    <nz-empty nzNotFoundContent="Guide not found"></nz-empty>
+  </ng-template>
 </div>
-<ng-template #loadingTpl>
-  <div *ngIf="loading$ | async; else notFoundTpl">
-    <nz-spin nzSize="large"></nz-spin>
-  </div>
-</ng-template>
-<ng-template #notFoundTpl>
-  <nz-empty nzNotFoundContent="Guide not found"></nz-empty>
-</ng-template>

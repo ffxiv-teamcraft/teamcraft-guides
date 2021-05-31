@@ -3,6 +3,12 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  ::ng-deep {
+    .ant-menu-submenu-title {
+      font-size: 18px;
+    }
+  }
 }
 
 .app-layout {
@@ -16,46 +22,34 @@
   box-shadow: 2px 0 6px rgba(0, 21, 41, .35);
 }
 
-.header-trigger {
-  height: 64px;
-  padding: 20px 24px;
-  font-size: 20px;
-  cursor: pointer;
-  transition: all .3s, padding 0s;
-}
-
 .trigger:hover {
   color: #1890ff;
 }
 
 .sidebar-logo {
-  height: 64px;
-  padding: 0 24px;
-  overflow: hidden;
-  line-height: 64px;
-  background: #001529;
+  height: 84px;
+  padding: 0 128px;
   transition: all .3s;
 
   &.mobile {
     width: 100%;
   }
-}
 
-.sidebar-logo img {
-  display: inline-block;
-  height: 32px;
-  width: 32px;
-  vertical-align: middle;
-}
+  a {
+    height: 100%;
+  }
 
-.sidebar-logo h1 {
-  display: inline-block;
-  margin: 0 0 0 20px;
-  color: #fff;
-  font-weight: 600;
-  font-size: 14px;
-  font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
-  vertical-align: middle;
+  img {
+    height: 58px;
+  }
+
+  .main-title {
+    font-size: 18px;
+    line-height: initial;
+    text-align: center;
+    font-family: Georgia;
+    margin: 0;
+  }
 }
 
 nz-header {
@@ -63,18 +57,11 @@ nz-header {
   width: 100%;
   z-index: 2;
   box-shadow: 0 3px 3px rgba(0, 0, 0, .2);
+  overflow: hidden;
 
   &.mobile {
     padding: 0;
   }
-}
-
-.app-header {
-  position: relative;
-  height: 64px;
-  padding: 0;
-  background: #fff;
-  box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
 }
 
 nz-content {
@@ -83,16 +70,30 @@ nz-content {
 
 .content-container {
   overflow: auto;
-  padding: 24px 48px;
   height: 100%;
-  @media screen and (max-width: 959px) {
-    padding: 12px;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #ffffff;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #e8e8e8;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #cdcdcd;
+    border-radius: 15px;
+    box-shadow: inset 7px 10px 12px #d1d1d1;
   }
 }
 
 .inner-content {
-  padding: 24px;
-  background: #2f3237;
   min-height: 100%;
 }
 
@@ -102,6 +103,31 @@ nz-content {
   border-radius: 50%;
 }
 
-.companion-svg {
-  font-size: 16px !important;
+.patreon-discord {
+  color: white;
+  padding: 0 12px;
+
+  img {
+    height: 24px;
+
+    &:first-child {
+      margin-right: 10px;
+    }
+  }
+}
+
+.footer-link {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+
+  > a {
+    color: white !important;
+  }
+}
+
+.copyright {
+  color: rgba(255, 255, 255, .8);
 }

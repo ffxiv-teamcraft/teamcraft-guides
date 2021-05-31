@@ -1,18 +1,38 @@
-<div fxLayout="column" fxLayoutAlign="flex-start stretch" *ngIf="display$ | async as display else loader">
-  <nz-divider nzText="Recently Updated" nzOrientation="left"></nz-divider>
-  <div fxLayout="row" fxLayoutAlign="flex-start center">
-    <div *ngFor="let guide of display.news">
-      <guides-guide-card [guide]="guide"></guides-guide-card>
-    </div>
-  </div>
-  <div *ngFor="let entry of display.categorized">
-    <nz-divider [nzText]="GuideCategory[entry.category]" nzOrientation="left"></nz-divider>
-    <div fxLayout="row wrap" fxLayoutAlign="flex-start center">
-      <div *ngFor="let guide of entry.guides">
-        <guides-guide-card [guide]="guide"></guides-guide-card>
+<div fxLayout="column"
+     fxLayoutAlign="flex-start stretch"
+     *ngIf="display$ | async as display">
+  <section class="featured-section">
+    <guides-divider>
+      <h1>Featured</h1>
+    </guides-divider>
+    <div fxLayout="row" fxLayoutAlign="space-around flex-start"
+         class="featured-guides">
+      <div *ngFor="let guide of display.featured">
+        <guides-guide-card class="featured-guide-card" [guide]="guide"></guides-guide-card>
       </div>
     </div>
-  </div>
+    <hr>
+  </section>
+  <section class="basic-section">
+    <guides-divider>
+      <h1 class="title-with-icon"><i class="companion-svg">&#x0F008;</i> Crafting Guides</h1>
+    </guides-divider>
+    <div fxLayout="row" fxLayoutAlign="space-around flex-start"
+         class="basic-content">
+      <guides-xiv-horizontal-tabs [guides]="display.crafting"></guides-xiv-horizontal-tabs>
+    </div>
+    <hr>
+  </section>
+  <section class="basic-section">
+    <guides-divider>
+      <h1 class="title-with-icon"><i class="companion-svg">&#x0F120;</i> Gathering Guides</h1>
+    </guides-divider>
+    <div fxLayout="row" fxLayoutAlign="space-around flex-start"
+         class="basic-content">
+      <guides-xiv-horizontal-tabs [guides]="display.gathering"></guides-xiv-horizontal-tabs>
+    </div>
+    <hr>
+  </section>
 </div>
 <ng-template #loader>
   <div class="loader" fxLayout="row" fxLayoutAlign="center center">

@@ -6,17 +6,25 @@
 // Override less variables to here
 // View all variables: https://github.com/NG-ZORRO/ng-zorro-antd/blob/master/components/style/themes/default.less
 
-@primary-color: #4880b1;
-@body-background: #1f1f1f;
-@component-background: #2f3237;
+@primary-color: #f2d479;
+@body-background: #14151A;
+@component-background: #010203;
 @layout-header-background: @component-background;
-@menu-dark-inline-submenu-bg: darken(@component-background, 5%);
-@menu-dark-bg: darken(@component-background, 2%);
+@popover-background: lighten(@component-background, 5%);
+@menu-dark-inline-submenu-bg: lighten(@component-background, 5%);
+@menu-dark-bg: lighten(@component-background, 2%);
 @card-padding-base: 10px;
 @card-background: @menu-dark-inline-submenu-bg;
 @border-color-base: #555;
 @border-color-split: #444;
 @border-radius-base: 4px;
+@font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI Historic Regular', Roboto, 'Helvetica Neue', Arial,
+'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+'Noto Color Emoji';
+@layout-header-background: #010203;
+@layout-footer-background: #010203;
+@layout-header-height: 84px;
+@layout-footer-height: 84px;
 
 // @primary-color: #1890ff;
 /* You can add global styles to this file, and also import other style files */
@@ -29,6 +37,21 @@
 
 .companion-svg {
   font-family: 'FFXIVAppIcons';
+}
+
+.companion-svg {
+  font-size: 16px;
+
+  &.anticon {
+    font-size: 24px;
+    @media screen and (max-width: 959px) {
+      font-size: 16px;
+    }
+  }
+}
+
+.padding-container {
+  padding: 24px;
 }
 
 .nav-bar {
@@ -74,7 +97,7 @@ p.with-image {
   }
 }
 
-P.clear-both {
+p.clear-both {
   clear: both;
 }
 
@@ -91,7 +114,7 @@ P.clear-both {
 .tc-card-container {
   border: 1px solid @border-color-split;
   border-radius: @border-radius-base;
-  background-color: @card-background;
+  background-color: @body-background;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -99,7 +122,7 @@ P.clear-both {
   margin: 5px 10px;
 
   .tc-card-title {
-    background-color: @card-background;
+    background-color: @body-background;
     border-bottom: 1px solid @border-color-split;
     padding: 5px 24px 5px;
     font-size: 16px;
@@ -141,8 +164,24 @@ P.clear-both {
   }
 }
 
-.ant-carousel .slick-dots li.slick-active button {
-  background-color: @primary-color;
-  opacity: .6;
+.ant-anchor-wrapper {
+  background: unset;
+}
+
+.ant-anchor-ink-ball {
+  border: 1px solid white;
+  background-color: #212328;
+}
+
+.ant-anchor-link {
+  .ant-anchor-link-title {
+    text-shadow: 1px 1px 3px black;
+  }
+}
+
+.primary-tag {
+  color: @primary-color;
+  border-color: @primary-color;
+  background-color: @body-background;
 }
 

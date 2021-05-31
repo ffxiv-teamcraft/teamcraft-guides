@@ -1,3 +1,55 @@
-.carousel {
-  height: 550px;
+.featured-section {
+  background: url('/assets/media/home_background.png');
+  background-size: cover;
+  height: 800px;
+
+  .featured-guides {
+    margin-top: 50px;
+  }
+
+  .featured-guide-card {
+    width: 500px;
+    box-shadow: 2px 3px 10px 1px black;
+    border-radius: 10px;
+  }
+}
+
+.basic-section {
+  background: linear-gradient(#0d0d0f 0%, #212328 20%, #212328 80%, #0d0d0f 100%);
+  height: 800px;
+  width: 100%;
+  padding: 36px 2%;
+
+  .basic-content {
+    margin-top: 24px;
+  }
+}
+
+section {
+  padding: 24px;
+  position: relative;
+}
+
+h1 {
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+
+  > .companion-svg {
+    font-size: 1.2em;
+    margin-right: .2em;
+  }
+}
+
+hr {
+  margin: 0 auto;
+  width: 90%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, .3);
+  box-shadow: 0 1px 3px black;
+  height: 1px;
+  border: 0;
+  bottom: 0;
 }
