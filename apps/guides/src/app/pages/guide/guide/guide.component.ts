@@ -79,6 +79,7 @@ export class GuideComponent extends SeoComponent implements AfterContentInit {
         return {
           title: guide.title,
           description: guide.description,
+          banner: guide.banner || 'https://guides.ffxivteamcraft.com/assets/media/banner_placeholder.png',
           url: `https://guides.ffxivteamcraft.com${this.location.path(true)}`
         };
       })
