@@ -27,6 +27,7 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 const routes: Routes = [
   {
@@ -54,6 +55,7 @@ const routes: Routes = [
     FormsModule,
     DatabaseModule,
     FlexLayoutModule,
+    ImageCropperModule,
 
     RouterModule.forChild(routes),
     NzTabsModule,

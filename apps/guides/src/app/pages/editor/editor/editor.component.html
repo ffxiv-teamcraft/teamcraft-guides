@@ -50,11 +50,61 @@
             </nz-form-control>
           </nz-form-item>
           <nz-form-item>
+            <nz-form-label [nzSpan]="7" nzRequired>Banner</nz-form-label>
+            <nz-form-control [nzSpan]="12" nzExtra="The banner image for this guide">
+              <div *ngIf="!guide.banner || editBanner; else bannerDisplay">
+                <nz-spin [nzSpinning]="savingImage">
+                  <div fxLayout="column" fxLayoutGap="5px">
+                    <input type="file" nz-input (change)="fileChangeEvent($event)" />
+
+                    <image-cropper
+                      *ngIf="imageChangedEvent"
+                      [imageChangedEvent]="imageChangedEvent"
+                      [maintainAspectRatio]="true"
+                      [aspectRatio]="21/9"
+                      format="png"
+                      (imageCropped)="imageCropped($event)"
+                    ></image-cropper>
+
+                    <button nz-button nzBlock nzType="primary" type="button"
+                            [disabled]="!croppedImage || savingImage" (click)="setBanner(guide)">
+                      Apply
+                    </button>
+
+                    <button nz-button nzBlock type="button"
+                            *ngIf="editBanner" (click)="editBanner = false; croppedImage = ''">
+                      Cancel
+                    </button>
+                  </div>
+                </nz-spin>
+              </div>
+              <ng-template #bannerDisplay>
+                <div class="banner-preview">
+                  <img [src]="guide.banner" class="guide-banner" alt="">
+                  <button class="edit-banner" nz-button nzType="primary" nz-tooltip
+                          nzTooltipTitle="Change the banner" (click)="editBanner = true">
+                    <i nz-icon nzType="edit"></i>
+                  </button>
+                </div>
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
             <nz-form-label [nzSpan]="7" nzRequired>Category</nz-form-label>
             <nz-form-control [nzSpan]="12" nzExtra="The navbar category for this guide. Need more? Ask Miu :)">
               <nz-select [(ngModel)]="guide.category" name="category" required>
                 <nz-option *ngFor="let category of availableCategories" [nzLabel]="category"
                            [nzValue]="category"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSpan]="7">Sub Category</nz-form-label>
+            <nz-form-control [nzSpan]="12"
+                             nzExtra="The subcategory in homepage section for this guide. Need more? Ask Miu :)">
+              <nz-select [(ngModel)]="guide.subCategory" name="subCategory">
+                <nz-option *ngFor="let entry of getSubCategories(guide)" [nzLabel]="entry.label"
+                           [nzValue]="entry.value"></nz-option>
               </nz-select>
             </nz-form-control>
           </nz-form-item>
@@ -79,7 +129,7 @@
               <nz-textarea-count [nzMaxCharacterCount]="256">
             <textarea required [(ngModel)]="guide.description" name="description" nz-input
                       rows="3"
-                      placeholder="A clear description for good SEO"></textarea>
+                      placeholder="A clear description for good SEO and home page description"></textarea>
               </nz-textarea-count>
             </nz-form-control>
           </nz-form-item>

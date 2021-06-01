@@ -17,6 +17,9 @@ import { UsersService } from '../../../database/user/users.service';
 import { AuthService } from '../../../database/auth.service';
 import { XivAction } from '../../../core/xivapi/xiv-action';
 import { LocationSelectionPopupComponent } from '../location-selection-popup/location-selection-popup.component';
+import { GuideSubCategory } from '../../../database/+state/model/guide-sub-category';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Component({
   selector: 'guides-editor',
@@ -126,10 +129,17 @@ export class EditorComponent implements OnDestroy {
 
   private onDestroy$ = new Subject<void>();
 
+  private subCategoriesCache: Partial<Record<GuideCategory, { label: string, value: string }[]>> = {};
+
+  public editBanner = false;
+  public imageChangedEvent: any = '';
+  public croppedImage: any = '';
+  public savingImage = false;
+
   constructor(private nzConfigService: NzConfigService, public guidesFacade: GuidesFacade,
               private route: ActivatedRoute, private xivapi: XivapiDataService,
               private modal: NzModalService, private usersService: UsersService,
-              private authService: AuthService) {
+              private authService: AuthService, private afs: AngularFireStorage) {
     const defaultEditorOption = this.nzConfigService.getConfigForComponent('codeEditor')?.defaultEditorOption || {};
     this.nzConfigService.set('codeEditor', {
       defaultEditorOption: {
@@ -138,6 +148,31 @@ export class EditorComponent implements OnDestroy {
       }
     });
     this.guidesFacade.init();
+  }
+
+  fileChangeEvent(event: any): void {
+    this.imageChangedEvent = event;
+  }
+
+  imageCropped(event: ImageCroppedEvent) {
+    this.croppedImage = event.base64;
+  }
+
+  setBanner(guide: Guide): void {
+    this.savingImage = true;
+    fetch(this.croppedImage)
+      .then(res => res.blob())
+      .then(blob => {
+        const file = new File([blob], `${guide.slug}-banner.png`, { type: 'image/png' });
+        this.afs.upload(`banners/${guide.slug}`, file).then((snap) => {
+          snap.ref.getDownloadURL().then(url => {
+            guide.banner = url;
+            this.savingImage = false;
+            this.editBanner = false;
+            this.save(guide);
+          });
+        });
+      });
   }
 
   save(guide: Guide): void {
@@ -167,6 +202,22 @@ export class EditorComponent implements OnDestroy {
       guide.slug = guide.title.toLowerCase().replace(/[^\w]+/gmi, '-').slice(0, 32);
       this.guidesFacade.dirty = true;
     }
+  }
+
+  getSubCategories(guide: Guide): { value: string, label: string }[] {
+    if (this.subCategoriesCache[guide.category] === undefined) {
+      this.subCategoriesCache[guide.category] = uniq(Object.keys(GuideSubCategory))
+        .filter(key => {
+          return key.startsWith(guide.category) || key === '_Other';
+        })
+        .map(key => {
+          return {
+            value: key,
+            label: key.split('_')[1]
+          };
+        });
+    }
+    return this.subCategoriesCache[guide.category];
   }
 
   insertText(editor: NzCodeEditorComponent, text: string): void {

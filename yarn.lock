@@ -10376,6 +10376,13 @@ ng-zorro-antd@^11.4.1:
     resize-observer-polyfill "^1.5.1"
     tslib "^2.0.0"
 
+ngx-image-cropper@^3.3.5:
+  version "3.3.5"
+  resolved "https://registry.yarnpkg.com/ngx-image-cropper/-/ngx-image-cropper-3.3.5.tgz#39f636e3989c5c84241f5130d0124ded6631fbeb"
+  integrity sha512-0yRVKG5XAbVo3rOaj/iFDlekGsxEqXKU9iXFbjyvHvRT2DFs+AjwtyvINsHCWw+4ed9yA4Y+wLIUNqzA0bfxLw==
+  dependencies:
+    tslib "^1.9.0"
+
 ngx-markdown@^11.1.3:
   version "11.1.3"
   resolved "https://registry.yarnpkg.com/ngx-markdown/-/ngx-markdown-11.1.3.tgz#4d01c2dc425e5a46d1b6aa8517d9a1c1feaa1efd"
