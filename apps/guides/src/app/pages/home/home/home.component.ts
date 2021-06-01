@@ -16,12 +16,9 @@ export class HomeComponent {
 
   display$: Observable<HomePageDisplay> = this.guidesFacade.allGuides$.pipe(
     map(guides => {
-      const displayPool = guides
-        .filter(guide => guide.published)
-        .sort((a, b) => b.updated - a.updated);
 
       return {
-        featured: displayPool.slice(0, 3),
+        featured: guides.filter(guide => guide.featured),
         crafting: this.getGuidesForCategory(guides, GuideCategory.Crafting),
         gathering: this.getGuidesForCategory(guides, GuideCategory.Gathering),
         other: this.getGuidesForCategory(guides, GuideCategory.Other)

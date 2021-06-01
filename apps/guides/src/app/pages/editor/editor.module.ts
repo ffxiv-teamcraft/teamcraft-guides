@@ -28,6 +28,7 @@ import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 
 const routes: Routes = [
   {
@@ -75,7 +76,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     NzInputNumberModule,
     NzDividerModule,
-    NzEmptyModule
+    NzEmptyModule,
+    NzPopconfirmModule
   ],
   providers: [
     DirtyGuard,

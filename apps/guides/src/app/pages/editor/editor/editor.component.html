@@ -49,6 +49,29 @@
                      placeholder="Title for the full display" />
             </nz-form-control>
           </nz-form-item>
+          <nz-form-item *ngIf="featuredGuides$ | async as featuredGuides">
+            <nz-form-label [nzSpan]="7" nzRequired>Featured</nz-form-label>
+            <nz-form-control [nzSpan]="12">
+              <div>
+                <label nz-checkbox [(ngModel)]="guide.featured" (ngModelChange)="save(guide)"
+                       [nzDisabled]="featuredGuides.length >= 3" name="featured"></label>
+                Feature this guide
+              </div>
+              <div fxLayout="row wrap" fxLayoutGap="10px">
+                <div>Currently featured guides:</div>
+                <div *ngFor="let featuredGuide of featuredGuides" fxLayout="row" fxLayoutGap="5px">
+                  <div>{{featuredGuide.navTitle}}</div>
+                  <div>
+                    <button nz-button nzDanger nzShape="circle" nzSize="small" nz-popconfirm
+                            nzPopconfirmTitle="Are you sure you want to remove this guide from featured guides?"
+                            (nzOnConfirm)="removeFeatured(featuredGuide)">
+                      <i nz-icon nzType="delete"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </nz-form-control>
+          </nz-form-item>
           <nz-form-item>
             <nz-form-label [nzSpan]="7" nzRequired>Banner</nz-form-label>
             <nz-form-control [nzSpan]="12" nzExtra="The banner image for this guide">

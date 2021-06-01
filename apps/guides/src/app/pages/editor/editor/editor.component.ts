@@ -136,6 +136,8 @@ export class EditorComponent implements OnDestroy {
   public croppedImage: any = '';
   public savingImage = false;
 
+  public featuredGuides$ = this.guidesFacade.featuredGuides$;
+
   constructor(private nzConfigService: NzConfigService, public guidesFacade: GuidesFacade,
               private route: ActivatedRoute, private xivapi: XivapiDataService,
               private modal: NzModalService, private usersService: UsersService,
@@ -173,6 +175,10 @@ export class EditorComponent implements OnDestroy {
           });
         });
       });
+  }
+
+  removeFeatured(guide: Guide): void {
+    this.save({ ...guide, featured: false });
   }
 
   save(guide: Guide): void {

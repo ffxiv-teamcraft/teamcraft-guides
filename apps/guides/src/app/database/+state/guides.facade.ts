@@ -23,26 +23,13 @@ export class GuidesFacade {
     this.store.pipe(select(GuidesSelectors.getLoaded))
   ]).pipe(
     filter(([, loaded]) => loaded),
-    map(([guides]) => guides.map(guide => {
-      let ribbon: string = null;
-      if (guide.published) {
-        // New guide if it has been created less than a week ago
-        const isNew = (Date.now() - guide.publishDate) < 86_400_000 * 7;
-        // Updated if it has been updated less than a week ago
-        const isUpdated = (Date.now() - guide.updated) < 86_400_000 * 7;
-        if (isNew) {
-          ribbon = 'New !';
-        } else if (isUpdated) {
-          ribbon = 'Updated !';
-        }
-      }
-      return {
-        ...guide,
-        ribbon
-      };
-    })),
+    map(([guides]) => guides),
     firstIfServer(this.platform)
   );
+
+  featuredGuides$ = this.allGuides$.pipe(
+    map(guides => guides.filter(guide => guide.featured))
+  )
 
   selectedGuides$ = this.store.pipe(select(GuidesSelectors.getSelected)).pipe(
     filter(guide => guide !== undefined),

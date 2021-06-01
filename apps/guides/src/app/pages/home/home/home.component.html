@@ -33,9 +33,14 @@
     </div>
     <hr>
   </section>
+  <section class="basic-section">
+    <guides-divider>
+      <h1 class="title-with-icon"><i class="companion-svg">&#x0F159;</i> Other Guides</h1>
+    </guides-divider>
+    <div fxLayout="row" fxLayoutAlign="space-around flex-start"
+         class="basic-content">
+      <guides-xiv-horizontal-tabs [guides]="display.other"></guides-xiv-horizontal-tabs>
+    </div>
+    <hr>
+  </section>
 </div>
-<ng-template #loader>
-  <div class="loader" fxLayout="row" fxLayoutAlign="center center">
-    <nz-spin nzTip="Loading awesome things..."></nz-spin>
-  </div>
-</ng-template>

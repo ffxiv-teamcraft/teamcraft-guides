@@ -15,6 +15,7 @@ export interface Guide extends DataModel {
   subCategory: GuideSubCategory;
 
   updated: number;
+  featured: boolean;
   publishDate?: number;
 
   banner?: string;
