@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 import { GuideCategory } from '../../../database/+state/model/guide-category';
 import { Guide } from '../../../database/+state/model/guide';
+import { GuideSubCategory } from '../../../database/+state/model/guide-sub-category';
 
 @Component({
   selector: 'guides-home',
@@ -33,6 +34,7 @@ export class HomeComponent {
   }
 
   getGuidesForCategory(guides: Guide[], category: GuideCategory): CategorizedGuides[] {
+    const subCategories = Object.keys(GuideSubCategory);
     return guides
       .filter(guide => guide.category === category)
       .reduce((acc, guide) => {
@@ -48,7 +50,18 @@ export class HomeComponent {
         }
         entry.guides.push(guide);
         return [...acc];
-      }, []);
+      }, [])
+      .sort((a, b) => {
+        let aIndex = subCategories.indexOf(a.subCategory);
+        let bIndex = subCategories.indexOf(b.subCategory);
+        if (aIndex < 0) {
+          aIndex = 1000;
+        }
+        if (bIndex < 0) {
+          bIndex = 1000;
+        }
+        return aIndex - bIndex;
+      });
   }
 
 }
