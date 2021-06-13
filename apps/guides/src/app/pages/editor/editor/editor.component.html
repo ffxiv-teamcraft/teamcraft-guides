@@ -192,23 +192,6 @@
                 </ng-template>
               </div>
               <div>
-                <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
-                  <nz-select [(ngModel)]="selectedAction" nzShowSearch nzServerSearch
-                             nzPlaceHolder="Insert action"
-                             (keydown.enter)="addAction(editor)"
-                             (nzOnSearch)="actionsFilter$.next($event)" style="width: 200px">
-                    <nz-option *ngFor="let action of actionsAutocomplete$ | async"
-                               [nzValue]="action.ID" [nzLabel]="action.Name_en">
-                    </nz-option>
-                  </nz-select>
-                </nz-input-group>
-                <ng-template #suffixIconButton>
-                  <button nz-button nzType="primary" nzSearch (click)="addAction(editor)">
-                    <i nz-icon nzType="plus" nzTheme="outline"></i>
-                  </button>
-                </ng-template>
-              </div>
-              <div>
                 <button nz-button nzType="primary" (click)="addImages(editor)">
                   <i nz-icon nzType="file-image" nzTheme="outline"></i>
                   Add images
