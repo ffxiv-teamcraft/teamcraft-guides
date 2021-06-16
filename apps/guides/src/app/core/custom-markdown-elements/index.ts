@@ -4,6 +4,7 @@ import { ListComponent } from './list/list.component';
 import { RotationComponent } from './rotation/rotation.component';
 import { PositionComponent } from './position/position.component';
 import { PositionTooltipComponent } from './position-tooltip/position-tooltip.component';
+import { GearsetComponent } from './gearset/gearset.component';
 
 export const CUSTOM_MARKDOWN_ELEMENTS = [
   {
@@ -29,6 +30,14 @@ export const CUSTOM_MARKDOWN_ELEMENTS = [
     useValue: {
       selector: 'rotation',
       component: RotationComponent
+    } as DynamicComponent,
+    multi: true
+  },
+  {
+    provide: DYNAMIC_COMPONENTS,
+    useValue: {
+      selector: 'gearset',
+      component: GearsetComponent
     } as DynamicComponent,
     multi: true
   },

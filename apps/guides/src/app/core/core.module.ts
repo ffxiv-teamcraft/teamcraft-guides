@@ -35,6 +35,7 @@ import { PositionTooltipComponent } from './custom-markdown-elements/position-to
 import { DividerComponent } from './components/divider/divider.component';
 import { XivHorizontalTabsComponent } from './components/xiv-horizontal-tabs/xiv-horizontal-tabs.component';
 import { NzTagModule } from 'ng-zorro-antd/tag';
+import { GearsetComponent } from './custom-markdown-elements/gearset/gearset.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
     MapPositionComponent,
     PositionTooltipComponent,
     DividerComponent,
-    XivHorizontalTabsComponent
+    XivHorizontalTabsComponent,
+    GearsetComponent
   ],
   exports: [GuideContentComponent, LoginPopupComponent, CharacterPipe, IfMobilePipe, GuideCardComponent, PositionComponent, PositionTooltipComponent, DividerComponent, XivHorizontalTabsComponent],
   imports: [

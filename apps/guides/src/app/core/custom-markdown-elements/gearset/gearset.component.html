@@ -1,0 +1,72 @@
+<div class="tc-card-container">
+  <ng-container *ngIf="gearsetDisplay$ | async as display">
+    <ng-container *ngIf="!display.notFound; else notFoundTpl">
+      <div class="tc-card-title">
+        <i nz-icon nzType="unordered-list" nzTheme="outline"></i> {{display.gearset.name}}
+      </div>
+      <div class="tc-card-content" fxLayout="column" fxLayoutGap="5px">
+        <ng-template #pieceTpl let-piece let-property="property">
+          <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="flex-start center" *ngIf="piece">
+            <img src="https://xivapi.com/{{display.items[piece.itemId].IconHD}}" alt="" class="item-icon">
+            <div fxLayout="column" fxLayoutGap="2px">
+              <div fxLayout="row">
+                <div>{{display.items[piece.itemId].Name_en}}</div>
+                <span *ngIf="piece.hq">(HQ)</span>
+              </div>
+              <div class="materias" fxLayout="row" fxLayoutGap="2px">
+                <div class="materia-container" *ngFor="let materia of piece.materias; index as i"
+                     nz-tooltip [nzTooltipTitle]="display.items[materia]?.Name_en">
+                  <img
+                    src="https://cdn.ffxivteamcraft.com/assets/icons/materia/slot_{{piece.materiaSlots > i ? 'normal' : 'overmeld'}}_empty.png"
+                    alt="" class="slot">
+                  <img *ngIf="materia > 0"
+                       src="https://cdn.ffxivteamcraft.com/assets/icons/materia/slot_{{piece.materiaSlots > i ? 'normal' : 'overmeld'}}_grade{{display.materias[materia].tier <= 10 ? '0' : ''}}{{(display.materias[materia].tier - 1)}}.png"
+                       alt="" class="materia">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="flex-start center" *ngIf="!piece">
+            <div class="empty-slot companion-svg" [innerHTML]="emptySlotIcons[property]"></div>
+            <div>{{slotNames[property]}}</div>
+          </div>
+        </ng-template>
+
+        <div fxLayout="row" fxLayoutAlign="space-evenly flex-start" fxLayout.lt-md="column"
+             fxLayoutAlign.lt-md="flex-start center">
+          <div fxFlexOrder="1" fxLayout="row" fxLayoutAlign="center center">
+            <div fxLayout="column" fxLayoutGap="10px">
+              <ng-container *ngFor="let row of gearsetSlotProperties">
+                <ng-container
+                  *ngTemplateOutlet="pieceTpl;context:{$implicit: display.gearset[row[0]], property:row[0]}"></ng-container>
+              </ng-container>
+            </div>
+          </div>
+          <div fxFlexOrder="2" fxLayout="row" fxLayoutAlign="center center">
+            <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="flex-start center">
+              <div fxLayout="column" fxLayoutGap="10px">
+                <ng-container *ngFor="let row of gearsetSlotProperties">
+                  <ng-container
+                    *ngTemplateOutlet="pieceTpl;context:{$implicit: display.gearset[row[1]], property:row[1]}"></ng-container>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tc-card-footer" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="flex-start center" fxShow
+           fxHide.lt-md>
+        <div>
+          <a nz-button nzSize="small" href="https://ffxivteamcraft.com/gearset/{{display.$key}}" target="_blank">Open in
+            Teamcraft</a>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #notFoundTpl>
+      <div class="tc-card-content">
+        <nz-empty nzNotFoundContent="Gearset not found"></nz-empty>
+      </div>
+    </ng-template>
+  </ng-container>
+</div>

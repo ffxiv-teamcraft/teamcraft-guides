@@ -3,7 +3,7 @@ import { ListsService } from '../../../database/list/lists.service';
 import { CustomMarkdownElement } from '../custom-markdown-element';
 import { TeamcraftList } from '../../../database/list/teamcraft-list';
 import { Observable, of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { XivapiDataService } from '../../xivapi/xivapi-data.service';
 
 @Component({
