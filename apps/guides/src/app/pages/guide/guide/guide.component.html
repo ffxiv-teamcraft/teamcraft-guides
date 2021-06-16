@@ -39,13 +39,14 @@
         <guides-guide-content [markdown]="guide.content"
                               (registerTableOfContents)="tableOfContents$.next($event)"></guides-guide-content>
       </div>
-      <div fxFlex="0 0 200px" fxShow fxHide.lt-md>
+      <div fxFlex="0 0 200px" *ngIf="true | ifMobile:false">
         <div fxLayout="row" fxLayoutAlign="space-around center" class="side-buttons">
-          <button nzSize="large" nz-button nzType="text" (click)="copyPath()" nz-tooltip nzTooltipTitle="Get share link">
+          <button nzSize="large" nz-button nzType="text" (click)="copyPath()" nz-tooltip
+                  nzTooltipTitle="Get share link">
             <i nz-icon nzType="share-alt" nzTheme="outline"></i>
           </button>
           <a *ngIf="isEditor$ | async" fxShow fxHide.lt-md nz-button routerLink="/editor/{{guide.slug}}"
-             nzType="text" nzSize="large"  nz-tooltip nzTooltipTitle="Edit this guide">
+             nzType="text" nzSize="large" nz-tooltip nzTooltipTitle="Edit this guide">
             <i nz-icon nzType="edit"></i>
           </a>
         </div>

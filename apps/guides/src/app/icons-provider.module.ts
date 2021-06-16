@@ -16,12 +16,13 @@ import {
   AppstoreAddOutline,
   ShareAltOutline,
   RightOutline,
-  DownOutline
+  DownOutline,
+  IdcardOutline
 } from '@ant-design/icons-angular/icons';
 
 const icons = [MenuFoldOutline, MenuUnfoldOutline, DashboardOutline, FormOutline, SaveOutline, EditOutline, DisconnectOutline, HomeOutline,
   PlusOutline, FileImageOutline, UnorderedListOutline, AppstoreAddOutline, ShareAltOutline,
-  RightOutline, DownOutline];
+  RightOutline, DownOutline, IdcardOutline];
 
 @NgModule({
   imports: [NzIconModule],
