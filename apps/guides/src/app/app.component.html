@@ -68,7 +68,8 @@
 
 <nz-layout class="app-layout">
   <nz-header [ngClass.lt-md]="['mobile']" fxLayout="row">
-    <div class="sidebar-logo" fxFlex="0 0 auto" fxFlex.lt-md="1 1 auto">
+    <div class="sidebar-logo" fxFlex="0 0 auto" fxFlex.lt-md="1 1 auto"
+         fxLayoutAlign.lt-md="center center">
       <a routerLink="/" fxLayout="row" fxLayoutAlign="flex-start center" fxLayoutGap="10px">
         <img src="./assets/media/logo.png" alt="logo">
         <h1 class="main-title">TEAMCRAFT<br>GUIDES</h1>
@@ -123,9 +124,11 @@
         <div class="inner-content">
           <router-outlet></router-outlet>
         </div>
-        <nz-footer fxLayout="column">
-          <div fxLayout="row" fxLayoutAlign="space-between center">
-            <div fxLayout="row" fxLayoutAlign="flex-start center">
+        <nz-footer fxLayout="column" fxLayoutGap="20px">
+          <div fxLayout="row" fxLayoutAlign="space-between center"
+               fxLayout.lt-md="column" fxLayoutGap.lt-md="10px">
+            <div fxLayout="row" fxLayoutAlign="flex-start center"
+                 fxLayout.lt-md="column" fxLayoutGap.lt-md="10px">
               <div class="sidebar-logo" fxFlex="0 0 auto" fxFlex.lt-md="1 1 auto">
                 <a routerLink="/" fxLayout="row" fxLayoutAlign="flex-start center" fxLayoutGap="10px">
                   <img src="./assets/media/logo.png" alt="logo">

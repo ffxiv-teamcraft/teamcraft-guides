@@ -7,9 +7,14 @@
     </guides-divider>
     <div fxLayout="row" fxLayoutAlign="space-around flex-start"
          class="featured-guides">
-      <div *ngFor="let guide of display.featured">
-        <guides-guide-card class="featured-guide-card" [guide]="guide"></guides-guide-card>
-      </div>
+      <ng-container *ngIf="true | ifMobile: false; else mobileTpl">
+        <div *ngFor="let guide of display.featured">
+          <guides-guide-card class="featured-guide-card" [guide]="guide"></guides-guide-card>
+        </div>
+      </ng-container>
+      <ng-template #mobileTpl>
+        <guides-guide-card class="featured-guide-card" [guide]="display.featured[0]"></guides-guide-card>
+      </ng-template>
     </div>
     <hr>
   </section>

@@ -1,4 +1,5 @@
-<div class="card-container guide-card-container" [class.large]="large" routerLink="/guide/{{guide.slug}}">
+<div class="card-container guide-card-container" [class.large]="large | ifMobile: false"
+     routerLink="/guide/{{guide.slug}}">
   <div class="card-header-border"></div>
   <div class="card-title">
     <div class="title">{{guide.title}}</div>

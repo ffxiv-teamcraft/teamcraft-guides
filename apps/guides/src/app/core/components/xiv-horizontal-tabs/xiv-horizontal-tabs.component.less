@@ -1,3 +1,5 @@
+@import '../../../../variables';
+
 :host {
   width: 100%;
 }
@@ -7,6 +9,11 @@
 
   .tabs {
     margin-top: 32px;
+
+    @media @mobile {
+      margin-top: 0;
+      width: 100%;
+    }
   }
 }
 

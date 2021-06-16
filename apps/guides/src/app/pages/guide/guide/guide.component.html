@@ -1,12 +1,13 @@
 <div class="padding-container">
   <div fxLayout="column" *ngIf="guide$ | async as guide; else loadingTpl">
 
-    <nz-divider [nzText]="titleTpl">
-      <ng-template #titleTpl>
-        <h1 class="guide-title" fxLayout="row" fxLayoutAlign="flex-start center" fxLayoutGap="5px">
-          {{guide.title}}
-        </h1>
-      </ng-template>
+    <ng-template #titleTpl>
+      <h1 class="guide-title" fxLayout="row" fxLayoutAlign="flex-start center" fxLayoutGap="5px">
+        {{guide.title}}
+      </h1>
+    </ng-template>
+
+    <nz-divider [nzText]="titleTpl" *ngIf="true | ifMobile: false; else titleTpl">
     </nz-divider>
 
     <div class="banner-container">

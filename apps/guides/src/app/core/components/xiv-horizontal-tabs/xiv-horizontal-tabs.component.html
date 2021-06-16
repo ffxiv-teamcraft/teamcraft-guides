@@ -1,4 +1,7 @@
-<div fxLayout="row" fxLayoutGap="32px" fxLayoutAlign="flex-start flex-start" *ngIf="display$ | async as display"
+<div fxLayout="row" fxLayoutGap="32px"
+     fxLayoutAlign="flex-start flex-start" *ngIf="display$ | async as display"
+     fxLayout.lt-md="column"
+     fxLayoutAlign.lt-md="center center"
      class="tabs-container">
   <div fxFlex="1 1 30%" class="tabs">
     <div *ngFor="let menu of display.menus">
@@ -25,7 +28,7 @@
       </div>
     </div>
   </div>
-  <div fxFlex="1 1 1150px">
+  <div fxFlex="1 1 1150px" fxFlex.lt-md="1 1 auto">
     <guides-guide-card [guide]="display.selected" large="true"></guides-guide-card>
   </div>
 </div>

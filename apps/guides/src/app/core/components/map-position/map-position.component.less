@@ -1,6 +1,13 @@
+@import '../../../../variables';
+
+
 .map-container {
   position: relative;
   max-width: 500px;
+
+  @media @mobile {
+    max-width: 100%;
+  }
 
   .map-image {
     width: 100%;
