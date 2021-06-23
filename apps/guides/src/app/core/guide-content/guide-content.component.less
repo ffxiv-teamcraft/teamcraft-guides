@@ -24,4 +24,23 @@
   ul {
     overflow: hidden;
   }
+
+  table {
+    border-collapse: collapse;
+    border-radius: 4px;
+    box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+
+    th, td {
+      padding: 5px 10px;
+      border: 1px solid #7a7b7e;
+    }
+
+    tr:nth-child(even) {
+      background-color: rgba(255, 255, 255, .05);
+    }
+
+    tr:hover {
+      background-color: rgba(255, 255, 255, .15);
+    }
+  }
 }
