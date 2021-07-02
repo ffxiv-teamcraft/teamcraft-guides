@@ -11,7 +11,7 @@
     </nz-divider>
 
     <div class="banner-container">
-      <img [src]="guide.banner || '/assets/media/banner_placeholder.png'" alt="" class="guide-banner">
+      <guides-guide-banner [guide]="guide" class="guide-banner"></guides-guide-banner>
     </div>
 
     <ng-template #authorTpl>

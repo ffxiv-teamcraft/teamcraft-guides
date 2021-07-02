@@ -1,0 +1,5 @@
+<div class="banner-container">
+  <img [src]="guide.banner || '/assets/media/banner_placeholder.png'" alt="" class="guide-banner">
+  <a class="link" href="https://discord.gg/gposers" *ngIf="guide.banner"
+     (click)="$event.stopPropagation()">Screenshots provided by GPOSERS.</a>
+</div>

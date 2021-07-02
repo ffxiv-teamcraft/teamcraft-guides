@@ -7,7 +7,7 @@
     <hr class="card-divider">
   </div>
   <div class="card-content" fxLayout="column" fxLayoutGap="15px">
-    <img [src]="guide.banner || '/assets/media/banner_placeholder.png'" alt="" class="guide-banner">
+    <guides-guide-banner [guide]="guide"></guides-guide-banner>
     <p>{{guide.description}}</p>
   </div>
   <div class="card-footer" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="flex-start center"
