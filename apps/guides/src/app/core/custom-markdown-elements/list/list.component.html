@@ -9,6 +9,7 @@
              *ngFor="let item of list.finalItems">
           <img src="https://xivapi.com/{{item.IconHD}}" alt="" class="item-icon">
           <div>{{item.Name_en}}</div>
+          <div *ngIf="item.requiredAsHQ">(HQ)</div>
           <div>x{{item.amount}}</div>
         </div>
       </div>

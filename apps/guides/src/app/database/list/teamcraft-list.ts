@@ -4,6 +4,7 @@ interface ListRow {
   id: number;
   amount: number;
   recipeId?: string;
+  requiredAsHQ?: boolean
 }
 
 export interface TeamcraftList extends DataModel {
