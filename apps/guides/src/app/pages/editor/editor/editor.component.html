@@ -42,6 +42,30 @@
     <nz-tab nzTitle="Meta">
       <div class="editor-container">
         <form nz-form #formRef="ngForm">
+          <nz-form-item *ngIf="guide.contributors?.length > 0">
+            <nz-form-label [nzSpan]="7">Contributors</nz-form-label>
+            <nz-form-control [nzSpan]="12">
+              <ng-template #loader>
+                <nz-spin></nz-spin>
+              </ng-template>
+              <div fxLayout="column" fxLayoutGap="10px">
+                <div *ngFor="let contributor of guide.contributors">
+                  <div *ngIf="contributor | character | async as author; else loader" fxLayout="row" fxLayoutGap="5px"
+                       fxLayoutAlign="flex-start center">
+                    <img [src]="author.Avatar" alt="" class="author-avatar">
+                    <div>{{author.Name}}</div>
+                    <div>
+                      <button nz-button nzDanger nzShape="circle" nzSize="small" nz-popconfirm
+                              nzPopconfirmTitle="Are you sure?"
+                              (nzOnConfirm)="removeContributor(guide, contributor)">
+                        <i nz-icon nzType="delete"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </nz-form-control>
+          </nz-form-item>
           <nz-form-item>
             <nz-form-label [nzSpan]="7" nzRequired>Title</nz-form-label>
             <nz-form-control [nzSpan]="12">

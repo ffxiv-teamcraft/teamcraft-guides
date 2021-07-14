@@ -15,19 +15,21 @@
     </div>
 
     <ng-template #authorTpl>
-      <div class="author" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="flex-start center"
-           *ngIf="guide.author | character | async as author; else loader">
-        <img [src]="author.Avatar" alt="" class="author-avatar">
-        <div>{{author.Name}}</div>
-      </div>
-      <ng-container *ngFor="let contributor of guide.contributors">
+      <div fxLayout="row wrap" fxLayoutGap="5px">
         <div class="author" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="flex-start center"
-             *ngIf="contributor | character | async as author; else loader">
-          ,&nbsp;
+             *ngIf="guide.author | character | async as author; else loader">
           <img [src]="author.Avatar" alt="" class="author-avatar">
           <div>{{author.Name}}</div>
         </div>
-      </ng-container>
+        <div *ngFor="let contributor of guide.contributors">
+          <div class="author" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="flex-start center"
+               *ngIf="contributor | character | async as author; else loader">
+            ,&nbsp;
+            <img [src]="author.Avatar" alt="" class="author-avatar">
+            <div>{{author.Name}}</div>
+          </div>
+        </div>
+      </div>
     </ng-template>
     <ng-template #loader>
       <nz-spin></nz-spin>

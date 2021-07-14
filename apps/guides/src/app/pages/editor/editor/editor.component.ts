@@ -181,6 +181,10 @@ export class EditorComponent implements OnDestroy {
     this.save({ ...guide, featured: false });
   }
 
+  removeContributor(guide: Guide, contributor: string): void {
+    this.save({ ...guide, contributors: guide.contributors.filter(c => c !== contributor) });
+  }
+
   save(guide: Guide): void {
     if (!guide.publishDate && guide.published) {
       guide.publishDate = Date.now();
