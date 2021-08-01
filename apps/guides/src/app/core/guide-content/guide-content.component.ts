@@ -42,7 +42,7 @@ export class GuideContentComponent implements DoCheck, OnChanges, OnDestroy {
     this.markdownService.renderer.heading = (text: string, level: number) => {
       const escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
       return `<h${level} id="${escapedText}" name="${text}">${text}
-          <a class="heading-anchor" onclick="window.location.hash = '${escapedText}'">
+          <a class="heading-anchor" onclick="history.replaceState(null, null, '${window.location.pathname}#${escapedText}')">
             #
           </a>
         </h${level}>`;
