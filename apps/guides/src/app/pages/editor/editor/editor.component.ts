@@ -20,6 +20,7 @@ import { LocationSelectionPopupComponent } from '../location-selection-popup/loc
 import { GuideSubCategory } from '../../../database/+state/model/guide-sub-category';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'guides-editor',
@@ -141,7 +142,8 @@ export class EditorComponent implements OnDestroy {
   constructor(private nzConfigService: NzConfigService, public guidesFacade: GuidesFacade,
               private route: ActivatedRoute, private xivapi: XivapiDataService,
               private modal: NzModalService, private usersService: UsersService,
-              private authService: AuthService, private afs: AngularFireStorage) {
+              private authService: AuthService, private afs: AngularFireStorage,
+              private message: NzMessageService) {
     const defaultEditorOption = this.nzConfigService.getConfigForComponent('codeEditor')?.defaultEditorOption || {};
     this.nzConfigService.set('codeEditor', {
       defaultEditorOption: {
@@ -182,6 +184,7 @@ export class EditorComponent implements OnDestroy {
   }
 
   removeContributor(guide: Guide, contributor: string): void {
+    guide.contributors = guide.contributors.filter(c => c !== contributor);
     this.save({ ...guide, contributors: guide.contributors.filter(c => c !== contributor) });
   }
 
@@ -255,8 +258,12 @@ export class EditorComponent implements OnDestroy {
   }
 
   addContributor(guide: Guide): void {
-    guide.contributors.push(this.selectedEditor);
+    guide.contributors = [
+      ...(guide.contributors || []),
+      this.selectedEditor
+    ];
     delete this.selectedEditor;
+    this.message.success('Contributor added to the guide');
   }
 
   addImages(editor: NzCodeEditorComponent): void {
