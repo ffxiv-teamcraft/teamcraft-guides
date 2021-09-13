@@ -39,6 +39,9 @@ export class GuideContentComponent implements DoCheck, OnChanges, OnDestroy {
               private xivapiData: XivapiDataService,
               @Inject(DYNAMIC_COMPONENTS) private components: DynamicComponent[],
               @Inject(PLATFORM_ID) private platform: Object) {
+    if (isPlatformServer(platform)) {
+      return;
+    }
     this.markdownService.renderer.heading = (text: string, level: number) => {
       const escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
       return `<h${level} id="${escapedText}" name="${text}">${text}
