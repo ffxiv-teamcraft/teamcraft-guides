@@ -1,9 +1,10 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { Character, XivapiService } from '@xivapi/angular-client';
+import { Character } from '@xivapi/angular-client';
 import { interval, Observable, of, Subject } from 'rxjs';
 import { map, shareReplay, switchMapTo } from 'rxjs/operators';
 import { firstIfServer } from './rxjs/first-if-server';
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class LodestoneService {
@@ -12,7 +13,7 @@ export class LodestoneService {
 
   private queue: Subject<void>[] = [];
 
-  constructor(private xivapi: XivapiService,
+  constructor(private http: HttpClient,
               @Inject(PLATFORM_ID) private platform: Object) {
     if (isPlatformBrowser(platform)) {
       interval(500).subscribe(() => {
@@ -30,8 +31,9 @@ export class LodestoneService {
     }
     if (!this.cache[id]) {
       const trigger = new Subject<void>();
+      const params = new HttpParams().set('columns', ['Character.Avatar', 'Character.Name', 'Character.Title'].join(','));
       this.cache[id] = trigger.pipe(
-        switchMapTo(this.xivapi.getCharacter(id, { columns: ['Character.Avatar', 'Character.Name', 'Character.Title'] })),
+        switchMapTo(this.http.get<{ Character: Character }>(`https://lodestone.ffxivteamcraft.com/Character/${id}`, { params })),
         map(response => response.Character),
         shareReplay(),
         firstIfServer(this.platform)

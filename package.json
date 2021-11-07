@@ -29,7 +29,8 @@
     "dev:ssr": "ng run guides:serve-ssr",
     "serve:ssr": "node dist/guides/server/main.js",
     "build:ssr": "ng build --prod && ng run guides:server:production",
-    "prerender": "ng run guides:prerender"
+    "prerender": "ng run guides:prerender",
+    "deploy":  "ng deploy"
   },
   "private": true,
   "dependencies": {
