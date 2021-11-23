@@ -1,5 +1,5 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { switchMap, tap } from 'rxjs/operators';
 import { UsersService } from './user/users.service';
 import { Observable, of } from 'rxjs';

@@ -30,7 +30,7 @@
     "serve:ssr": "node dist/guides/server/main.js",
     "build:ssr": "ng build --prod && ng run guides:server:production",
     "prerender": "ng run guides:prerender",
-    "deploy":  "ng deploy"
+    "deploy": "ng deploy"
   },
   "private": true,
   "dependencies": {
@@ -38,7 +38,7 @@
     "@angular/common": "^11.2.0",
     "@angular/compiler": "^11.2.0",
     "@angular/core": "^11.2.0",
-    "@angular/fire": "6.1.4",
+    "@angular/fire": "^7.2.0",
     "@angular/flex-layout": "11.0.0-beta.33",
     "@angular/forms": "^11.2.0",
     "@angular/platform-browser": "^11.2.0",
@@ -56,7 +56,7 @@
     "@nrwl/angular": "12.1.1",
     "@xivapi/angular-client": "^1.8.1",
     "express": "^4.15.2",
-    "firebase": "^7.0 || ^8.0",
+    "firebase": "^9.5.0",
     "lodash": "^4.17.21",
     "monaco-editor": "^0.23.0",
     "ng-zorro-antd": "^11.4.1",
@@ -85,7 +85,7 @@
     "@nrwl/jest": "12.1.1",
     "@nrwl/linter": "12.1.1",
     "@nrwl/tao": "12.1.1",
-    "@nrwl/workspace": "12.1.1",
+    "@nrwl/workspace": "12.0.0",
     "@types/express": "^4.17.0",
     "@types/jest": "26.0.8",
     "@types/node": "14.14.33",
@@ -117,3 +117,4 @@
     "xhr2": "^0.2.1"
   }
 }
+
