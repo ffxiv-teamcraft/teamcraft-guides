@@ -202,7 +202,17 @@
         "deploy": {
           "builder": "@angular/fire:deploy",
           "options": {
-            "ssr": true
+            "ssr": "cloud-functions",
+            "prerender": false,
+            "firebaseProject": "ffxivteamcraft",
+            "firebaseHostingSite": "teamcraft-guides",
+            "functionName": "ssr_guides",
+            "functionsNodeVersion": "16",
+            "region": "us-central1",
+            "browserTarget": "guides:build:production",
+            "serverTarget": "guides:server:production",
+            "prerenderTarget": "guides:prerender:production",
+            "outputPath": "dist/guides/functions"
           }
         }
       }
