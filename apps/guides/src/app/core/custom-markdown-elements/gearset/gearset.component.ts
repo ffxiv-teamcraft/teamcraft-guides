@@ -32,7 +32,6 @@ export class GearsetComponent extends CustomMarkdownElement implements OnInit {
     'necklace': 'Neck',
     'offHand': 'Off Hand',
     'crystal': 'Soul Crystal',
-    'belt': 'Waist',
     'bracelet': 'Wrists'
   };
 
@@ -41,7 +40,7 @@ export class GearsetComponent extends CustomMarkdownElement implements OnInit {
     ['head', 'earRings'],
     ['chest', 'necklace'],
     ['gloves', 'bracelet'],
-    ['belt', 'ring1'],
+    [null, 'ring1'],
     ['legs', 'ring2'],
     ['feet', 'crystal']
   ];
@@ -52,7 +51,6 @@ export class GearsetComponent extends CustomMarkdownElement implements OnInit {
     head: '&#xF083;',
     chest: '&#xF084;',
     gloves: '&#xF085;',
-    belt: '&#xF086;',
     legs: '&#xF087;',
     feet: '&#xF088;',
     necklace: '&#xF090;',

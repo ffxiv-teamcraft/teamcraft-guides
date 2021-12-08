@@ -37,8 +37,10 @@
           <div fxFlexOrder="1" fxLayout="row" fxLayoutAlign="center center">
             <div fxLayout="column" fxLayoutGap="10px">
               <ng-container *ngFor="let row of gearsetSlotProperties">
-                <ng-container
-                  *ngTemplateOutlet="pieceTpl;context:{$implicit: display.gearset[row[0]], property:row[0]}"></ng-container>
+                <ng-container *ngIf="row[0]">
+                  <ng-container
+                    *ngTemplateOutlet="pieceTpl;context:{$implicit: display.gearset[row[0]], property:row[0]}"></ng-container>
+                </ng-container>
               </ng-container>
             </div>
           </div>

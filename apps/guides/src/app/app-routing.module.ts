@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { canActivate } from '@angular/fire/compat/auth-guard';
+import { canActivate } from '@angular/fire/auth-guard';
 import { HomeModule } from './pages/home/home.module';
 import { HomeComponent } from './pages/home/home/home.component';
 
