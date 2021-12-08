@@ -36,6 +36,8 @@ export class XivHorizontalTabsComponent implements OnInit {
       this.guides.map((category, i) => {
         return {
           title: category.label,
+          new: category.guides.some(guide => (Date.now() - guide.publishDate) / 1000 < 7 * 86400),
+          updatedRecently: category.guides.some(guide => (Date.now() - guide.updated) / 1000 < 7 * 86400),
           guides: category.guides.map(guide => {
             return {
               ...guide,
@@ -51,6 +53,8 @@ export class XivHorizontalTabsComponent implements OnInit {
       this.selected$.next(this.guides[0].guides[0]);
       this.expanded$.next(this.guides[0].label);
     }
+
+
   }
 
 }

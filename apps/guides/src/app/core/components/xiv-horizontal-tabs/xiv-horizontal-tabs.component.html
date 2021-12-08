@@ -6,9 +6,15 @@
   <div fxFlex="1 1 30%" class="tabs">
     <div *ngFor="let menu of display.menus">
       <div class="menu-title" (click)="expanded$.next(menu.title)">
-        <i nz-icon nzType="right" nzTheme="outline" *ngIf="display.expanded !== menu.title"></i>
-        <i nz-icon nzType="down" nzTheme="outline" *ngIf="display.expanded === menu.title"></i>
-        {{menu.title}}
+        <div>
+          <i nz-icon nzType="right" nzTheme="outline" *ngIf="display.expanded !== menu.title"></i>
+          <i nz-icon nzType="down" nzTheme="outline" *ngIf="display.expanded === menu.title"></i>
+          {{menu.title}}
+        </div>
+        <div>
+          <nz-tag *ngIf="menu.new" class="primary-tag">New !</nz-tag>
+          <nz-tag *ngIf="menu.updatedRecently" class="primary-tag">Updated recently !</nz-tag>
+        </div>
       </div>
       <div class="menu-content" [class.expanded]="display.expanded === menu.title">
         <div *ngFor="let guide of menu.guides" class="guide-row"
