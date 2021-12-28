@@ -1530,10 +1530,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@ffxiv-teamcraft/simulator@^2.10.8":
-  version "2.10.12"
-  resolved "https://registry.yarnpkg.com/@ffxiv-teamcraft/simulator/-/simulator-2.10.12.tgz#93a71acabbcc611337021a70d55f382f0d61aa51"
-  integrity sha512-xEFI89w5LU1LemMwLWErptTyYmRLonm0AMyWNeedCEY8ZrwvMuvPC8+A27aFIcDrFwdt+bosCkEzv///b8UlzA==
+"@ffxiv-teamcraft/simulator@^3.0.8":
+  version "3.0.8"
+  resolved "https://registry.yarnpkg.com/@ffxiv-teamcraft/simulator/-/simulator-3.0.8.tgz#586ffb39314d23dd371b42a7a1a1f351a9c0b1bd"
+  integrity sha512-036LlxwsXmOb3nicIx+9/orkZx/zzA5MDxruIlPXHHUUAlQBlZOjdM8Ht/M731jNSXsectv7gNxAMYSPaGkXHw==
   dependencies:
     "@kaiu/serializer" "^1.4.0"
 
