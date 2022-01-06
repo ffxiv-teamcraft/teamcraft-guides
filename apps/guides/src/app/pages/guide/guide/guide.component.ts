@@ -32,7 +32,7 @@ export class GuideComponent extends SeoComponent implements AfterContentInit {
 
   public isEditor$ = combineLatest([this.guide$, this.authService.user$]).pipe(
     map(([guide, user]) => {
-      return user?.admin || user?.$key === guide.author || (guide.contributors || []).includes(user?.$key);
+      return user?.admin || user?.moderator || user?.$key === guide.author || (guide.contributors || []).includes(user?.$key);
     })
   );
 

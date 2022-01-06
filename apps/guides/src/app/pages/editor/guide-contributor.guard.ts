@@ -20,7 +20,7 @@ export class GuideContributorGuard implements CanActivate {
         if (!guide || !user) {
           return false;
         }
-        return user?.admin || guide.author === user.$key || (guide.contributors || []).includes(user.$key);
+        return user?.admin || user?.moderator || guide.author === user.$key || (guide.contributors || []).includes(user.$key);
       })
     );
   }

@@ -27,7 +27,7 @@ export class AuthService {
           return of(null);
         }),
         tap(user => {
-          if (user && !user.admin && !user.editor) {
+          if (user && !user.admin && !user.moderator && !user.editor) {
             this.logout();
             this.message.error('Only editors and admins can log in to manage content.');
           }

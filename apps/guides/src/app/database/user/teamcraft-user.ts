@@ -5,5 +5,6 @@ export interface TeamcraftUser extends DataModel {
   defaultLodestoneId: number;
   customCharacters: Partial<Character>[];
   admin: boolean;
+  moderator: boolean;
   editor: boolean;
 }

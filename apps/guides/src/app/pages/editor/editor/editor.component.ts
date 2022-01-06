@@ -124,7 +124,7 @@ export class EditorComponent implements OnDestroy {
 
   public isAuthor$ = combineLatest([this.guide$, this.authService.user$]).pipe(
     map(([guide, user]) => {
-      return user?.admin || user?.$key === guide.author;
+      return user?.admin || user?.moderator || user?.$key === guide.author;
     })
   );
 
