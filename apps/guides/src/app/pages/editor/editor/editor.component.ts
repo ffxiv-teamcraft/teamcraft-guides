@@ -19,8 +19,9 @@ import { XivAction } from '../../../core/xivapi/xiv-action';
 import { LocationSelectionPopupComponent } from '../location-selection-popup/location-selection-popup.component';
 import { GuideSubCategory } from '../../../database/+state/model/guide-sub-category';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
-import { AngularFireStorage } from '@angular/fire/storage';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { getDownloadURL, ref, Storage, uploadBytes } from '@angular/fire/storage';
+import { where } from '@angular/fire/firestore';
 
 @Component({
   selector: 'guides-editor',
@@ -106,7 +107,7 @@ export class EditorComponent implements OnDestroy {
   );
 
   otherEditors$: Observable<TeamcraftUser[]> = combineLatest([
-    this.usersService.getAll(ref => ref.where('editor', '==', true)),
+    this.usersService.getAll(where('editor', '==', true)),
     this.guide$
   ]).pipe(
     map(([users, guide]) => {
@@ -142,7 +143,7 @@ export class EditorComponent implements OnDestroy {
   constructor(private nzConfigService: NzConfigService, public guidesFacade: GuidesFacade,
               private route: ActivatedRoute, private xivapi: XivapiDataService,
               private modal: NzModalService, private usersService: UsersService,
-              private authService: AuthService, private afs: AngularFireStorage,
+              private authService: AuthService, private storage: Storage,
               private message: NzMessageService) {
     const defaultEditorOption = this.nzConfigService.getConfigForComponent('codeEditor')?.defaultEditorOption || {};
     this.nzConfigService.set('codeEditor', {
@@ -168,8 +169,8 @@ export class EditorComponent implements OnDestroy {
       .then(res => res.blob())
       .then(blob => {
         const file = new File([blob], `${guide.slug}-banner.png`, { type: 'image/png' });
-        this.afs.upload(`banners/${guide.slug}`, file).then((snap) => {
-          snap.ref.getDownloadURL().then(url => {
+        uploadBytes(ref(this.storage, `banners/${guide.slug}`), file).then((snap) => {
+          getDownloadURL(snap.ref).then(url => {
             guide.banner = url;
             this.savingImage = false;
             this.editBanner = false;

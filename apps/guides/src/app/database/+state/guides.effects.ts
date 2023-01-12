@@ -2,21 +2,22 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as GuidesActions from './guides.actions';
 import { GuidesService } from '../guides/guides.service';
-import { map, switchMap, switchMapTo, tap, withLatestFrom } from 'rxjs/operators';
+import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { AuthService } from '../auth.service';
+import { where } from '@angular/fire/firestore';
 
 @Injectable()
 export class GuidesEffects {
   loadGuides$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GuidesActions.init),
-      switchMapTo(this.authService.user$),
+      switchMap(() => this.authService.user$),
       switchMap((user) => {
         if (user) {
           return this.guidesService.getAll();
         } else {
-          return this.guidesService.getAll(ref => ref.where('published', '==', true));
+          return this.guidesService.getAll(where('published', '==', true));
         }
       }),
       map(guides => GuidesActions.loadGuidesSuccess({ guides }))

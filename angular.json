@@ -1,40 +1,5 @@
 {
   "version": 1,
-  "cli": {
-    "analytics": "0b54a900-6131-4837-9e6e-4b38f0110334",
-    "defaultCollection": "@nrwl/angular"
-  },
-  "defaultProject": "guides",
-  "schematics": {
-    "@nrwl/angular": {
-      "application": {
-        "linter": "eslint"
-      },
-      "library": {
-        "linter": "eslint"
-      },
-      "storybook-configuration": {
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/angular:application": {
-      "style": "less",
-      "linter": "eslint",
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress"
-    },
-    "@nrwl/angular:library": {
-      "style": "less",
-      "linter": "eslint",
-      "unitTestRunner": "jest"
-    },
-    "@nrwl/angular:component": {
-      "style": "less"
-    },
-    "@schematics/angular:component": {
-      "style": "less"
-    }
-  },
   "projects": {
     "guides": {
       "projectType": "application",
@@ -71,6 +36,28 @@
             "scripts": []
           },
           "configurations": {
+            "dev": {
+              "aot": false,
+              "optimization": false,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "namedChunks": true,
+              "extractLicenses": false,
+              "vendorChunk": false,
+              "buildOptimizer": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -202,7 +189,17 @@
         "deploy": {
           "builder": "@angular/fire:deploy",
           "options": {
-            "ssr": true
+            "ssr": "cloud-functions",
+            "prerender": true,
+            "firebaseProject": "ffxivteamcraft",
+            "firebaseHostingSite": "teamcraft-guides",
+            "functionName": "ssr_guides",
+            "functionsNodeVersion": "16",
+            "region": "us-central1",
+            "browserTarget": "guides:build:production",
+            "serverTarget": "guides:server:production",
+            "prerenderTarget": "guides:prerender:production",
+            "outputPath": "dist/guides/functions"
           }
         }
       }

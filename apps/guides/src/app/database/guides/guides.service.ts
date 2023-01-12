@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FirestoreService } from '../firestore.service';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { Firestore } from '@angular/fire/firestore';
 import { Guide } from '../+state/model/guide';
 
 @Injectable({
@@ -8,8 +8,8 @@ import { Guide } from '../+state/model/guide';
 })
 export class GuidesService extends FirestoreService<Guide> {
 
-  constructor(af: AngularFirestore) {
-    super(af);
+  constructor(firestore: Firestore) {
+    super(firestore);
   }
 
   protected getKeyField(): keyof Guide {

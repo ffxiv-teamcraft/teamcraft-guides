@@ -29,7 +29,7 @@ export class GuidesFacade {
 
   featuredGuides$ = this.allGuides$.pipe(
     map(guides => guides.filter(guide => guide.featured))
-  )
+  );
 
   selectedGuides$ = this.store.pipe(select(GuidesSelectors.getSelected)).pipe(
     filter(guide => guide !== undefined),

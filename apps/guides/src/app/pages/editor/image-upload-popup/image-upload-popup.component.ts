@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
-import { AngularFireStorage } from '@angular/fire/storage';
 import { NzUploadXHRArgs } from 'ng-zorro-antd/upload/interface';
 import { NzModalRef } from 'ng-zorro-antd/modal';
-import { combineLatest } from 'rxjs';
-import { first, mapTo } from 'rxjs/operators';
+import { combineLatest, from } from 'rxjs';
+import { first } from 'rxjs/operators';
+import { deleteObject, getDownloadURL, percentage, ref, Storage } from '@angular/fire/storage';
+import { uploadBytesResumable } from '@firebase/storage';
 
 function getBase64(file: File): Promise<string | ArrayBuffer | null> {
   return new Promise((resolve, reject) => {
@@ -27,7 +28,7 @@ export class ImageUploadPopupComponent {
   previewImage: string | undefined = '';
   previewVisible = false;
 
-  constructor(private afs: AngularFireStorage, private modalRef: NzModalRef) {
+  constructor(private storage: Storage, private modalRef: NzModalRef) {
   }
 
   handlePreview = async (file: NzUploadFile) => {
@@ -39,8 +40,9 @@ export class ImageUploadPopupComponent {
   };
 
   upload = (args: NzUploadXHRArgs) => {
-    return this.afs.upload(this.getFilePath(args.file), args.postFile)
-      .percentageChanges()
+    const fileRef = ref(this.storage, this.getFilePath(args.file));
+    const task = uploadBytesResumable(fileRef, args.postFile as File);
+    return percentage(task)
       .subscribe({
         next: percent => args.onProgress({ percent }, args.file),
         error: err => args.onError(err, args.file),
@@ -49,9 +51,7 @@ export class ImageUploadPopupComponent {
   };
 
   remove = (file: NzUploadFile) => {
-    return this.afs.ref(this.getFilePath(file)).delete().pipe(
-      mapTo(true)
-    );
+    return from(deleteObject(ref(this.storage, this.getFilePath(file))));
   };
 
   private getFilePath(file: NzUploadFile): string {
@@ -59,7 +59,7 @@ export class ImageUploadPopupComponent {
   }
 
   importImages(): void {
-    combineLatest(this.fileList.map(file => this.afs.ref(this.getFilePath(file)).getDownloadURL())).pipe(
+    combineLatest(this.fileList.map(file => getDownloadURL(ref(this.storage, this.getFilePath(file))))).pipe(
       first()
     ).subscribe(urls => this.modalRef.close(urls));
   }

@@ -8,9 +8,9 @@ describe('GuideBannerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GuideBannerComponent ]
+      declarations: [GuideBannerComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

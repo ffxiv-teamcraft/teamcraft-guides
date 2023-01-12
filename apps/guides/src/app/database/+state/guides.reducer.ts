@@ -8,7 +8,7 @@ export const GUIDES_FEATURE_KEY = 'guides';
 
 export interface State extends EntityState<Guide> {
   selectedId?: string; // which Guides record has been selected
-  loaded: boolean
+  loaded: boolean;
 }
 
 export interface GuidesPartialState {

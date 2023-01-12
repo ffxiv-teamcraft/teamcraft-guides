@@ -2,7 +2,7 @@
   "hosting": [
     {
       "target": "guides",
-      "public": "./dist/guides/dist/guides/browser",
+      "public": "dist/guides/browser",
       "ignore": [
         "**/.*"
       ],
@@ -15,17 +15,26 @@
               "value": "public,max-age=31536000,immutable"
             }
           ]
+        },
+        {
+          "source": "/@(ngsw-worker.js|ngsw.json)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache"
+            }
+          ]
         }
       ],
       "rewrites": [
         {
           "source": "**",
-          "function": "ssr"
+          "function": "ssr_guides"
         }
       ]
     }
   ],
   "functions": {
-    "source": "./dist/guides"
+    "source": "dist/guides/functions"
   }
 }

@@ -7,9 +7,11 @@
       <div class="tc-card-content" fxLayout="row wrap" fxLayoutGap="5px">
         <guides-action *ngFor="let action of rotation.actions" [action]="action"></guides-action>
       </div>
-      <div class="tc-card-footer" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="flex-start center" fxShow fxHide.lt-md>
+      <div class="tc-card-footer" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="flex-start center" fxShow
+           fxHide.lt-md>
         <div>
-          <a nz-button nzSize="small" href="https://ffxivteamcraft.com/{{rotation.link}}" target="_blank">Open in Teamcraft</a>
+          <a nz-button nzSize="small" href="https://ffxivteamcraft.com/{{rotation.link}}" target="_blank">Open in
+            Teamcraft</a>
         </div>
         <div>
           <nz-divider nzType="vertical"></nz-divider>

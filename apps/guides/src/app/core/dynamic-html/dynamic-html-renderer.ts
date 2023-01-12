@@ -5,7 +5,8 @@ import {
   ElementRef,
   Inject,
   Injectable,
-  Injector, PLATFORM_ID
+  Injector,
+  PLATFORM_ID
 } from '@angular/core';
 import { OnMount } from './on-mount';
 import { DYNAMIC_COMPONENTS, DynamicComponent } from './dynamic-component';

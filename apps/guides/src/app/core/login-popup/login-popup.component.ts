@@ -2,9 +2,14 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
-import { AngularFireAuth } from '@angular/fire/auth';
+import {
+  Auth,
+  GoogleAuthProvider,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  signInWithPopup
+} from '@angular/fire/auth';
 import { from } from 'rxjs';
-import firebase from 'firebase/app';
 
 @Component({
   selector: 'guides-login-popup',
@@ -20,7 +25,7 @@ export class LoginPopupComponent {
   constructor(private fb: FormBuilder,
               private modalRef: NzModalRef,
               private message: NzMessageService,
-              private af: AngularFireAuth) {
+              private auth: Auth) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
@@ -29,7 +34,7 @@ export class LoginPopupComponent {
 
   login(): void {
     delete this.errorMessageCode;
-    this.af.signInWithEmailAndPassword(this.form.value.email, this.form.value.password)
+    signInWithEmailAndPassword(this.auth, this.form.value.email, this.form.value.password)
       .then(() => {
         this.modalRef.close(true);
       })
@@ -38,9 +43,10 @@ export class LoginPopupComponent {
 
   public sendResetPassword(): void {
     const email = this.form.getRawValue().email;
-    this.af.sendPasswordResetEmail(email);
-    this.message.success('Reset email sent');
-    this.modalRef.close(false);
+    sendPasswordResetEmail(this.auth, email).then(() => {
+      this.message.success('Reset email sent');
+      this.modalRef.close(false);
+    });
   }
 
   private onError(error: any): void {
@@ -49,7 +55,7 @@ export class LoginPopupComponent {
 
   public googleOauth(): void {
     delete this.errorMessageCode;
-    from(this.af.signInWithPopup(new firebase.auth.GoogleAuthProvider()) as Promise<any>).subscribe(() => {
+    from(signInWithPopup(this.auth, new GoogleAuthProvider()) as Promise<any>).subscribe(() => {
       this.modalRef.close(true);
     });
   }

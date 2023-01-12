@@ -14,22 +14,22 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { MarkdownModule } from 'ngx-markdown';
 import { environment } from '../environments/environment';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzModalModule } from 'ng-zorro-antd/modal';
-import { AngularFireAuthModule } from '@angular/fire/auth';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { CoreModule } from './core/core.module';
 import { XivapiClientModule } from '@xivapi/angular-client';
 import { DatabaseModule } from './database/database.module';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
-import { AngularFireStorageModule } from '@angular/fire/storage';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { getAuth, provideAuth } from '@angular/fire/auth';
+import { getStorage, provideStorage } from '@angular/fire/storage';
 
 registerLocaleData(en);
 
@@ -38,10 +38,10 @@ registerLocaleData(en);
   imports: [
     BrowserModule.withServerTransition({ appId: 'teamcraft-guides' }),
 
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
-    AngularFireAuthModule,
-    AngularFireStorageModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => getFirestore()),
+    provideAuth(() => getAuth()),
+    provideStorage(() => getStorage()),
 
     StoreModule.forRoot([]),
     EffectsModule.forRoot(),

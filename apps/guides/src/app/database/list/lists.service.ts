@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Firestore } from '@angular/fire/firestore';
 import { FirestoreService } from '../firestore.service';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { TeamcraftList } from './teamcraft-list';
 
 @Injectable({
@@ -8,8 +8,8 @@ import { TeamcraftList } from './teamcraft-list';
 })
 export class ListsService extends FirestoreService<TeamcraftList> {
 
-  constructor(af: AngularFirestore) {
-    super(af);
+  constructor(firestore: Firestore) {
+    super(firestore);
   }
 
   protected getBaseUrl(): string {

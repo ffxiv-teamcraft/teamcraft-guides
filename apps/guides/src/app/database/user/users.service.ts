@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FirestoreService } from '../firestore.service';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { Firestore } from '@angular/fire/firestore';
 import { TeamcraftUser } from './teamcraft-user';
 
 @Injectable({
@@ -8,8 +8,8 @@ import { TeamcraftUser } from './teamcraft-user';
 })
 export class UsersService extends FirestoreService<TeamcraftUser> {
 
-  constructor(af: AngularFirestore) {
-    super(af);
+  constructor(firestore: Firestore) {
+    super(firestore);
   }
 
   protected getBaseUrl(): string {

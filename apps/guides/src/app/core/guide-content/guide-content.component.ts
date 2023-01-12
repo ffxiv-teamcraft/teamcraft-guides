@@ -91,7 +91,7 @@ export class GuideContentComponent implements DoCheck, OnChanges, OnDestroy {
       this.ref = null;
     }
     if (this.markdown && this.elementRef) {
-      const content = this.prepareCustomElements(this.markdownService.compile(this.markdown).replace(/<script/, ''));
+      const content = this.prepareCustomElements(this.markdownService.parse(this.markdown).replace(/<script/, ''));
       const titleRegexp = /<h([1-3]) id="([\w-]+)" name="([^"]+)">/gmi;
       const tableOfContents: TableOfContentEntry[] = [];
       let title;

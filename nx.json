@@ -14,7 +14,12 @@
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e"
+        ]
       }
     }
   },
@@ -24,7 +29,44 @@
     },
     "guides-e2e": {
       "tags": [],
-      "implicitDependencies": ["guides"]
+      "implicitDependencies": [
+        "guides"
+      ]
+    }
+  },
+  "cli": {
+    "analytics": "0b54a900-6131-4837-9e6e-4b38f0110334",
+    "defaultCollection": "@nrwl/angular"
+  },
+  "defaultProject": "guides",
+  "generators": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "style": "less",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "less",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "less"
+    },
+    "@schematics/angular:component": {
+      "style": "less"
     }
   }
 }
