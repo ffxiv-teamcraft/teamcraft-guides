@@ -1,4 +1,4 @@
-import { NgModule, SecurityContext } from '@angular/core';
+import { LOCALE_ID, NgModule, SecurityContext } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
