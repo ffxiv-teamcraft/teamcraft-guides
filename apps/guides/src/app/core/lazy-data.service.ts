@@ -15,7 +15,7 @@ export class LazyDataService {
 
   get<T = any>(name: string): Observable<T> {
     if (this.cache[name] === undefined) {
-      this.cache[name] = this.http.get(`https://raw.githubusercontent.com/ffxiv-teamcraft/ffxiv-teamcraft/master/apps/client/src/assets/data/${name}.json`).pipe(
+      this.cache[name] = this.http.get(`https://raw.githubusercontent.com/ffxiv-teamcraft/ffxiv-teamcraft/master/libs/data/src/lib/json/${name}.json`).pipe(
         shareReplay()
       );
     }
