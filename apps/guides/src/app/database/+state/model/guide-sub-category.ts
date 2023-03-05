@@ -12,5 +12,6 @@ export enum GuideSubCategory {
 
   Other_Profit = 'Other_Profit',
   Other_Fundamentals = 'Other_Fundamentals',
+  Other_Relics = 'Other_Relics',
   Other_Other = 'Other_Other',
 }
