@@ -10,8 +10,7 @@ import { LoginPopupComponent } from './core/login-popup/login-popup.component';
 import { NavigationEnd, Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { NzIconService } from 'ng-zorro-antd/icon';
-
-declare const gtag: Function;
+import { Pirsch } from 'pirsch-sdk/web';
 
 @Component({
   selector: 'guides-root',
@@ -59,6 +58,10 @@ export class AppComponent {
         this.scrollContainer.nativeElement.scrollTop = 0;
       }
     });
+    const pirsch = new Pirsch({
+      identificationCode: 'eNsUPn6rQanAcXe9lKap2jaYjEx4Kkdt',
+      hostname: 'guides.ffxivteamcraft.com'
+    });
 
     router.events
       .pipe(
@@ -68,12 +71,9 @@ export class AppComponent {
           }
           return true;
         })
-      ).subscribe((event: any) => {
+      ).subscribe(() => {
       if (isPlatformBrowser(this.platform)) {
-        gtag('set', 'page', event.url);
-        gtag('event', 'page_view', {
-          page_path: event.urlAfterRedirects
-        });
+        pirsch.hit();
       }
     });
 
