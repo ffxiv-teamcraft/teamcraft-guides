@@ -5,6 +5,7 @@ import { RotationComponent } from './rotation/rotation.component';
 import { PositionComponent } from './position/position.component';
 import { PositionTooltipComponent } from './position-tooltip/position-tooltip.component';
 import { GearsetComponent } from './gearset/gearset.component';
+import { YoutubeVideoComponent } from './youtube-video/youtube-video.component';
 
 export const CUSTOM_MARKDOWN_ELEMENTS = [
   {
@@ -58,6 +59,14 @@ export const CUSTOM_MARKDOWN_ELEMENTS = [
       component: PositionTooltipComponent,
       contentLoader: 'getMaps',
       getId: args => +args[0]
+    } as DynamicComponent,
+    multi: true
+  },
+  {
+    provide: DYNAMIC_COMPONENTS,
+    useValue: {
+      selector: 'youtube',
+      component: YoutubeVideoComponent
     } as DynamicComponent,
     multi: true
   }

@@ -37,6 +37,7 @@ import { XivHorizontalTabsComponent } from './components/xiv-horizontal-tabs/xiv
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { GearsetComponent } from './custom-markdown-elements/gearset/gearset.component';
 import { GuideBannerComponent } from './components/guide-banner/guide-banner.component';
+import { YoutubeVideoComponent } from './custom-markdown-elements/youtube-video/youtube-video.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { GuideBannerComponent } from './components/guide-banner/guide-banner.com
     DividerComponent,
     XivHorizontalTabsComponent,
     GearsetComponent,
-    GuideBannerComponent
+    GuideBannerComponent,
+    YoutubeVideoComponent
   ],
   exports: [
     GuideContentComponent,

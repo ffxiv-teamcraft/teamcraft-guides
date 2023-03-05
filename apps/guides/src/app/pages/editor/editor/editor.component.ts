@@ -257,6 +257,10 @@ export class EditorComponent implements OnDestroy {
       });
   }
 
+  addYoutube(editor: NzCodeEditorComponent): void {
+    this.insertText(editor, `[Youtube:<ID>]`);
+  }
+
   addContributor(guide: Guide): void {
     guide.contributors = [
       ...(guide.contributors || []),
