@@ -5,6 +5,7 @@ import { distinctUntilChanged, expand, filter, last, map, shareReplay, tap } fro
 import { XivAction } from './xiv-action';
 import { XivItem } from './xiv-item';
 import { XivMap } from './xiv-map';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class XivapiDataService {
 
   private cache$ = new BehaviorSubject<Partial<Record<XivapiEndpoint, Record<number, any>>>>({});
 
-  constructor(private xivapi: XivapiService) {
+  constructor(private http: HttpClient, private xivapi: XivapiService) {
   }
 
   private preload<T = unknown>(endpoint: XivapiEndpoint, columns: string[], ids: number[]): Observable<T[]> {
@@ -61,15 +62,9 @@ export class XivapiDataService {
 
   public getActionTooltipData(id: number): Observable<any> {
     if (this.actions[id] === undefined) {
-      if (id > 99999) {
-        this.actions[id] = this.xivapi.get(XivapiEndpoint.CraftAction, id).pipe(
-          shareReplay(1)
-        );
-      } else {
-        this.actions[id] = this.xivapi.get(XivapiEndpoint.Action, id).pipe(
-          shareReplay(1)
-        );
-      }
+      this.actions[id] = this.http.get(`https://api.ffxivteamcraft.com/data/db/actions-database-pages/guides/${id}`).pipe(
+        shareReplay(1)
+      );
     }
     return this.actions[id];
   }

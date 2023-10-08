@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { XivAction } from '../xiv-action';
+import { jobAbbrs } from '../job-abbr-en';
 
 @Component({
   selector: 'guides-xivdb-tooltip-component',
@@ -11,22 +11,21 @@ export class XivapiActionTooltipComponent implements OnInit {
 
   @Input() action: any;
 
-  details: { name: string, value: any, requiresPipe: boolean }[];
+  details: { name: string, value: any }[];
 
   ngOnInit(): void {
     this.details = [];
-    if (this.action.ClassJobLevel) {
-      this.details.push({ name: 'Level', value: this.action.ClassJobLevel.toString(), requiresPipe: false });
+    if (this.action.level) {
+      this.details.push({ name: 'Level', value: this.action.level.toString() });
     }
-    if (this.action.PrimaryCostValue) {
-      this.details.push({ name: 'Cost', value: this.action.PrimaryCostValue.toString(), requiresPipe: false });
+    if (this.action.primaryCostValue) {
+      this.details.push({ name: 'Cost', value: this.action.primaryCostValue.toString() });
     }
-    if (this.action.ClassJobCategory) {
-      this.details.push({ name: 'ClassJob', value: this.action.ClassJobCategory.Name_en, requiresPipe: true });
+    if (this.action.job) {
+      this.details.push({
+        name: 'Class/Job',
+        value: jobAbbrs[this.action.job]
+      });
     }
-  }
-
-  public getDescription(action: XivAction): string {
-    return action.Description_en;
   }
 }

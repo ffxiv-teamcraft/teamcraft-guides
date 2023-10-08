@@ -1,14 +1,14 @@
 <div class="tooltip-container">
   <div fxLayout="row" fxLayoutAlign="flex-start center" fxLayoutGap="10px">
     <div class="icon">
-      <img alt="{{action.Name_en}}" src="https://xivapi.com{{action.IconHD}}">
+      <img alt="{{action.en}}" src="https://xivapi.com{{action.icon}}">
     </div>
     <div class="name">
-      <div>{{action.Name_en}}</div>
+      <div>{{action.en}}</div>
     </div>
   </div>
   <div class="description">
-    <span [innerHtml]="getDescription(action)"></span>
+    <span [innerHtml]="action.description.en"></span>
   </div>
   <div class="details">
     <div *ngFor="let row of details" nz-row nzGutter="10">
@@ -18,14 +18,10 @@
         </p>
       </div>
       <div [nzXs]="12" nz-col>
-        <p *ngIf="!row.requiresPipe" class="detail-value">
-          {{row.value}}
-        </p>
-        <p *ngIf="row.requiresPipe" class="detail-value">
+        <p class="detail-value">
           {{row.value}}
         </p>
       </div>
     </div>
   </div>
-  <div class="xivapi">xivapi.com</div>
 </div>
