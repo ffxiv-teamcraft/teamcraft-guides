@@ -43,7 +43,7 @@ export class ListComponent extends CustomMarkdownElement implements OnInit {
                   finalItems: list.finalItems.map(item => {
                     return {
                       ...item,
-                      ...(items.find(i => i.ID === item.id) || {})
+                      ...(items.find(i => i.id === item.id) || {})
                     };
                   }),
                   importData: btoa(list.finalItems.map(i => `${i.id},${i.recipeId || 'null'},${i.amount}`).join(';'))

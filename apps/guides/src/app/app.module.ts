@@ -1,4 +1,4 @@
-import { LOCALE_ID, NgModule, SecurityContext } from '@angular/core';
+import { NgModule, SecurityContext } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -25,7 +25,6 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { CoreModule } from './core/core.module';
-import { XivapiClientModule } from '@xivapi/angular-client';
 import { DatabaseModule } from './database/database.module';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { AngularFireStorageModule } from '@angular/fire/storage';
@@ -46,7 +45,6 @@ registerLocaleData(en);
     StoreModule.forRoot([]),
     EffectsModule.forRoot(),
 
-    XivapiClientModule.forRoot(environment.production ? 'https://us-central1-ffxivteamcraft.cloudfunctions.net/xivapi-proxy' : null),
     MarkdownModule.forRoot({
       sanitize: SecurityContext.NONE
     }),

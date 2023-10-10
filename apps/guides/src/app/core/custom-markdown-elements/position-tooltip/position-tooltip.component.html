@@ -1,6 +1,5 @@
 <ng-container *ngIf="map$ | async as map">
-  <span>{{map.PlaceName.Name_en}}<span *ngIf="map.PlaceNameSub"> - {{map.PlaceNameSub.Name_en}}</span> (X: {{x}}
-    , Y:{{y}})</span>
+  <span>{{map.name?.en}}<span *ngIf="map.name_sub"> - {{map.name_sub.en}}</span> (X: {{x}}, Y:{{y}})</span>
   <i nz-icon class="tooltip-icon" nzIconfont="icon-map" nz-tooltip [nzTooltipTitle]="positionTpl"></i>
   <ng-template #positionTpl>
     <guides-map-position [map]="map" [x]="x" [y]="y"></guides-map-position>

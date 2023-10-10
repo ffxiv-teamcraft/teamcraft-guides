@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { map, shareReplay, switchMap } from 'rxjs/operators';
-import { XivapiEndpoint, XivapiService } from '@xivapi/angular-client';
-import { XivMap } from '../../../core/xivapi/xiv-map';
+import { map, shareReplay } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { XivapiDataService } from '../../../core/xivapi/xivapi-data.service';
@@ -13,12 +11,8 @@ import { XivapiDataService } from '../../../core/xivapi/xivapi-data.service';
 })
 export class LocationSelectionPopupComponent {
 
-  public maps$ = this.xivapi.getList<XivMap>(XivapiEndpoint.Map, {
-    columns: ['ID'],
-    max_items: 1000
-  }).pipe(
-    switchMap((result) => this.xivapiData.getMaps(result.Results.map(r => r.ID))),
-    map(maps => maps.filter(m => !!m.PlaceName)),
+  public maps$ = this.dataService.getMaps([]).pipe(
+    map(maps => maps.filter(m => !!m.name)),
     shareReplay(1)
   );
 
@@ -29,8 +23,7 @@ export class LocationSelectionPopupComponent {
     tooltip: [false]
   });
 
-  constructor(private xivapi: XivapiService, private fb: FormBuilder,
-              private modalRef: NzModalRef, private xivapiData: XivapiDataService) {
+  constructor(private fb: FormBuilder, private modalRef: NzModalRef, private dataService: XivapiDataService) {
   }
 
   submit(): void {

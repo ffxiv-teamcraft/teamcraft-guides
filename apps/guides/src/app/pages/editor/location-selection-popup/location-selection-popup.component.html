@@ -4,8 +4,8 @@
     <nz-form-control [nzSm]="16" [nzXs]="24">
       <nz-select *ngIf="maps$ | async as maps; else loading" formControlName="mapId" nzAllowClear nzShowSearch>
         <nz-option *ngFor="let map of maps"
-                   nzLabel="{{map.PlaceName.Name_en}}{{map.PlaceNameSub ? ' - ' + map.PlaceNameSub?.Name_en:''}}"
-                   [nzValue]="map.ID"></nz-option>
+                   nzLabel="{{map.name.en}}{{map.name_sub ? ' - ' + map.name_sub?.en:''}}"
+                   [nzValue]="map.id"></nz-option>
       </nz-select>
       <ng-template #loading>
         <nz-spin></nz-spin>

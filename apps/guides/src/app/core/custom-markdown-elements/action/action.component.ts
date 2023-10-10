@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CustomMarkdownElement } from '../custom-markdown-element';
 import { XivapiDataService } from '../../xivapi/xivapi-data.service';
 import { Observable } from 'rxjs';
-import { XivapiEndpoint } from '@xivapi/angular-client';
 import { XivAction } from '../../xivapi/xiv-action';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'guides-action',
@@ -30,10 +30,6 @@ export class ActionComponent extends CustomMarkdownElement implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.actionId >= 100000) {
-      this.action$ = this.xivapiData.get<XivAction>(XivapiEndpoint.CraftAction, this.actionId);
-    } else {
-      this.action$ = this.xivapiData.get<XivAction>(XivapiEndpoint.Action, this.actionId);
-    }
+    this.action$ = this.xivapiData.getActionTooltipData(this.actionId);
   }
 }

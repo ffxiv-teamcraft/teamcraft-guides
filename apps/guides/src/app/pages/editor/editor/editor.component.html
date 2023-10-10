@@ -207,7 +207,7 @@
                              (keydown.enter)="addAction(editor)"
                              (nzOnSearch)="actionsFilter$.next($event)" style="width: 200px">
                     <nz-option *ngFor="let action of actionsAutocomplete$ | async"
-                               [nzValue]="action.ID" [nzLabel]="action.Name_en">
+                               [nzValue]="action.id" [nzLabel]="action.en">
                     </nz-option>
                   </nz-select>
                 </nz-input-group>

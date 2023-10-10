@@ -1,19 +1,21 @@
 export interface XivMap {
-  ID: number;
-  PlaceName: {
-    Name_en: string;
-    Name_fr: string;
-    Name_ja: string;
-    Name_de: string;
+  id: number;
+  placename_id: number;
+  placename_sub_id: number;
+  size_factor: number;
+  offset_x: number;
+  offset_y: number;
+  image: string;
+  name?: {
+    de: string;
+    en: string;
+    fr: string;
+    ja: string;
   };
-  PlaceNameSub: {
-    Name_en: string;
-    Name_fr: string;
-    Name_ja: string;
-    Name_de: string;
+  name_sub?: {
+    de: string;
+    en: string;
+    fr: string;
+    ja: string;
   };
-  SizeFactor: number;
-  OffsetX: number;
-  OffsetY: number;
-  MapFilename: string;
 }

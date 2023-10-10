@@ -1,12 +1,15 @@
 export interface XivAction {
-  ID: number;
-  Name_en: string;
-  Name_fr: string;
-  Name_ja: string;
-  Name_de: string;
-  Description_en: string;
-  Description_fr: string;
-  Description_ja: string;
-  Description_de: string;
-  IconHD: string;
+  id: number;
+  en: string;
+  fr: string;
+  ja: string;
+  de: string;
+  description: {
+    en: string;
+    fr: string;
+    ja: string;
+    de: string;
+  },
+  patch: number;
+  icon: string;
 }

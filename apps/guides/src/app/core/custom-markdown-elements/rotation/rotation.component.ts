@@ -76,7 +76,7 @@ export class RotationComponent extends CustomMarkdownElement implements OnInit {
       let macroFragment = macro[macro.length - 1];
       // One macro is 15 lines, if this one is full, create another one.
       // Alternatively, if breaking before Byregots Blessing is enabled, split there too.
-      let actionName = actions.find(a => a.ID === action.getIds()[0])?.Name_en;
+      let actionName = actions.find(a => a.id === action.getIds()[0])?.en;
       if (actionName.indexOf(' ') > -1) {
         actionName = `"${actionName}"`;
       }

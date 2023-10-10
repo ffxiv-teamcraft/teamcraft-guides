@@ -7,8 +7,8 @@
       <div class="tc-card-content" fxLayout="column" fxLayoutGap="5px">
         <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="flex-start center"
              *ngFor="let item of list.finalItems">
-          <img src="https://xivapi.com/{{item.IconHD}}" alt="" class="item-icon">
-          <div>{{item.Name_en}}</div>
+          <img src="https://xivapi.com/{{item.icon}}" alt="" class="item-icon">
+          <div>{{item.name.en}}</div>
           <div *ngIf="item.requiredAsHQ">(HQ)</div>
           <div>x{{item.amount}}</div>
         </div>

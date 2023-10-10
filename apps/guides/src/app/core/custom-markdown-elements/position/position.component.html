@@ -1,6 +1,6 @@
 <div class="tc-card-container map-card" *ngIf="map$ | async as map">
   <div class="tc-card-title">
-    {{map.PlaceName.Name_en}}<span *ngIf="map.PlaceNameSub"> - {{map.PlaceNameSub.Name_en}}</span> (X: {{x}}, Y:{{y}})
+    {{map.name?.en}}<span *ngIf="map.name_sub"> - {{map.name_sub.en}}</span> (X: {{x}}, Y:{{y}})
   </div>
   <div class="map-container">
     <guides-map-position [map]="map" [x]="x" [y]="y">

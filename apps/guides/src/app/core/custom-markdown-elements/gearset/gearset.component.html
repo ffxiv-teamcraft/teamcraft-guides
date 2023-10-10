@@ -7,15 +7,15 @@
       <div class="tc-card-content" fxLayout="column" fxLayoutGap="5px">
         <ng-template #pieceTpl let-piece let-property="property">
           <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="flex-start center" *ngIf="piece">
-            <img src="https://xivapi.com/{{display.items[piece.itemId].IconHD}}" alt="" class="item-icon">
+            <img src="https://xivapi.com/{{display.items[piece.itemId].icon}}" alt="" class="item-icon">
             <div fxLayout="column" fxLayoutGap="2px">
               <div fxLayout="row">
-                <div>{{display.items[piece.itemId].Name_en}}</div>
+                <div>{{display.items[piece.itemId].name.en}}</div>
                 <span *ngIf="piece.hq">(HQ)</span>
               </div>
               <div class="materias" fxLayout="row" fxLayoutGap="2px">
                 <div class="materia-container" *ngFor="let materia of piece.materias; index as i"
-                     nz-tooltip [nzTooltipTitle]="display.items[materia]?.Name_en">
+                     nz-tooltip [nzTooltipTitle]="display.items[materia]?.name.en">
                   <img
                     src="https://cdn.ffxivteamcraft.com/assets/icons/materia/slot_{{piece.materiaSlots > i ? 'normal' : 'overmeld'}}_empty.png"
                     alt="" class="slot">

@@ -19,7 +19,7 @@ export class MapPositionComponent {
   y: number;
 
   getMarkerStyle(): Record<string, string> {
-    const scale = this.map.SizeFactor / 100;
+    const scale = this.map.size_factor / 100;
 
     const offset = 1;
 

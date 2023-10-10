@@ -6,16 +6,14 @@ import { combineLatest, Observable, of, Subject } from 'rxjs';
 import { filter, first, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { Guide } from '../../../database/+state/model/guide';
 import { GuideCategory } from '../../../database/+state/model/guide-category';
-import { uniq, uniqBy } from 'lodash';
+import { uniq } from 'lodash';
 import { NzCodeEditorComponent } from 'ng-zorro-antd/code-editor';
 import { XivapiDataService } from '../../../core/xivapi/xivapi-data.service';
-import { SearchIndex } from '@xivapi/angular-client';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ImageUploadPopupComponent } from '../image-upload-popup/image-upload-popup.component';
 import { TeamcraftUser } from '../../../database/user/teamcraft-user';
 import { UsersService } from '../../../database/user/users.service';
 import { AuthService } from '../../../database/auth.service';
-import { XivAction } from '../../../core/xivapi/xiv-action';
 import { LocationSelectionPopupComponent } from '../location-selection-popup/location-selection-popup.component';
 import { GuideSubCategory } from '../../../database/+state/model/guide-sub-category';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
@@ -66,42 +64,15 @@ export class EditorComponent implements OnDestroy {
     first()
   );
 
-  actions$ = combineLatest([
-    this.xivapi.getAllSearchPages<XivAction>({
-      indexes: [SearchIndex.CRAFT_ACTION],
-      columns: ['Name_*', 'IconHD', 'ID'],
-      filters: [{
-        column: 'ClassJobTargetID',
-        operator: '>',
-        value: -1
-      }]
-    }),
-    this.xivapi.getAllSearchPages<XivAction>({
-      indexes: [SearchIndex.ACTION],
-      columns: ['Name_*', 'IconHD', 'ID'],
-      filters: [{
-        column: 'ClassJobTargetID',
-        operator: '>=',
-        value: 8
-      },
-        {
-          column: 'ClassJobTargetID',
-          operator: '<=',
-          value: 18
-        }]
-    })
-  ]).pipe(
-    map(([actions, craftActions]) => {
-      return uniqBy([...actions, ...craftActions], 'Name_en');
-    }),
-    shareReplay()
+  actions$ = this.xivapi.getAllActions().pipe(
+    shareReplay(1)
   );
 
   actionsFilter$ = new Subject<string>();
 
   actionsAutocomplete$ = combineLatest([this.actions$, this.actionsFilter$]).pipe(
     map(([actions, actionsFilter]) => {
-      return actions.filter(action => action.Name_en.includes(actionsFilter));
+      return actions.filter(action => action.en.includes(actionsFilter));
     })
   );
 

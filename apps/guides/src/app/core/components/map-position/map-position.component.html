@@ -1,5 +1,5 @@
 <div class="map-container">
-  <img alt="{{map.PlaceName.Name_en}}" class="map-image" src="https://xivapi.com{{map.MapFilename}}">
+  <img alt="{{map.name?.en}}" class="map-image" src="{{map.image}}">
   <i [ngStyle]="getMarkerStyle()"
      class="marker"
      [nzTooltipTitle]="'X: ' + (x | number: '1.0-1') + ' - Y: ' + (y | number: '1.0-1')"

@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { XivapiEndpoint, XivapiList, XivapiSearchOptions, XivapiService } from '@xivapi/angular-client';
-import { BehaviorSubject, combineLatest, EMPTY, Observable, of } from 'rxjs';
-import { distinctUntilChanged, expand, filter, last, map, shareReplay, tap } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
+import { distinctUntilChanged, filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { XivAction } from './xiv-action';
 import { XivItem } from './xiv-item';
 import { XivMap } from './xiv-map';
 import { HttpClient } from '@angular/common/http';
+import { DataEndpoint } from './data-endpoint';
+import { uniq } from 'lodash';
+import { XivActionSearch } from './xiv-action-search';
 
 @Injectable({
   providedIn: 'root'
@@ -14,21 +16,29 @@ export class XivapiDataService {
 
   private actions: { [index: number]: Observable<any> } = {};
 
-  private cache$ = new BehaviorSubject<Partial<Record<XivapiEndpoint, Record<number, any>>>>({});
+  private cache$ = new BehaviorSubject<Partial<Record<string, Record<number, any>>>>({});
 
-  constructor(private http: HttpClient, private xivapi: XivapiService) {
+  constructor(private http: HttpClient) {
   }
 
-  private preload<T = unknown>(endpoint: XivapiEndpoint, columns: string[], ids: number[]): Observable<T[]> {
+  private preload<T = unknown>(endpoint: DataEndpoint, ids: number[]): Observable<T[]> {
     const endpointCache = this.cache$.value[endpoint];
     let missing = ids;
     if (endpointCache) {
       missing = missing.filter(id => endpointCache[id] === undefined);
     }
-    if (missing.length === 0) {
+    if (ids.length > 0 && missing.length === 0) {
       return of(ids.map(id => endpointCache[id]));
     } else {
-      return this.getAllContentPages(endpoint, columns, missing).pipe(
+      return this.http.get(`${endpoint}/${ids.join(',')}`).pipe(
+        map(record => {
+          return Object.entries(record).map(([key, row]) => {
+            return {
+              id: +key,
+              ...row
+            };
+          });
+        }),
         map(list => {
           return [
             ...list,
@@ -38,7 +48,7 @@ export class XivapiDataService {
         tap(rows => {
           const newEndpointCache = this.cache$.value[endpoint] || {};
           rows.forEach(row => {
-            newEndpointCache[row.ID] = row;
+            newEndpointCache[row.id] = row;
           });
           this.cache$.next({
             ...this.cache$.value,
@@ -49,20 +59,42 @@ export class XivapiDataService {
     }
   }
 
-  public getActions(ids: number[]): Observable<XivAction[]> {
-    const craftActions = ids.filter(id => id >= 100000);
-    const actions = ids.filter(id => id < 100000);
-    return combineLatest([
-      this.preload<XivAction>(XivapiEndpoint.CraftAction, ['Name_*', 'Description_*', 'IconHD'], craftActions),
-      this.preload<XivAction>(XivapiEndpoint.Action, ['Name_*', 'Description_*', 'IconHD'], actions)
-    ]).pipe(
-      map(([craftActions, actions]) => [...actions, ...craftActions])
+  public getAllActions(): Observable<XivActionSearch[]> {
+    return this.http.get(`https://api.ffxivteamcraft.com/search?query=&filters=job>=8,job<=18&type=Action`).pipe(
+      map(record => {
+        return Object.values(record);
+      }),
+      tap(actions => {
+        //Ugly but it's a quick and dirty patch
+        actions.forEach(action => {
+          this.actions[action.id] = of(action).pipe(
+            shareReplay(1)
+          );
+        });
+      })
     );
   }
 
-  public getActionTooltipData(id: number): Observable<any> {
+  public getActions(ids: number[]): Observable<XivAction[]> {
+    return this.http.get(`${DataEndpoint.ACTION}/${ids.join(',')}`).pipe(
+      map(record => {
+        return Object.values(record);
+      }),
+      tap(actions => {
+        //Ugly but it's a quick and dirty patch
+        actions.forEach(action => {
+          this.actions[action.id] = of(action).pipe(
+            shareReplay(1)
+          );
+        });
+      })
+    );
+  }
+
+  public getActionTooltipData(id: number): Observable<XivAction> {
     if (this.actions[id] === undefined) {
-      this.actions[id] = this.http.get(`https://api.ffxivteamcraft.com/data/db/actions-database-pages/guides/${id}`).pipe(
+      this.actions[id] = this.http.get(`${DataEndpoint.ACTION}/${id}`).pipe(
+        map(data => data[id]),
         shareReplay(1)
       );
     }
@@ -70,66 +102,48 @@ export class XivapiDataService {
   }
 
   public getItems(ids: number[]): Observable<XivItem[]> {
-    return this.preload<XivItem>(XivapiEndpoint.Item, ['Name_*', 'IconHD'], ids);
+    return this.preload<XivItem>(DataEndpoint.ITEM, ids);
   }
 
   public getMaps(ids: number[]): Observable<XivMap[]> {
-    return this.preload<XivMap>(XivapiEndpoint.Map, ['PlaceName', 'PlaceNameSub', 'SizeFactor', 'MapFilename', 'OffsetX', 'OffsetY'], ids);
+    return this.preload<XivMap>(DataEndpoint.MAP, ids).pipe(
+      switchMap(maps => {
+        const placesToLoad: number[] = uniq([].concat.apply(maps.map(entry => ([entry.placename_id, entry.placename_sub_id]))));
+        return this.preload(DataEndpoint.PLACENAME, placesToLoad).pipe(
+          map(placeNames => {
+            return maps.map(entry => {
+              entry.name = placeNames[entry.placename_id] as any;
+              entry.name_sub = placeNames[entry.placename_sub_id] as any;
+              return entry;
+            });
+          })
+        );
+      })
+    );
   }
 
-  public get<T>(endpoint: XivapiEndpoint, id: number): Observable<T> {
+  public getMap(id: number): Observable<XivMap> {
+    return this.get<XivMap>(DataEndpoint.MAP, id).pipe(
+      switchMap((entry) => {
+        return combineLatest([this.get(DataEndpoint.PLACENAME, entry.placename_id), this.get(DataEndpoint.PLACENAME, entry.placename_sub_id)]).pipe(
+          map(([name, name_sub]) => {
+            return {
+              ...entry,
+              name,
+              name_sub
+            } as XivMap;
+          })
+        );
+      })
+    );
+  }
+
+  public get<T>(endpoint: DataEndpoint, id: number): Observable<T> {
     return this.cache$.pipe(
       map(cache => cache[endpoint]),
       filter(endpointCache => !!endpointCache),
       map(endpointCache => endpointCache[id]),
       distinctUntilChanged()
-    );
-  }
-
-  public getAllContentPages<T>(endpoint: XivapiEndpoint, columns: string[], ids: number[]): Observable<T[]> {
-    return of({ done: false, content: [], next: 1 }).pipe(
-      expand((acc) => {
-        if (!acc.next) {
-          return EMPTY;
-        }
-        return this.xivapi.getList<T>(endpoint, {
-          columns: ['ID', ...columns],
-          ids: ids,
-          page: +acc.next,
-          max_items: 1000
-        }).pipe(
-          map((res: XivapiList<T>) => {
-            return {
-              ...acc,
-              content: [...acc.content, ...res.Results],
-              next: res.Pagination.Page === res.Pagination.PageNext ? null : res.Pagination.PageNext
-            };
-          })
-        );
-      }),
-      map(acc => acc.content),
-      last()
-    );
-  }
-
-  public getAllSearchPages<T>(searchOptions: XivapiSearchOptions): Observable<T[]> {
-    return of({ done: false, content: [], next: 1 }).pipe(
-      expand((acc) => {
-        if (!acc.next) {
-          return EMPTY;
-        }
-        return this.xivapi.search({ ...searchOptions, page: +acc.next, limit: 250 }).pipe(
-          map((res: XivapiList<T>) => {
-            return {
-              ...acc,
-              content: [...acc.content, ...res.Results],
-              next: res.Pagination.PageNext
-            };
-          })
-        );
-      }),
-      map(acc => acc.content),
-      last()
     );
   }
 }

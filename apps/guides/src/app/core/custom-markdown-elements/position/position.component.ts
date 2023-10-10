@@ -3,7 +3,7 @@ import { CustomMarkdownElement } from '../custom-markdown-element';
 import { XivapiDataService } from '../../xivapi/xivapi-data.service';
 import { Observable } from 'rxjs';
 import { XivMap } from '../../xivapi/xiv-map';
-import { XivapiEndpoint } from '@xivapi/angular-client';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'guides-position',
@@ -30,7 +30,7 @@ export class PositionComponent extends CustomMarkdownElement implements OnInit {
     this.mapId = +this.args[0];
     this.x = +this.args[1];
     this.y = +this.args[2];
-    this.map$ = this.xivapi.get<XivMap>(XivapiEndpoint.Map, this.mapId);
+    this.map$ = this.xivapi.getMap(this.mapId);
   }
 
 }

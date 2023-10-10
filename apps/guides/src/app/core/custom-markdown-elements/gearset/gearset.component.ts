@@ -104,7 +104,7 @@ export class GearsetComponent extends CustomMarkdownElement implements OnInit {
             map(items => {
               return {
                 gearset,
-                items: items.reduce((acc, item) => ({ ...acc, [item.ID]: item }), {}),
+                items: items.reduce((acc, item) => ({ ...acc, [item.id]: item }), {}),
                 materias: materiasData
               };
             })
