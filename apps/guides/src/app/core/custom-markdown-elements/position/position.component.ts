@@ -3,7 +3,6 @@ import { CustomMarkdownElement } from '../custom-markdown-element';
 import { XivapiDataService } from '../../xivapi/xivapi-data.service';
 import { Observable } from 'rxjs';
 import { XivMap } from '../../xivapi/xiv-map';
-import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'guides-position',

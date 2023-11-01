@@ -111,9 +111,15 @@ export class XivapiDataService {
         const placesToLoad: number[] = uniq([].concat.apply(maps.map(entry => ([entry.placename_id, entry.placename_sub_id]))));
         return this.preload(DataEndpoint.PLACENAME, placesToLoad).pipe(
           map(placeNames => {
+            const indexById = placeNames.reduce((acc: Record<number, any>, placeName: any) => {
+              return {
+                ...acc,
+                [placeName.id]: placeName
+              }
+            }, {});
             return maps.map(entry => {
-              entry.name = placeNames[entry.placename_id] as any;
-              entry.name_sub = placeNames[entry.placename_sub_id] as any;
+              entry.name = indexById[entry.placename_id] as any;
+              entry.name_sub = indexById[entry.placename_sub_id] as any;
               return entry;
             });
           })
