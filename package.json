@@ -45,7 +45,7 @@
     "@angular/platform-browser-dynamic": "^12.2.13",
     "@angular/platform-server": "^12.2.13",
     "@angular/router": "^12.2.13",
-    "@ffxiv-teamcraft/simulator": "^3.0.8",
+    "@ffxiv-teamcraft/simulator": "^3.5.6",
     "@ngrx/component-store": "^11.1.0",
     "@ngrx/effects": "^11.1.0",
     "@ngrx/entity": "^11.1.0",
