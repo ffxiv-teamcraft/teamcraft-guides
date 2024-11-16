@@ -71,7 +71,7 @@ export class RotationComponent extends CustomMarkdownElement implements OnInit {
     const macro: string[][] = [[]];
     let totalLength = 0;
     let totalDuration = 0;
-    let echoSeNumber = 0;
+    let echoSeNumber = 1;
     rotation.forEach((action, actionIndex) => {
       let macroFragment = macro[macro.length - 1];
       // One macro is 15 lines, if this one is full, create another one.
@@ -84,7 +84,7 @@ export class RotationComponent extends CustomMarkdownElement implements OnInit {
       totalDuration += action.getWaitDuration();
       totalLength++;
 
-      if (macroFragment.length === 14 && rotation.length > totalLength + 1) {
+      if (macroFragment.length > 13 && rotation.length > totalLength + 2) {
         let seNumber = Math.min(echoSeNumber - 1 + macro.length, 16);
         macroFragment.push(`/echo Macro #${macro.length} finished <se.${seNumber}>`);
         totalLength++;
