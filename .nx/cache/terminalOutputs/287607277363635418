@@ -1,0 +1,9 @@
+
+ >  NX   Cannot find module '@angular-devkit/core'
+
+   Require stack:
+   - /home/runner/work/teamcraft-guides/teamcraft-guides/node_modules/nx/src/adapter/ngcli-adapter.js
+   - /home/runner/work/teamcraft-guides/teamcraft-guides/node_modules/nx/src/command-line/run/run.js
+   - /home/runner/work/teamcraft-guides/teamcraft-guides/node_modules/nx/bin/run-executor.js
+   Pass --verbose to see the stacktrace.
+
