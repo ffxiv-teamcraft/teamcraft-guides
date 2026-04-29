@@ -17,7 +17,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { ListComponent } from './custom-markdown-elements/list/list.component';
 import { RotationComponent } from './custom-markdown-elements/rotation/rotation.component';
 import { CUSTOM_MARKDOWN_ELEMENTS } from './custom-markdown-elements';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { FlexLayoutModule } from '@ngbracket/ngx-layout';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzMessageModule } from 'ng-zorro-antd/message';

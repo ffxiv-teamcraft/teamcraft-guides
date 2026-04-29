@@ -2,18 +2,16 @@ module.exports = {
   displayName: 'guides',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-      stringifyContentPathRegex: '\\.(html|svg)$',
-      astTransformers: {
-        before: [
-          'jest-preset-angular/build/InlineFilesTransformer',
-          'jest-preset-angular/build/StripStylesTransformer',
-        ],
+  transform: {
+    '^.+\\.(ts|mjs|js|html)$': [
+      'jest-preset-angular',
+      {
+        tsconfig: '<rootDir>/tsconfig.spec.json',
+        stringifyContentPathRegex: '\\.(html|svg)$',
       },
-    },
+    ],
   },
+  transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
   coverageDirectory: '../../coverage/apps/guides',
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',

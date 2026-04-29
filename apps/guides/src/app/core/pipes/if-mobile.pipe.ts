@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { MediaObserver } from '@angular/flex-layout';
+import { MediaObserver } from '@ngbracket/ngx-layout';
 
 @Pipe({
   name: 'ifMobile',

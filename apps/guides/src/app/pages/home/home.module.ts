@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home/home.component';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { FlexLayoutModule } from '@ngbracket/ngx-layout';
 import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzCardModule } from 'ng-zorro-antd/card';

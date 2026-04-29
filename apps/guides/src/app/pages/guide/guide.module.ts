@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { GuideComponent } from './guide/guide.component';
 import { RouterModule, Routes } from '@angular/router';
 import { CoreModule } from '../../core/core.module';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { FlexLayoutModule } from '@ngbracket/ngx-layout';
 import { DatabaseModule } from '../../database/database.module';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';

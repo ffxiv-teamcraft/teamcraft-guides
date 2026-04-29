@@ -19,7 +19,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { FlexLayoutModule } from '@ngbracket/ngx-layout';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';

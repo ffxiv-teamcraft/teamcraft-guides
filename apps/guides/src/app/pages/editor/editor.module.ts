@@ -9,7 +9,7 @@ import { CoreModule } from '../../core/core.module';
 import { DatabaseModule } from '../../database/database.module';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { FlexLayoutModule } from '@ngbracket/ngx-layout';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
