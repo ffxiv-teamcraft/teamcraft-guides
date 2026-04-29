@@ -43,3 +43,6 @@ Thumbs.db
 .firebase
 *-debug.log
 .runtimeconfig.json
+
+# NX cache
+.nx/
