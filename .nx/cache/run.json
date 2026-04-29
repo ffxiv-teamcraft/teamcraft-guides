@@ -1,8 +1,8 @@
 {
   "run": {
     "command": "nx build guides --skip-nx-cache",
-    "startTime": "2026-04-29T16:30:31.557Z",
-    "endTime": "2026-04-29T16:31:10.498Z",
+    "startTime": "2026-04-29T16:32:02.795Z",
+    "endTime": "2026-04-29T16:32:42.550Z",
     "inner": false
   },
   "tasks": [
@@ -10,12 +10,12 @@
       "taskId": "guides:build",
       "target": "build",
       "projectName": "guides",
-      "hash": "13652075665591126058",
-      "startTime": "2026-04-29T16:30:31.563Z",
-      "endTime": "2026-04-29T16:31:10.497Z",
+      "hash": "8984223120167808605",
+      "startTime": "2026-04-29T16:32:02.801Z",
+      "endTime": "2026-04-29T16:32:42.549Z",
       "params": "",
       "cacheStatus": "cache-miss",
-      "status": 1
+      "status": 0
     }
   ]
 }
