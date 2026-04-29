@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
-import { AngularFireStorage } from '@angular/fire/storage';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { NzUploadXHRArgs } from 'ng-zorro-antd/upload/interface';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { combineLatest } from 'rxjs';

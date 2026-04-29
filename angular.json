@@ -205,7 +205,8 @@
             "ssr": true
           }
         }
-      }
+      },
+      "tags": []
     },
     "guides-e2e": {
       "root": "apps/guides-e2e",
@@ -233,7 +234,11 @@
             ]
           }
         }
-      }
+      },
+      "tags": [],
+      "implicitDependencies": [
+        "guides"
+      ]
     }
   }
 }

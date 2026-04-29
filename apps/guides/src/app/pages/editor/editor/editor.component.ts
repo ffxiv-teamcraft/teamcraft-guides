@@ -17,7 +17,7 @@ import { AuthService } from '../../../database/auth.service';
 import { LocationSelectionPopupComponent } from '../location-selection-popup/location-selection-popup.component';
 import { GuideSubCategory } from '../../../database/+state/model/guide-sub-category';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
-import { AngularFireStorage } from '@angular/fire/storage';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
