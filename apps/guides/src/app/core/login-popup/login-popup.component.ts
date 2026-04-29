@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -13,11 +13,11 @@ import firebase from 'firebase/compat/app';
 })
 export class LoginPopupComponent {
 
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   errorMessageCode: string;
 
-  constructor(private fb: FormBuilder,
+  constructor(private fb: UntypedFormBuilder,
               private modalRef: NzModalRef,
               private message: NzMessageService,
               private af: AngularFireAuth) {
