@@ -55,7 +55,18 @@
         </ul>
       </li>
     </ng-container>
-    <div fxFlex="1 1 auto"></div>
+    <div fxFlex="1 1 auto" fxShow fxHide.lt-lg>
+        <div class="teamcrafter-banner" fxFlex fxLayout="column">
+          <img src="./assets/media/plains.png" alt="" class="background">
+          <div class="banner-content">
+            <p>Teamcrafter, a chill roguelike where you don't fight, by the creator of FFXIV Teamcraft</p>
+            <div fxFlex fxLayout="row">
+              <a nz-button nzSize="small" href="https://store.steampowered.com/app/3405680/Teamcrafter/" target="_blank">View on Steam</a>
+              <a nz-button nzSize="small" href="https://store.steampowered.com/app/3405680/Teamcrafter/" target="_blank">View on Kickstarter</a>
+            </div>
+          </div>
+        </div>
+    </div>
     <li nz-menu-item nzMatchRouter fxShow fxHide.lt-md *ngIf="user$ | async"
         class="ant-menu-submenu-title">
       <i nz-icon nzType="edit"></i>
