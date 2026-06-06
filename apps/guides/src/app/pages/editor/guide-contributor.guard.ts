@@ -1,4 +1,4 @@
-import { ActivatedRouteSnapshot, CanActivate } from '@angular/router';
+import { ActivatedRouteSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { GuidesFacade } from '../../database/+state/guides.facade';
 import { combineLatest, Observable } from 'rxjs';
@@ -7,7 +7,7 @@ import { AuthService } from '../../database/auth.service';
 
 
 @Injectable()
-export class GuideContributorGuard implements CanActivate {
+export class GuideContributorGuard  {
 
   constructor(private guidesFacade: GuidesFacade, private auth: AuthService) {
   }

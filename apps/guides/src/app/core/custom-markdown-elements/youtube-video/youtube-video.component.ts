@@ -3,9 +3,10 @@ import { CustomMarkdownElement } from '../custom-markdown-element';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
-  selector: 'guides-youtube-video',
-  templateUrl: './youtube-video.component.html',
-  styleUrls: ['./youtube-video.component.less']
+    selector: 'guides-youtube-video',
+    templateUrl: './youtube-video.component.html',
+    styleUrls: ['./youtube-video.component.less'],
+    standalone: false
 })
 export class YoutubeVideoComponent extends CustomMarkdownElement implements OnInit {
 

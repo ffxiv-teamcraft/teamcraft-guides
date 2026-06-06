@@ -2,10 +2,11 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 import { jobAbbrs } from '../job-abbr-en';
 
 @Component({
-  selector: 'guides-xivdb-tooltip-component',
-  templateUrl: './xivapi-action-tooltip.component.html',
-  styleUrls: ['./xivapi-action-tooltip.component.less'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'guides-xivdb-tooltip-component',
+    templateUrl: './xivapi-action-tooltip.component.html',
+    styleUrls: ['./xivapi-action-tooltip.component.less'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class XivapiActionTooltipComponent implements OnInit {
 

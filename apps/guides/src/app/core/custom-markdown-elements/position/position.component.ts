@@ -5,9 +5,10 @@ import { Observable } from 'rxjs';
 import { XivMap } from '../../xivapi/xiv-map';
 
 @Component({
-  selector: 'guides-position',
-  templateUrl: './position.component.html',
-  styleUrls: ['./position.component.less']
+    selector: 'guides-position',
+    templateUrl: './position.component.html',
+    styleUrls: ['./position.component.less'],
+    standalone: false
 })
 export class PositionComponent extends CustomMarkdownElement implements OnInit {
 

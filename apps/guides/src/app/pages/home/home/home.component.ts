@@ -9,9 +9,10 @@ import { Guide } from '../../../database/+state/model/guide';
 import { GuideSubCategory } from '../../../database/+state/model/guide-sub-category';
 
 @Component({
-  selector: 'guides-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.less']
+    selector: 'guides-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.less'],
+    standalone: false
 })
 export class HomeComponent {
 

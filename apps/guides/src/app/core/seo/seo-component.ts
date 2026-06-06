@@ -5,7 +5,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
-  template: ''
+    template: '',
+    standalone: false
 })
 export abstract class SeoComponent implements OnDestroy, OnInit {
 

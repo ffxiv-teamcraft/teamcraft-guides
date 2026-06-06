@@ -2,10 +2,11 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { XivMap } from '../../xivapi/xiv-map';
 
 @Component({
-  selector: 'guides-map-position',
-  templateUrl: './map-position.component.html',
-  styleUrls: ['./map-position.component.less'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'guides-map-position',
+    templateUrl: './map-position.component.html',
+    styleUrls: ['./map-position.component.less'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class MapPositionComponent {
 

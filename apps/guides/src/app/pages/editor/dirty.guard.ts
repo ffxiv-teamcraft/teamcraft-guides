@@ -1,4 +1,4 @@
-import { CanDeactivate } from '@angular/router';
+
 import { Injectable } from '@angular/core';
 import { GuidesFacade } from '../../database/+state/guides.facade';
 import { Observable, of, Subject } from 'rxjs';
@@ -7,7 +7,7 @@ import { tap } from 'rxjs/operators';
 
 
 @Injectable()
-export class DirtyGuard implements CanDeactivate<any> {
+export class DirtyGuard  {
 
   constructor(private guidesFacade: GuidesFacade, private dialog: NzModalService) {
   }

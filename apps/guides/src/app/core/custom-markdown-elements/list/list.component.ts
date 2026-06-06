@@ -7,9 +7,10 @@ import { map, switchMap } from 'rxjs/operators';
 import { XivapiDataService } from '../../xivapi/xivapi-data.service';
 
 @Component({
-  selector: 'guides-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.less']
+    selector: 'guides-list',
+    templateUrl: './list.component.html',
+    styleUrls: ['./list.component.less'],
+    standalone: false
 })
 export class ListComponent extends CustomMarkdownElement implements OnInit {
 

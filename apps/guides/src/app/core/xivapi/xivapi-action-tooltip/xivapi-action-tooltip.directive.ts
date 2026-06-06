@@ -20,7 +20,8 @@ import { XivapiDataService } from '../xivapi-data.service';
  * This directive take care of the XivDB request, based on the given action ID.
  */
 @Directive({
-  selector: '[guidesXivapiActionTooltip]'
+    selector: '[guidesXivapiActionTooltip]',
+    standalone: false
 })
 export class XivapiActionTooltipDirective implements OnDestroy {
 

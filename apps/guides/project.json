@@ -1,0 +1,176 @@
+{
+  "name": "guides",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/guides/src",
+  "prefix": "guides",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "options": {
+        "outputPath": "dist/guides/browser",
+        "index": "apps/guides/src/index.html",
+        "main": "apps/guides/src/main.ts",
+        "polyfills": "apps/guides/src/polyfills.ts",
+        "tsConfig": "apps/guides/tsconfig.app.json",
+        "aot": true,
+        "sourceMap": true,
+        "assets": [
+          "apps/guides/src/favicon.ico",
+          "apps/guides/src/assets",
+          {
+            "glob": "**/*",
+            "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+            "output": "/assets/"
+          },
+          {
+            "glob": "**/*",
+            "input": "./node_modules/monaco-editor/min/vs",
+            "output": "/assets/vs/"
+          }
+        ],
+        "styles": ["apps/guides/src/styles.less"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/guides/src/environments/environment.ts",
+              "with": "apps/guides/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": true,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "5mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb",
+              "maximumError": "10kb"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "buildTarget": "guides:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "guides:build:production"
+        }
+      },
+      "continuous": true
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "guides:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/guides"],
+      "options": {
+        "jestConfig": "apps/guides/jest.config.ts"
+      }
+    },
+    "server": {
+      "executor": "@angular-devkit/build-angular:server",
+      "options": {
+        "outputPath": "dist/guides/server",
+        "main": "apps/guides/server.ts",
+        "tsConfig": "apps/guides/tsconfig.server.json",
+        "sourceMap": true,
+        "externalDependencies": [
+          "firebase",
+          "@firebase/app",
+          "@firebase/analytics",
+          "@firebase/auth",
+          "@firebase/component",
+          "@firebase/database",
+          "@firebase/firestore",
+          "@firebase/functions",
+          "@firebase/installations",
+          "@firebase/messaging",
+          "@firebase/storage",
+          "@firebase/performance",
+          "@firebase/remote-config",
+          "@firebase/util"
+        ]
+      },
+      "configurations": {
+        "production": {
+          "outputHashing": "media",
+          "fileReplacements": [
+            {
+              "replace": "apps/guides/src/environments/environment.ts",
+              "with": "apps/guides/src/environments/environment.prod.ts"
+            }
+          ],
+          "sourceMap": true,
+          "optimization": true,
+          "buildOptimizer": true
+        }
+      },
+      "production": {
+        "outputHashing": "media",
+        "fileReplacements": [
+          {
+            "replace": "apps/guides/src/environments/environment.ts",
+            "with": "apps/guides/src/environments/environment.prod.ts"
+          }
+        ],
+        "sourceMap": true,
+        "optimization": true
+      }
+    },
+    "serve-ssr": {
+      "executor": "@angular-devkit/build-angular:ssr-dev-server",
+      "options": {
+        "browserTarget": "guides:build",
+        "serverTarget": "guides:server"
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "guides:build:production",
+          "serverTarget": "guides:server:production"
+        }
+      },
+      "continuous": true
+    },
+    "prerender": {
+      "executor": "@angular-devkit/build-angular:prerender",
+      "options": {
+        "browserTarget": "guides:build:production",
+        "serverTarget": "guides:server:production",
+        "routes": ["/"]
+      },
+      "configurations": {
+        "production": {}
+      }
+    },
+    "deploy": {
+      "executor": "@angular/fire:deploy",
+      "options": {
+        "ssr": true
+      }
+    }
+  }
+}

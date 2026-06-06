@@ -1,17 +1,21 @@
 <div class="tc-card-container">
-  <ng-container *ngIf="listDisplay$ | async as list">
-    <ng-container *ngIf="!list.notFound; else notFoundTpl">
+  @if (listDisplay$ | async; as list) {
+    @if (!list.notFound) {
       <div class="tc-card-title">
         <i nz-icon nzType="unordered-list" nzTheme="outline"></i> {{list.name}}
       </div>
       <div class="tc-card-content" fxLayout="column" fxLayoutGap="5px">
-        <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="flex-start center"
-             *ngFor="let item of list.finalItems">
-          <img src="https://xivapi.com/{{item.icon}}" alt="" class="item-icon">
-          <div>{{item.name.en}}</div>
-          <div *ngIf="item.requiredAsHQ">(HQ)</div>
-          <div>x{{item.amount}}</div>
-        </div>
+        @for (item of list.finalItems; track item) {
+          <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="flex-start center"
+            >
+            <img src="https://xivapi.com/{{item.icon}}" alt="" class="item-icon">
+            <div>{{item.name.en}}</div>
+            @if (item.requiredAsHQ) {
+              <div>(HQ)</div>
+            }
+            <div>x{{item.amount}}</div>
+          </div>
+        }
       </div>
       <div class="tc-card-footer" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="flex-start center" fxShow fxHide.lt-md>
         <div>
@@ -22,15 +26,13 @@
         </div>
         <div>
           <a nz-button nzSize="small" href="https://ffxivteamcraft.com/import/{{list.importData}}" target="_blank">Import to your Teamcraft
-            account</a>
+          account</a>
         </div>
       </div>
-    </ng-container>
-
-    <ng-template #notFoundTpl>
+    } @else {
       <div class="tc-card-content">
         <nz-empty nzNotFoundContent="List not found"></nz-empty>
       </div>
-    </ng-template>
-  </ng-container>
+    }
+  }
 </div>

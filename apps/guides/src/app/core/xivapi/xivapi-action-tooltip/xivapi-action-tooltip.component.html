@@ -11,17 +11,19 @@
     <span [innerHtml]="action.description.en"></span>
   </div>
   <div class="details">
-    <div *ngFor="let row of details" nz-row nzGutter="10">
-      <div [nzXs]="12" nz-col>
-        <p class="detail-name">
-          {{row.name}}
-        </p>
+    @for (row of details; track row) {
+      <div nz-row nzGutter="10">
+        <div [nzXs]="12" nz-col>
+          <p class="detail-name">
+            {{row.name}}
+          </p>
+        </div>
+        <div [nzXs]="12" nz-col>
+          <p class="detail-value">
+            {{row.value}}
+          </p>
+        </div>
       </div>
-      <div [nzXs]="12" nz-col>
-        <p class="detail-value">
-          {{row.value}}
-        </p>
-      </div>
-    </div>
+    }
   </div>
 </div>

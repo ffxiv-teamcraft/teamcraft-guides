@@ -4,10 +4,11 @@ import { GuideCategory } from '../../database/+state/model/guide-category';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
-  selector: 'guides-guide-card',
-  templateUrl: './guide-card.component.html',
-  styleUrls: ['./guide-card.component.less'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'guides-guide-card',
+    templateUrl: './guide-card.component.html',
+    styleUrls: ['./guide-card.component.less'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class GuideCardComponent {
 

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
-import { AngularFireStorage } from '@angular/fire/storage';
-import { NzUploadXHRArgs } from 'ng-zorro-antd/upload/interface';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { NzUploadXHRArgs } from 'ng-zorro-antd/upload';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { combineLatest } from 'rxjs';
 import { first, mapTo } from 'rxjs/operators';
@@ -16,9 +16,10 @@ function getBase64(file: File): Promise<string | ArrayBuffer | null> {
 }
 
 @Component({
-  selector: 'guides-image-upload-popup',
-  templateUrl: './image-upload-popup.component.html',
-  styleUrls: ['./image-upload-popup.component.less']
+    selector: 'guides-image-upload-popup',
+    templateUrl: './image-upload-popup.component.html',
+    styleUrls: ['./image-upload-popup.component.less'],
+    standalone: false
 })
 export class ImageUploadPopupComponent {
 

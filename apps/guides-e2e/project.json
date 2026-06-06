@@ -1,0 +1,25 @@
+{
+  "name": "guides-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/guides-e2e/src",
+  "projectType": "application",
+  "tags": [],
+  "implicitDependencies": ["guides"],
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/guides-e2e/cypress.json",
+        "devServerTarget": "guides:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "guides:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

@@ -9,7 +9,8 @@ import {
   OnDestroy,
   Output,
   PLATFORM_ID,
-  SimpleChanges
+  SimpleChanges,
+  ViewContainerRef
 } from '@angular/core';
 import { MarkdownService } from 'ngx-markdown';
 import { DynamicHTMLRef, DynamicHTMLRenderer } from '../dynamic-html/dynamic-html-renderer';
@@ -19,9 +20,10 @@ import { isPlatformServer } from '@angular/common';
 import { TableOfContentEntry } from './table-of-content-entry';
 
 @Component({
-  selector: 'guides-guide-content',
-  template: '',
-  styleUrls: ['./guide-content.component.less']
+    selector: 'guides-guide-content',
+    template: '',
+    styleUrls: ['./guide-content.component.less'],
+    standalone: false
 })
 export class GuideContentComponent implements DoCheck, OnChanges, OnDestroy {
 
@@ -37,26 +39,27 @@ export class GuideContentComponent implements DoCheck, OnChanges, OnDestroy {
               private renderer: DynamicHTMLRenderer,
               private elementRef: ElementRef,
               private xivapiData: XivapiDataService,
+              private vcr: ViewContainerRef,
               @Inject(DYNAMIC_COMPONENTS) private components: DynamicComponent[],
               @Inject(PLATFORM_ID) private platform: Object) {
     if (isPlatformServer(platform)) {
       return;
     }
-    this.markdownService.renderer.heading = (text: string, level: number) => {
+    this.markdownService.renderer.heading = ({ text, depth }) => {
       const escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
-      return `<h${level} id="${escapedText}" name="${text}">${text}
+      return `<h${depth} id="${escapedText}" name="${text}">${text}
           <a class="heading-anchor" onclick="history.replaceState(null, null, '${window.location.pathname}#${escapedText}')">
             #
           </a>
-        </h${level}>`;
+        </h${depth}>`;
     };
 
-    this.markdownService.renderer.paragraph = (text: string) => {
+    this.markdownService.renderer.paragraph = ({ text }) => {
       const p = text.includes('<img') ? `p class="with-image"` : `p class="clear-both"`;
       return `<${p}>${text}</p>`;
     };
 
-    this.markdownService.renderer.image = (href, title, text) => {
+    this.markdownService.renderer.image = ({ href, title, text }) => {
       return `<img alt="${text}" src="${href}" class="md-img"/>`;
     };
   }
@@ -91,52 +94,56 @@ export class GuideContentComponent implements DoCheck, OnChanges, OnDestroy {
       this.ref = null;
     }
     if (this.markdown && this.elementRef) {
-      const content = this.prepareCustomElements(this.markdownService.compile(this.markdown).replace(/<script/, ''));
-      const titleRegexp = /<h([1-3]) id="([\w-]+)" name="([^"]+)">/gmi;
-      const tableOfContents: TableOfContentEntry[] = [];
-      let title;
-      const lastTitles: Record<number, TableOfContentEntry> = {
-        1: null,
-        2: null
-      };
-      while ((title = titleRegexp.exec(content)) !== null) {
-        const [, level, link, name] = title;
-        if (link.includes('changelog')) {
-          continue;
-        }
-        const entry = {
-          name,
-          link: `#${link}`,
-          children: []
+      const parsed = this.markdownService.parse(this.markdown);
+      const promise = typeof parsed === 'string' ? Promise.resolve(parsed) : parsed;
+      promise.then(parsedMarkdown => {
+        const content = this.prepareCustomElements(((parsedMarkdown as any)?.toString() || parsedMarkdown as string).replace(/<script/, ''));
+        const titleRegexp = /<h([1-3]) id="([\w-]+)" name="([^"]+)">/gmi;
+        const tableOfContents: TableOfContentEntry[] = [];
+        let title;
+        const lastTitles: Record<number, TableOfContentEntry> = {
+          1: null,
+          2: null
         };
-        switch (+level) {
-          case 1:
-            tableOfContents.push(entry);
-            lastTitles[1] = entry;
-            break;
-          case 2:
-            if (!lastTitles[1]) {
+        while ((title = titleRegexp.exec(content)) !== null) {
+          const [, level, link, name] = title;
+          if (link.includes('changelog')) {
+            continue;
+          }
+          const entry = {
+            name,
+            link: `#${link}`,
+            children: []
+          };
+          switch (+level) {
+            case 1:
               tableOfContents.push(entry);
-            } else {
-              lastTitles[1].children.push(entry);
-            }
-            lastTitles[2] = entry;
-            break;
-          case 3:
-            if (!lastTitles[2]) {
-              tableOfContents.push(entry);
-            } else {
-              lastTitles[2].children.push(entry);
-            }
-            break;
+              lastTitles[1] = entry;
+              break;
+            case 2:
+              if (!lastTitles[1]) {
+                tableOfContents.push(entry);
+              } else {
+                lastTitles[1].children.push(entry);
+              }
+              lastTitles[2] = entry;
+              break;
+            case 3:
+              if (!lastTitles[2]) {
+                tableOfContents.push(entry);
+              } else {
+                lastTitles[2].children.push(entry);
+              }
+              break;
+          }
         }
-      }
-      this.ref = this.renderer.renderInnerHTML(this.elementRef, content);
-      setTimeout(() => {
-        this.registerTableOfContents.emit(tableOfContents);
+        this.ref = this.renderer.renderInnerHTML(this.elementRef, content, this.vcr);
+        setTimeout(() => {
+          this.registerTableOfContents.emit(tableOfContents);
+        });
       });
     } else {
-      this.ref = this.renderer.renderInnerHTML(this.elementRef, '');
+      this.ref = this.renderer.renderInnerHTML(this.elementRef, '', this.vcr);
     }
   }
 

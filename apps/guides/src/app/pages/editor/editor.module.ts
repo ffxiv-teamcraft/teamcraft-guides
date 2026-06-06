@@ -21,13 +21,13 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { DirtyGuard } from './dirty.guard';
 import { GuideContributorGuard } from './guide-contributor.guard';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 import { LocationSelectionPopupComponent } from './location-selection-popup/location-selection-popup.component';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
-import { ImageCropperModule } from 'ngx-image-cropper';
+import { ImageCropperComponent } from 'ngx-image-cropper';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 
 const routes: Routes = [
@@ -56,7 +56,7 @@ const routes: Routes = [
     FormsModule,
     DatabaseModule,
     FlexLayoutModule,
-    ImageCropperModule,
+    ImageCropperComponent,
 
     RouterModule.forChild(routes),
     NzTabsModule,
@@ -71,7 +71,7 @@ const routes: Routes = [
     NzSwitchModule,
     NzModalModule,
     NzUploadModule,
-    NzToolTipModule,
+    NzTooltipModule,
     NzSpinModule,
     ReactiveFormsModule,
     NzInputNumberModule,

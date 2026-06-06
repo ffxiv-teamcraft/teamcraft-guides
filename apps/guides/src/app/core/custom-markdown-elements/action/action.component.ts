@@ -6,9 +6,10 @@ import { XivAction } from '../../xivapi/xiv-action';
 import { tap } from 'rxjs/operators';
 
 @Component({
-  selector: 'guides-action',
-  templateUrl: './action.component.html',
-  styleUrls: ['./action.component.less']
+    selector: 'guides-action',
+    templateUrl: './action.component.html',
+    styleUrls: ['./action.component.less'],
+    standalone: false
 })
 export class ActionComponent extends CustomMarkdownElement implements OnInit {
 

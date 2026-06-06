@@ -1,7 +1,10 @@
 import { OnMount } from '../dynamic-html/on-mount';
 import { Component, Input, OnChanges } from '@angular/core';
 
-@Component({ template: '' })
+@Component({
+    template: '',
+    standalone: false
+})
 export abstract class CustomMarkdownElement implements OnMount, OnChanges {
   @Input()
   preview = false;

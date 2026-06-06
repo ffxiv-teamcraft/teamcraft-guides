@@ -19,15 +19,17 @@
   <nz-form-item nz-row>
     <nz-form-control [nzOffset]="6" [nzSpan]="14">
       <button (click)="sendResetPassword()" [disabled]="form.pristine ||(form.errors && form.errors.email)"
-              nz-button
-              type="button">
+        nz-button
+        type="button">
         Send a password reset email
       </button>
     </nz-form-control>
   </nz-form-item>
 </form>
-<nz-alert *ngIf="errorMessageCode !== undefined" [nzMessage]="errorMessageCode"
-          nzType="error" class="dark"></nz-alert>
+@if (errorMessageCode !== undefined) {
+  <nz-alert [nzMessage]="errorMessageCode"
+  nzType="error" class="dark"></nz-alert>
+}
 <nz-divider nzText="Or"></nz-divider>
 <div class="oauth-buttons">
   <button (click)="googleOauth()" nz-button nzType="primary">Log in with Google</button>

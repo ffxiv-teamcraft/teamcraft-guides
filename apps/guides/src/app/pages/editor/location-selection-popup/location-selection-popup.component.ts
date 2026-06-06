@@ -5,9 +5,10 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
 import { XivapiDataService } from '../../../core/xivapi/xivapi-data.service';
 
 @Component({
-  selector: 'guides-location-selection-popup',
-  templateUrl: './location-selection-popup.component.html',
-  styleUrls: ['./location-selection-popup.component.less']
+    selector: 'guides-location-selection-popup',
+    templateUrl: './location-selection-popup.component.html',
+    styleUrls: ['./location-selection-popup.component.less'],
+    standalone: false
 })
 export class LocationSelectionPopupComponent {
 

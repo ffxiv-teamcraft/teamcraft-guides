@@ -13,9 +13,10 @@ import { NzIconService } from 'ng-zorro-antd/icon';
 import { Pirsch } from 'pirsch-sdk/web';
 
 @Component({
-  selector: 'guides-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.less']
+    selector: 'guides-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.less'],
+    standalone: false
 })
 export class AppComponent {
 
@@ -47,7 +48,7 @@ export class AppComponent {
   constructor(private nzModal: NzModalService,
               private authService: AuthService,
               private guidesFacade: GuidesFacade,
-              private router: Router,
+              router: Router,
               private iconService: NzIconService,
               @Inject(PLATFORM_ID) private platform: Object) {
     this.guidesFacade.init();

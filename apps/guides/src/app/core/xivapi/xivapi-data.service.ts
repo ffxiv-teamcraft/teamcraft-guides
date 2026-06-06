@@ -31,11 +31,11 @@ export class XivapiDataService {
       return of(ids.map(id => endpointCache[id]));
     } else {
       return this.http.get(`${endpoint}/${ids.join(',')}`).pipe(
-        map(record => {
+        map((record: any) => {
           return Object.entries(record).map(([key, row]) => {
             return {
               id: +key,
-              ...row
+              ...(row as object)
             };
           });
         }),
@@ -47,7 +47,7 @@ export class XivapiDataService {
         }),
         tap(rows => {
           const newEndpointCache = this.cache$.value[endpoint] || {};
-          rows.forEach(row => {
+          rows.forEach((row: any) => {
             newEndpointCache[row.id] = row;
           });
           this.cache$.next({

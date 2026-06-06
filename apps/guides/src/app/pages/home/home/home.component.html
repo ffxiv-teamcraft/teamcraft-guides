@@ -1,51 +1,54 @@
-<div fxLayout="column"
-     fxLayoutAlign="flex-start stretch"
-     *ngIf="display$ | async as display">
-  <section class="featured-section">
-    <guides-divider>
-      <h1>Featured</h1>
-    </guides-divider>
-    <div fxLayout="row" fxLayoutAlign="space-around flex-start"
-         class="featured-guides">
-      <ng-container *ngIf="true | ifMobile: false; else mobileTpl">
-        <div *ngFor="let guide of display.featured">
-          <guides-guide-card class="featured-guide-card" [guide]="guide"></guides-guide-card>
+@if (display$ | async; as display) {
+  <div fxLayout="column"
+    fxLayoutAlign="flex-start stretch"
+    >
+    <section class="featured-section">
+      <guides-divider>
+        <h1>Featured</h1>
+      </guides-divider>
+      <div fxLayout="row" fxLayoutAlign="space-around flex-start"
+        class="featured-guides">
+        @if (true | ifMobile: false) {
+          @for (guide of display.featured; track guide) {
+            <div>
+              <guides-guide-card class="featured-guide-card" [guide]="guide"></guides-guide-card>
+            </div>
+          }
+        } @else {
+          <guides-guide-card class="featured-guide-card" [guide]="display.featured[0]"></guides-guide-card>
+        }
+      </div>
+      <hr>
+      </section>
+      <section class="basic-section">
+        <guides-divider>
+          <h1 class="title-with-icon"><i class="companion-svg">&#x0F008;</i> Crafting Guides</h1>
+        </guides-divider>
+        <div fxLayout="row" fxLayoutAlign="space-around flex-start"
+          class="basic-content">
+          <guides-xiv-horizontal-tabs [guides]="display.crafting"></guides-xiv-horizontal-tabs>
         </div>
-      </ng-container>
-      <ng-template #mobileTpl>
-        <guides-guide-card class="featured-guide-card" [guide]="display.featured[0]"></guides-guide-card>
-      </ng-template>
-    </div>
-    <hr>
-  </section>
-  <section class="basic-section">
-    <guides-divider>
-      <h1 class="title-with-icon"><i class="companion-svg">&#x0F008;</i> Crafting Guides</h1>
-    </guides-divider>
-    <div fxLayout="row" fxLayoutAlign="space-around flex-start"
-         class="basic-content">
-      <guides-xiv-horizontal-tabs [guides]="display.crafting"></guides-xiv-horizontal-tabs>
-    </div>
-    <hr>
-  </section>
-  <section class="basic-section">
-    <guides-divider>
-      <h1 class="title-with-icon"><i class="companion-svg">&#x0F120;</i> Gathering Guides</h1>
-    </guides-divider>
-    <div fxLayout="row" fxLayoutAlign="space-around flex-start"
-         class="basic-content">
-      <guides-xiv-horizontal-tabs [guides]="display.gathering"></guides-xiv-horizontal-tabs>
-    </div>
-    <hr>
-  </section>
-  <section class="basic-section">
-    <guides-divider>
-      <h1 class="title-with-icon"><i class="companion-svg">&#x0F159;</i> Other Guides</h1>
-    </guides-divider>
-    <div fxLayout="row" fxLayoutAlign="space-around flex-start"
-         class="basic-content">
-      <guides-xiv-horizontal-tabs [guides]="display.other"></guides-xiv-horizontal-tabs>
-    </div>
-    <hr>
-  </section>
-</div>
+        <hr>
+        </section>
+        <section class="basic-section">
+          <guides-divider>
+            <h1 class="title-with-icon"><i class="companion-svg">&#x0F120;</i> Gathering Guides</h1>
+          </guides-divider>
+          <div fxLayout="row" fxLayoutAlign="space-around flex-start"
+            class="basic-content">
+            <guides-xiv-horizontal-tabs [guides]="display.gathering"></guides-xiv-horizontal-tabs>
+          </div>
+          <hr>
+          </section>
+          <section class="basic-section">
+            <guides-divider>
+              <h1 class="title-with-icon"><i class="companion-svg">&#x0F159;</i> Other Guides</h1>
+            </guides-divider>
+            <div fxLayout="row" fxLayoutAlign="space-around flex-start"
+              class="basic-content">
+              <guides-xiv-horizontal-tabs [guides]="display.other"></guides-xiv-horizontal-tabs>
+            </div>
+            <hr>
+            </section>
+          </div>
+        }

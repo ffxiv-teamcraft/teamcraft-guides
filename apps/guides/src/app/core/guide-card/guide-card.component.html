@@ -1,5 +1,5 @@
 <div class="card-container guide-card-container" [class.large]="large | ifMobile: false"
-     routerLink="/guide/{{guide.slug}}">
+  routerLink="/guide/{{guide.slug}}">
   <div class="card-header-border"></div>
   <div class="card-title">
     <div class="title">{{guide.title}}</div>
@@ -10,23 +10,25 @@
     <guides-guide-banner [guide]="guide"></guides-guide-banner>
     <p>{{guide.description}}</p>
   </div>
-  <div class="card-footer" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="flex-start center"
-       *ngIf="guide.author | character | async as author">
-    <hr class="card-divider">
-    <div>
-      <nz-avatar [nzSrc]="author.Avatar" nzSize="large"></nz-avatar>
-    </div>
-    <div fxLayout="column">
+  @if (guide.author | character | async; as author) {
+    <div class="card-footer" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="flex-start center"
+      >
+      <hr class="card-divider">
       <div>
-        {{author.Name}}
+        <nz-avatar [nzSrc]="author.Avatar" nzSize="large"></nz-avatar>
       </div>
-      <div fxLayout="row" fxLayoutAlign="flex-start center">
-        <i class="companion-svg" [innerHTML]="getIcon(guide.category)">
-        </i>
-        {{GuideCategory[guide.category]}}
+      <div fxLayout="column">
+        <div>
+          {{author.Name}}
+        </div>
+        <div fxLayout="row" fxLayoutAlign="flex-start center">
+          <i class="companion-svg" [innerHTML]="getIcon(guide.category)">
+          </i>
+          {{GuideCategory[guide.category]}}
+        </div>
       </div>
     </div>
-  </div>
+  }
   <div class="card-footer-border"></div>
 </div>
 

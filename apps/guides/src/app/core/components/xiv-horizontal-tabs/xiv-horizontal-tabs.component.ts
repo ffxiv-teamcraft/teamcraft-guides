@@ -10,10 +10,11 @@ interface XivHorizontalTabsMenu {
 }
 
 @Component({
-  selector: 'guides-xiv-horizontal-tabs',
-  templateUrl: './xiv-horizontal-tabs.component.html',
-  styleUrls: ['./xiv-horizontal-tabs.component.less'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'guides-xiv-horizontal-tabs',
+    templateUrl: './xiv-horizontal-tabs.component.html',
+    styleUrls: ['./xiv-horizontal-tabs.component.less'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class XivHorizontalTabsComponent implements OnInit {
 

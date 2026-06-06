@@ -11,9 +11,10 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { XivAction } from '../../xivapi/xiv-action';
 
 @Component({
-  selector: 'guides-rotation',
-  templateUrl: './rotation.component.html',
-  styleUrls: ['./rotation.component.less']
+    selector: 'guides-rotation',
+    templateUrl: './rotation.component.html',
+    styleUrls: ['./rotation.component.less'],
+    standalone: false
 })
 export class RotationComponent extends CustomMarkdownElement implements OnInit {
 

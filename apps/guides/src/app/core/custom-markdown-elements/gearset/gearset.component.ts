@@ -9,9 +9,10 @@ import { uniq } from 'lodash';
 import { LazyDataService } from '../../lazy-data.service';
 
 @Component({
-  selector: 'guides-gearset',
-  templateUrl: './gearset.component.html',
-  styleUrls: ['./gearset.component.less']
+    selector: 'guides-gearset',
+    templateUrl: './gearset.component.html',
+    styleUrls: ['./gearset.component.less'],
+    standalone: false
 })
 export class GearsetComponent extends CustomMarkdownElement implements OnInit {
 
@@ -85,8 +86,8 @@ export class GearsetComponent extends CustomMarkdownElement implements OnInit {
           return of(gearset);
         } else {
           const items: number[] = uniq([].concat.apply([], Object.values(gearset)
-            .filter(v => v && !!v.itemId)
-            .map(piece => [piece.itemId, ...piece.materias])));
+            .filter((v: any) => v && !!v.itemId)
+            .map((piece: any) => [piece.itemId, ...piece.materias])));
           const materiasData = items
             .map(item => {
               return materias.find(materia => {

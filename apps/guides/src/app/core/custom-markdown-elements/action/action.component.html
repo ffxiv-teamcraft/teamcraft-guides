@@ -1,5 +1,7 @@
-<div class="action-container"
-     [guidesXivapiActionTooltip]="actionData.id"
-     *ngIf="action$ | async as actionData">
-  <img src="https://xivapi.com{{actionData.icon}}" alt="{{actionData.en}}">
-</div>
+@if (action$ | async; as actionData) {
+  <div class="action-container"
+    [guidesXivapiActionTooltip]="actionData.id"
+    >
+    <img src="https://xivapi.com{{actionData.icon}}" alt="{{actionData.en}}">
+  </div>
+}

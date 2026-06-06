@@ -1,8 +1,7 @@
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, QueryFn } from '@angular/fire/compat/firestore';
 import { from, Observable } from 'rxjs';
 import { first, map, take } from 'rxjs/operators';
 import { DataModel } from './data-model';
-import { QueryFn } from '@angular/fire/firestore/interfaces';
 
 export abstract class FirestoreService<T extends DataModel> {
 

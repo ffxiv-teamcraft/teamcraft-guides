@@ -14,9 +14,10 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
-  selector: 'guides-guide',
-  templateUrl: './guide.component.html',
-  styleUrls: ['./guide.component.less']
+    selector: 'guides-guide',
+    templateUrl: './guide.component.html',
+    styleUrls: ['./guide.component.less'],
+    standalone: false
 })
 export class GuideComponent extends SeoComponent implements AfterContentInit {
 

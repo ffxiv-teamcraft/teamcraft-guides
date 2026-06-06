@@ -7,7 +7,8 @@ import { UsersService } from '../../database/user/users.service';
 import { firstIfServer } from '../rxjs/first-if-server';
 
 @Pipe({
-  name: 'character'
+    name: 'character',
+    standalone: false
 })
 export class CharacterPipe implements PipeTransform {
 

@@ -2,14 +2,17 @@
   <nz-form-item>
     <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>Map</nz-form-label>
     <nz-form-control [nzSm]="16" [nzXs]="24">
-      <nz-select *ngIf="maps$ | async as maps; else loading" formControlName="mapId" nzAllowClear nzShowSearch>
-        <nz-option *ngFor="let map of maps"
-                   nzLabel="{{map.name.en}}{{map.name_sub?.en ? ' - ' + map.name_sub?.en:''}}"
-                   [nzValue]="map.id"></nz-option>
-      </nz-select>
-      <ng-template #loading>
+      @if (maps$ | async; as maps) {
+        <nz-select formControlName="mapId" nzAllowClear nzShowSearch>
+          @for (map of maps; track map) {
+            <nz-option
+              nzLabel="{{map.name.en}}{{map.name_sub?.en ? ' - ' + map.name_sub?.en:''}}"
+            [nzValue]="map.id"></nz-option>
+          }
+        </nz-select>
+      } @else {
         <nz-spin></nz-spin>
-      </ng-template>
+      }
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
@@ -34,19 +37,24 @@
   </nz-form-item>
   <nz-divider nzText="Preview" nzOrientation="left"></nz-divider>
   <div fxLayout="column" fxLayoutGap="10px">
-    <div *ngIf="form.valid; else noPreview">
-      <ng-container *ngIf="form.valueChanges | async as formState">
-        <guides-position *ngIf="!formState.tooltip"
-                         [args]="[formState.mapId, formState.x, formState.y]"
-                         preview="true"></guides-position>
-        <guides-position-tooltip *ngIf="formState.tooltip"
-                                 [args]="[formState.mapId, formState.x, formState.y]"
-                                 preview="true"></guides-position-tooltip>
-      </ng-container>
-    </div>
-    <ng-template #noPreview>
+    @if (form.valid) {
+      <div>
+        @if (form.valueChanges | async; as formState) {
+          @if (!formState.tooltip) {
+            <guides-position
+              [args]="[formState.mapId, formState.x, formState.y]"
+            preview="true"></guides-position>
+          }
+          @if (formState.tooltip) {
+            <guides-position-tooltip
+              [args]="[formState.mapId, formState.x, formState.y]"
+            preview="true"></guides-position-tooltip>
+          }
+        }
+      </div>
+    } @else {
       <nz-empty nzNotFoundContent="Please fill the form to have a preview"></nz-empty>
-    </ng-template>
+    }
     <div fxLayout="row" fxLayoutGap="10px">
       <div>
         <button nz-button [nzType]="'primary'" type="submit">Insert</button>

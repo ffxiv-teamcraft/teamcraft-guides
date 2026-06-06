@@ -4,6 +4,7 @@
 /dist
 /tmp
 /out-tsc
+.angular
 
 # dependencies
 /node_modules
@@ -43,3 +44,6 @@ Thumbs.db
 .firebase
 *-debug.log
 .runtimeconfig.json
+
+.nx/cache
+.nx/workspace-data

@@ -2,9 +2,10 @@ import { Component, Input } from '@angular/core';
 import { Guide } from '../../../database/+state/model/guide';
 
 @Component({
-  selector: 'guides-guide-banner',
-  templateUrl: './guide-banner.component.html',
-  styleUrls: ['./guide-banner.component.less']
+    selector: 'guides-guide-banner',
+    templateUrl: './guide-banner.component.html',
+    styleUrls: ['./guide-banner.component.less'],
+    standalone: false
 })
 export class GuideBannerComponent {
 
