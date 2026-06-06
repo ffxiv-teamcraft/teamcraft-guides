@@ -1,10 +1,18 @@
 import { Component, inject } from '@angular/core';
-import { NzUploadFile } from 'ng-zorro-antd/upload';
+import { NzUploadFile, NzUploadComponent } from 'ng-zorro-antd/upload';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { NzUploadXHRArgs } from 'ng-zorro-antd/upload';
-import { NzModalRef } from 'ng-zorro-antd/modal';
+import { NzModalRef, NzModalComponent } from 'ng-zorro-antd/modal';
 import { combineLatest } from 'rxjs';
 import { first, mapTo } from 'rxjs/operators';
+import { ɵNzTransitionPatchDirective } from 'ng-zorro-antd/core/transition-patch';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { NgStyle } from '@angular/common';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { NzSpaceCompactItemDirective } from 'ng-zorro-antd/space';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { NzWaveDirective } from 'ng-zorro-antd/core/wave';
 
 function getBase64(file: File): Promise<string | ArrayBuffer | null> {
   return new Promise((resolve, reject) => {
@@ -19,7 +27,7 @@ function getBase64(file: File): Promise<string | ArrayBuffer | null> {
     selector: 'guides-image-upload-popup',
     templateUrl: './image-upload-popup.component.html',
     styleUrls: ['./image-upload-popup.component.less'],
-    standalone: false
+    imports: [NzUploadComponent, ɵNzTransitionPatchDirective, NzIconDirective, NzModalComponent, NgStyle, ExtendedModule, FlexModule, NzSpaceCompactItemDirective, NzButtonComponent, NzWaveDirective]
 })
 export class ImageUploadPopupComponent {
   private afs = inject(AngularFireStorage);

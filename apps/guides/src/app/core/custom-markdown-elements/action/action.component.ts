@@ -4,12 +4,14 @@ import { XivapiDataService } from '../../xivapi/xivapi-data.service';
 import { Observable } from 'rxjs';
 import { XivAction } from '../../xivapi/xiv-action';
 import { tap } from 'rxjs/operators';
+import { XivapiActionTooltipDirective } from '../../xivapi/xivapi-action-tooltip/xivapi-action-tooltip.directive';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
     selector: 'guides-action',
     templateUrl: './action.component.html',
     styleUrls: ['./action.component.less'],
-    standalone: false
+    imports: [XivapiActionTooltipDirective, AsyncPipe]
 })
 export class ActionComponent extends CustomMarkdownElement implements OnInit {
   private xivapiData = inject(XivapiDataService);

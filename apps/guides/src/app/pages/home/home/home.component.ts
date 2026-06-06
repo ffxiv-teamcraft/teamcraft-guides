@@ -3,16 +3,21 @@ import { GuidesFacade } from '../../../database/+state/guides.facade';
 import { map } from 'rxjs/operators';
 import { CategorizedGuides, HomePageDisplay } from './home-page-display';
 import { Observable } from 'rxjs';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, AsyncPipe } from '@angular/common';
 import { GuideCategory } from '../../../database/+state/model/guide-category';
 import { Guide } from '../../../database/+state/model/guide';
 import { GuideSubCategory } from '../../../database/+state/model/guide-sub-category';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { DividerComponent } from '../../../core/components/divider/divider.component';
+import { GuideCardComponent } from '../../../core/guide-card/guide-card.component';
+import { XivHorizontalTabsComponent } from '../../../core/components/xiv-horizontal-tabs/xiv-horizontal-tabs.component';
+import { IfMobilePipe } from '../../../core/pipes/if-mobile.pipe';
 
 @Component({
     selector: 'guides-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.less'],
-    standalone: false
+    imports: [FlexModule, DividerComponent, GuideCardComponent, XivHorizontalTabsComponent, AsyncPipe, IfMobilePipe]
 })
 export class HomeComponent {
   private guidesFacade = inject(GuidesFacade);

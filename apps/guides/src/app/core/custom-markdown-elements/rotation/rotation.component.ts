@@ -9,12 +9,23 @@ import { CraftingAction, CraftingActionsRegistry } from '@ffxiv-teamcraft/simula
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { XivAction } from '../../xivapi/xiv-action';
+import { ɵNzTransitionPatchDirective } from 'ng-zorro-antd/core/transition-patch';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { ActionComponent } from '../action/action.component';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { NzSpaceCompactItemDirective } from 'ng-zorro-antd/space';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { NzDividerComponent } from 'ng-zorro-antd/divider';
+import { NzWaveDirective } from 'ng-zorro-antd/core/wave';
+import { NzEmptyComponent } from 'ng-zorro-antd/empty';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
     selector: 'guides-rotation',
     templateUrl: './rotation.component.html',
     styleUrls: ['./rotation.component.less'],
-    standalone: false
+    imports: [ɵNzTransitionPatchDirective, NzIconDirective, FlexModule, ActionComponent, ExtendedModule, NzSpaceCompactItemDirective, NzButtonComponent, NzDividerComponent, NzWaveDirective, NzEmptyComponent, AsyncPipe]
 })
 export class RotationComponent extends CustomMarkdownElement implements OnInit {
   private rotationsService = inject(RotationsService);

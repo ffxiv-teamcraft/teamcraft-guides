@@ -3,6 +3,12 @@ import { CategorizedGuides } from '../../../pages/home/home/home-page-display';
 import { combineLatest, ReplaySubject } from 'rxjs';
 import { Guide } from '../../../database/+state/model/guide';
 import { map, shareReplay } from 'rxjs/operators';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { ɵNzTransitionPatchDirective } from 'ng-zorro-antd/core/transition-patch';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { NzTagComponent } from 'ng-zorro-antd/tag';
+import { GuideCardComponent } from '../../guide-card/guide-card.component';
+import { AsyncPipe } from '@angular/common';
 
 interface XivHorizontalTabsMenu {
   title: string;
@@ -14,7 +20,7 @@ interface XivHorizontalTabsMenu {
     templateUrl: './xiv-horizontal-tabs.component.html',
     styleUrls: ['./xiv-horizontal-tabs.component.less'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    imports: [FlexModule, ɵNzTransitionPatchDirective, NzIconDirective, NzTagComponent, GuideCardComponent, AsyncPipe]
 })
 export class XivHorizontalTabsComponent implements OnInit {
 

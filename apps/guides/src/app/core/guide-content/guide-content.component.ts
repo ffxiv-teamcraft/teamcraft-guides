@@ -9,8 +9,7 @@ import { TableOfContentEntry } from './table-of-content-entry';
 @Component({
     selector: 'guides-guide-content',
     template: '',
-    styleUrls: ['./guide-content.component.less'],
-    standalone: false
+    styleUrls: ['./guide-content.component.less']
 })
 export class GuideContentComponent implements DoCheck, OnChanges, OnDestroy {
   private markdownService = inject(MarkdownService);

@@ -5,8 +5,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 @Component({
     selector: 'guides-youtube-video',
     templateUrl: './youtube-video.component.html',
-    styleUrls: ['./youtube-video.component.less'],
-    standalone: false
+    styleUrls: ['./youtube-video.component.less']
 })
 export class YoutubeVideoComponent extends CustomMarkdownElement implements OnInit {
   private sanitizer = inject(DomSanitizer);

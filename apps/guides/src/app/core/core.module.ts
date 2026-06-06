@@ -39,26 +39,7 @@ import { GearsetComponent } from './custom-markdown-elements/gearset/gearset.com
 import { GuideBannerComponent } from './components/guide-banner/guide-banner.component';
 import { YoutubeVideoComponent } from './custom-markdown-elements/youtube-video/youtube-video.component';
 
-@NgModule({ declarations: [
-        GuideContentComponent,
-        ActionComponent,
-        LoginPopupComponent,
-        CharacterPipe,
-        ListComponent,
-        RotationComponent,
-        XivapiActionTooltipDirective,
-        XivapiActionTooltipComponent,
-        IfMobilePipe,
-        GuideCardComponent,
-        PositionComponent,
-        MapPositionComponent,
-        PositionTooltipComponent,
-        DividerComponent,
-        XivHorizontalTabsComponent,
-        GearsetComponent,
-        GuideBannerComponent,
-        YoutubeVideoComponent
-    ],
+@NgModule({
     exports: [
         GuideContentComponent,
         LoginPopupComponent,
@@ -86,7 +67,24 @@ import { YoutubeVideoComponent } from './custom-markdown-elements/youtube-video/
         NzBadgeModule,
         NzAvatarModule,
         RouterModule,
-        NzTagModule], providers: [
+        NzTagModule, GuideContentComponent,
+        ActionComponent,
+        LoginPopupComponent,
+        CharacterPipe,
+        ListComponent,
+        RotationComponent,
+        XivapiActionTooltipDirective,
+        XivapiActionTooltipComponent,
+        IfMobilePipe,
+        GuideCardComponent,
+        PositionComponent,
+        MapPositionComponent,
+        PositionTooltipComponent,
+        DividerComponent,
+        XivHorizontalTabsComponent,
+        GearsetComponent,
+        GuideBannerComponent,
+        YoutubeVideoComponent], providers: [
         ...CUSTOM_MARKDOWN_ELEMENTS,
         DynamicHTMLRenderer,
         provideHttpClient(withInterceptorsFromDi())

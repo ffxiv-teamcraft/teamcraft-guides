@@ -16,15 +16,36 @@ import { UsersService } from '../../../database/user/users.service';
 import { AuthService } from '../../../database/auth.service';
 import { LocationSelectionPopupComponent } from '../location-selection-popup/location-selection-popup.component';
 import { GuideSubCategory } from '../../../database/+state/model/guide-sub-category';
-import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { ImageCroppedEvent, ImageCropperComponent } from 'ngx-image-cropper';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { NzTabBarExtraContentDirective, NzTabComponent, NzTabDirective } from 'ng-zorro-antd/tabs';
+import { NzSpaceCompactItemDirective } from 'ng-zorro-antd/space';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { NzWaveDirective } from 'ng-zorro-antd/core/wave';
+import { ɵNzTransitionPatchDirective } from 'ng-zorro-antd/core/transition-patch';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { NzInputGroupComponent, NzInputDirective, NzTextareaCountComponent } from 'ng-zorro-antd/input';
+import { NzSelectComponent, NzOptionComponent } from 'ng-zorro-antd/select';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NzFormDirective, NzFormItemComponent, NzFormLabelComponent, NzFormControlComponent } from 'ng-zorro-antd/form';
+import { NzRowDirective, NzColDirective } from 'ng-zorro-antd/grid';
+import { NzSpinComponent } from 'ng-zorro-antd/spin';
+import { NzPopconfirmDirective } from 'ng-zorro-antd/popconfirm';
+import { NzCheckboxComponent } from 'ng-zorro-antd/checkbox';
+import { NzTooltipDirective } from 'ng-zorro-antd/tooltip';
+import { NzCardComponent } from 'ng-zorro-antd/card';
+import { NzSwitchComponent } from 'ng-zorro-antd/switch';
+import { GuideContentComponent } from '../../../core/guide-content/guide-content.component';
+import { CharacterPipe } from '../../../core/pipes/character.pipe';
 
 @Component({
     selector: 'guides-editor',
     templateUrl: './editor.component.html',
     styleUrls: ['./editor.component.less'],
-    standalone: false
+    imports: [FlexModule, NgIf, NzTabBarExtraContentDirective, NzSpaceCompactItemDirective, NzButtonComponent, NzWaveDirective, ɵNzTransitionPatchDirective, NzIconDirective, NzInputGroupComponent, NzSelectComponent, ReactiveFormsModule, FormsModule, NgFor, NzOptionComponent, NzTabComponent, NzFormDirective, NzRowDirective, NzFormItemComponent, NzColDirective, NzFormLabelComponent, NzFormControlComponent, NzSpinComponent, NzPopconfirmDirective, NzInputDirective, NzCheckboxComponent, ImageCropperComponent, NzTooltipDirective, NzTextareaCountComponent, NzCardComponent, NzSwitchComponent, NzCodeEditorComponent, GuideContentComponent, NzTabDirective, AsyncPipe, CharacterPipe]
 })
 export class EditorComponent implements OnDestroy {
   private nzConfigService = inject(NzConfigService);

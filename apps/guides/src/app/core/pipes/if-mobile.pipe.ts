@@ -3,8 +3,7 @@ import { MediaObserver } from '@angular/flex-layout';
 
 @Pipe({
     name: 'ifMobile',
-    pure: false,
-    standalone: false
+    pure: false
 })
 export class IfMobilePipe implements PipeTransform {
   private media = inject(MediaObserver);

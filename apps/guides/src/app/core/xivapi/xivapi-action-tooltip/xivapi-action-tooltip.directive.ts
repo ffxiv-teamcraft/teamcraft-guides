@@ -10,10 +10,7 @@ import { XivapiDataService } from '../xivapi-data.service';
  * Directive that attaches a XivDB tooltip to the host element.
  * This directive take care of the XivDB request, based on the given action ID.
  */
-@Directive({
-    selector: '[guidesXivapiActionTooltip]',
-    standalone: false
-})
+@Directive({ selector: '[guidesXivapiActionTooltip]' })
 export class XivapiActionTooltipDirective implements OnDestroy {
   private _detectorRef = inject(ChangeDetectorRef);
   private _elementRef = inject(ElementRef);

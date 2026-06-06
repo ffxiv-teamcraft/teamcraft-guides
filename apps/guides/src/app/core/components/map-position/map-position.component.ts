@@ -1,12 +1,17 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { XivMap } from '../../xivapi/xiv-map';
+import { ɵNzTransitionPatchDirective } from 'ng-zorro-antd/core/transition-patch';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { NzTooltipDirective } from 'ng-zorro-antd/tooltip';
+import { NgStyle, DecimalPipe } from '@angular/common';
+import { ExtendedModule } from '@angular/flex-layout/extended';
 
 @Component({
     selector: 'guides-map-position',
     templateUrl: './map-position.component.html',
     styleUrls: ['./map-position.component.less'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    imports: [ɵNzTransitionPatchDirective, NzIconDirective, NzTooltipDirective, NgStyle, ExtendedModule, DecimalPipe]
 })
 export class MapPositionComponent {
 

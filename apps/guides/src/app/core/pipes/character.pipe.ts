@@ -6,10 +6,7 @@ import { LodestoneService } from '../lodestone.service';
 import { UsersService } from '../../database/user/users.service';
 import { firstIfServer } from '../rxjs/first-if-server';
 
-@Pipe({
-    name: 'character',
-    standalone: false
-})
+@Pipe({ name: 'character' })
 export class CharacterPipe implements PipeTransform {
   private lodestone = inject(LodestoneService);
   private usersService = inject(UsersService);

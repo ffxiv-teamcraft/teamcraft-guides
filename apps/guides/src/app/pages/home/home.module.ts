@@ -9,21 +9,19 @@ import { CoreModule } from '../../core/core.module';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 
 @NgModule({
-  declarations: [
-    HomeComponent
-  ],
-  exports: [
-    HomeComponent
-  ],
-  imports: [
-    CommonModule,
-    FlexLayoutModule,
-    NzCarouselModule,
-    NzSpinModule,
-    NzCardModule,
-    CoreModule,
-    NzDividerModule
-  ]
+    exports: [
+        HomeComponent
+    ],
+    imports: [
+        CommonModule,
+        FlexLayoutModule,
+        NzCarouselModule,
+        NzSpinModule,
+        NzCardModule,
+        CoreModule,
+        NzDividerModule,
+        HomeComponent
+    ]
 })
 export class HomeModule {
 }

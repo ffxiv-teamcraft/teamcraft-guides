@@ -3,12 +3,14 @@ import { CustomMarkdownElement } from '../custom-markdown-element';
 import { XivapiDataService } from '../../xivapi/xivapi-data.service';
 import { Observable } from 'rxjs';
 import { XivMap } from '../../xivapi/xiv-map';
+import { MapPositionComponent } from '../../components/map-position/map-position.component';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
     selector: 'guides-position',
     templateUrl: './position.component.html',
     styleUrls: ['./position.component.less'],
-    standalone: false
+    imports: [MapPositionComponent, AsyncPipe]
 })
 export class PositionComponent extends CustomMarkdownElement implements OnInit {
   private xivapi = inject(XivapiDataService);

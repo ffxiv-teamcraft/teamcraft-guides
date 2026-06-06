@@ -7,12 +7,20 @@ import { TeamcraftGearset } from '../../../database/gearset/teamcraft-gearset';
 import { GearsetsService } from '../../../database/gearset/gearsets.service';
 import { uniq } from 'lodash';
 import { LazyDataService } from '../../lazy-data.service';
+import { ɵNzTransitionPatchDirective } from 'ng-zorro-antd/core/transition-patch';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { NzTooltipDirective } from 'ng-zorro-antd/tooltip';
+import { NgTemplateOutlet, AsyncPipe } from '@angular/common';
+import { NzSpaceCompactItemDirective } from 'ng-zorro-antd/space';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { NzEmptyComponent } from 'ng-zorro-antd/empty';
 
 @Component({
     selector: 'guides-gearset',
     templateUrl: './gearset.component.html',
     styleUrls: ['./gearset.component.less'],
-    standalone: false
+    imports: [ɵNzTransitionPatchDirective, NzIconDirective, FlexModule, NzTooltipDirective, NgTemplateOutlet, NzSpaceCompactItemDirective, NzButtonComponent, NzEmptyComponent, AsyncPipe]
 })
 export class GearsetComponent extends CustomMarkdownElement implements OnInit {
   private gearsetsService = inject(GearsetsService);

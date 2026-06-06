@@ -5,12 +5,21 @@ import { TeamcraftList } from '../../../database/list/teamcraft-list';
 import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { XivapiDataService } from '../../xivapi/xivapi-data.service';
+import { ɵNzTransitionPatchDirective } from 'ng-zorro-antd/core/transition-patch';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { NzSpaceCompactItemDirective } from 'ng-zorro-antd/space';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { NzDividerComponent } from 'ng-zorro-antd/divider';
+import { NzEmptyComponent } from 'ng-zorro-antd/empty';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
     selector: 'guides-list',
     templateUrl: './list.component.html',
     styleUrls: ['./list.component.less'],
-    standalone: false
+    imports: [ɵNzTransitionPatchDirective, NzIconDirective, FlexModule, ExtendedModule, NzSpaceCompactItemDirective, NzButtonComponent, NzDividerComponent, NzEmptyComponent, AsyncPipe]
 })
 export class ListComponent extends CustomMarkdownElement implements OnInit {
   private listsService = inject(ListsService);

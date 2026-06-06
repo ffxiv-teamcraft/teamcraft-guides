@@ -45,44 +45,41 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [
-    EditorComponent,
-    ImageUploadPopupComponent,
-    LocationSelectionPopupComponent
-  ],
-  imports: [
-    CommonModule,
-    NzCodeEditorModule,
-    FormsModule,
-    DatabaseModule,
-    FlexLayoutModule,
-    ImageCropperComponent,
-
-    RouterModule.forChild(routes),
-    NzTabsModule,
-    CoreModule,
-    NzButtonModule,
-    NzIconModule,
-    NzFormModule,
-    NzInputModule,
-    NzSelectModule,
-    NzCheckboxModule,
-    NzCardModule,
-    NzSwitchModule,
-    NzModalModule,
-    NzUploadModule,
-    NzTooltipModule,
-    NzSpinModule,
-    ReactiveFormsModule,
-    NzInputNumberModule,
-    NzDividerModule,
-    NzEmptyModule,
-    NzPopconfirmModule
-  ],
-  providers: [
-    DirtyGuard,
-    GuideContributorGuard
-  ]
+    imports: [
+        CommonModule,
+        NzCodeEditorModule,
+        FormsModule,
+        DatabaseModule,
+        FlexLayoutModule,
+        ImageCropperComponent,
+        RouterModule.forChild(routes),
+        NzTabsModule,
+        CoreModule,
+        NzButtonModule,
+        NzIconModule,
+        NzFormModule,
+        NzInputModule,
+        NzSelectModule,
+        NzCheckboxModule,
+        NzCardModule,
+        NzSwitchModule,
+        NzModalModule,
+        NzUploadModule,
+        NzTooltipModule,
+        NzSpinModule,
+        ReactiveFormsModule,
+        NzInputNumberModule,
+        NzDividerModule,
+        NzEmptyModule,
+        NzPopconfirmModule,
+        EditorComponent,
+        ImageUploadPopupComponent,
+        LocationSelectionPopupComponent
+    ],
+    providers: [
+        DirtyGuard,
+        GuideContributorGuard
+    ]
 })
 export class EditorModule {
 }

@@ -1,12 +1,14 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { jobAbbrs } from '../job-abbr-en';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { NzRowDirective, NzColDirective } from 'ng-zorro-antd/grid';
 
 @Component({
     selector: 'guides-xivdb-tooltip-component',
     templateUrl: './xivapi-action-tooltip.component.html',
     styleUrls: ['./xivapi-action-tooltip.component.less'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    imports: [FlexModule, NzRowDirective, NzColDirective]
 })
 export class XivapiActionTooltipComponent implements OnInit {
 

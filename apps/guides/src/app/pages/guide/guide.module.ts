@@ -19,24 +19,21 @@ const routes: Routes = [{
 }];
 
 @NgModule({
-  declarations: [
-    GuideComponent
-  ],
-  imports: [
-    CommonModule,
-    DatabaseModule,
-
-    RouterModule.forChild(routes),
-    CoreModule,
-    FlexLayoutModule,
-    NzButtonModule,
-    NzIconModule,
-    NzDividerModule,
-    NzSpinModule,
-    NzEmptyModule,
-    NzAnchorModule,
-    NzTooltipModule
-  ]
+    imports: [
+        CommonModule,
+        DatabaseModule,
+        RouterModule.forChild(routes),
+        CoreModule,
+        FlexLayoutModule,
+        NzButtonModule,
+        NzIconModule,
+        NzDividerModule,
+        NzSpinModule,
+        NzEmptyModule,
+        NzAnchorModule,
+        NzTooltipModule,
+        GuideComponent
+    ]
 })
 export class GuideModule {
 }
