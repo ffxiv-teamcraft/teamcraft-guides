@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
 import { Guide } from '../../database/+state/model/guide';
 import { GuideCategory } from '../../database/+state/model/guide-category';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -11,6 +11,8 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
     standalone: false
 })
 export class GuideCardComponent {
+  private sanitizer = inject(DomSanitizer);
+
 
   @Input()
   guide: Guide;
@@ -20,7 +22,10 @@ export class GuideCardComponent {
 
   GuideCategory = GuideCategory;
 
-  constructor(private sanitizer: DomSanitizer) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
   }
 
   getIcon(category: GuideCategory): SafeHtml {

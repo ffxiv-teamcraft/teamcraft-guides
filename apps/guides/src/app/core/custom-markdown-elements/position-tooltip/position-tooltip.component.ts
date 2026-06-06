@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { XivapiDataService } from '../../xivapi/xivapi-data.service';
 import { PositionComponent } from '../position/position.component';
 
@@ -10,7 +10,13 @@ import { PositionComponent } from '../position/position.component';
 })
 export class PositionTooltipComponent extends PositionComponent {
 
-  constructor(xivapi: XivapiDataService) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+
+  constructor() {
+    const xivapi = inject(XivapiDataService);
+
     super(xivapi);
   }
 }

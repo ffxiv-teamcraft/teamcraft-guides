@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { CustomMarkdownElement } from '../custom-markdown-element';
 import { XivapiDataService } from '../../xivapi/xivapi-data.service';
 import { Observable } from 'rxjs';
@@ -12,6 +12,8 @@ import { tap } from 'rxjs/operators';
     standalone: false
 })
 export class ActionComponent extends CustomMarkdownElement implements OnInit {
+  private xivapiData = inject(XivapiDataService);
+
 
   public action$: Observable<XivAction>;
 
@@ -26,7 +28,10 @@ export class ActionComponent extends CustomMarkdownElement implements OnInit {
     }
   }
 
-  constructor(private xivapiData: XivapiDataService) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
     super();
   }
 

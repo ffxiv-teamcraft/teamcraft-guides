@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CustomMarkdownElement } from '../custom-markdown-element';
 import { XivapiDataService } from '../../xivapi/xivapi-data.service';
 import { Observable } from 'rxjs';
@@ -11,6 +11,8 @@ import { XivMap } from '../../xivapi/xiv-map';
     standalone: false
 })
 export class PositionComponent extends CustomMarkdownElement implements OnInit {
+  private xivapi = inject(XivapiDataService);
+
 
   public map$: Observable<XivMap>;
 
@@ -18,7 +20,10 @@ export class PositionComponent extends CustomMarkdownElement implements OnInit {
   public x: number;
   public y: number;
 
-  constructor(private xivapi: XivapiDataService) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
     super();
   }
 

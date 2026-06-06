@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
@@ -7,10 +7,15 @@ import { shareReplay } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class LazyDataService {
+  private http = inject(HttpClient);
+
 
   private cache: Record<string, Observable<any>> = {};
 
-  constructor(private http: HttpClient) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
   }
 
   get<T = any>(name: string): Observable<T> {

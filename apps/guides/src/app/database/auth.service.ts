@@ -1,4 +1,4 @@
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { switchMap, tap } from 'rxjs/operators';
 import { UsersService } from './user/users.service';
@@ -11,13 +11,20 @@ import { isPlatformBrowser } from '@angular/common';
   providedIn: 'root'
 })
 export class AuthService {
+  private af = inject(AngularFireAuth);
+  private usersService = inject(UsersService);
+  private message = inject(NzMessageService);
+  private platform = inject<Object>(PLATFORM_ID);
+
 
   public user$: Observable<TeamcraftUser | null>;
 
-  constructor(private af: AngularFireAuth,
-              private usersService: UsersService,
-              private message: NzMessageService,
-              @Inject(PLATFORM_ID) private platform: Object) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
+    const platform = this.platform;
+
     if (isPlatformBrowser(platform)) {
       this.user$ = this.af.authState.pipe(
         switchMap(user => {

@@ -1,17 +1,4 @@
-import {
-  Component,
-  DoCheck,
-  ElementRef,
-  EventEmitter,
-  Inject,
-  Input,
-  OnChanges,
-  OnDestroy,
-  Output,
-  PLATFORM_ID,
-  SimpleChanges,
-  ViewContainerRef
-} from '@angular/core';
+import { Component, DoCheck, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, Output, PLATFORM_ID, SimpleChanges, ViewContainerRef, inject } from '@angular/core';
 import { MarkdownService } from 'ngx-markdown';
 import { DynamicHTMLRef, DynamicHTMLRenderer } from '../dynamic-html/dynamic-html-renderer';
 import { DYNAMIC_COMPONENTS, DynamicComponent } from '../dynamic-html/dynamic-component';
@@ -26,6 +13,14 @@ import { TableOfContentEntry } from './table-of-content-entry';
     standalone: false
 })
 export class GuideContentComponent implements DoCheck, OnChanges, OnDestroy {
+  private markdownService = inject(MarkdownService);
+  private renderer = inject(DynamicHTMLRenderer);
+  private elementRef = inject(ElementRef);
+  private xivapiData = inject(XivapiDataService);
+  private vcr = inject(ViewContainerRef);
+  private components = inject(DYNAMIC_COMPONENTS);
+  private platform = inject<Object>(PLATFORM_ID);
+
 
   @Input()
   markdown: string;
@@ -35,13 +30,12 @@ export class GuideContentComponent implements DoCheck, OnChanges, OnDestroy {
 
   private ref: DynamicHTMLRef = null;
 
-  constructor(private markdownService: MarkdownService,
-              private renderer: DynamicHTMLRenderer,
-              private elementRef: ElementRef,
-              private xivapiData: XivapiDataService,
-              private vcr: ViewContainerRef,
-              @Inject(DYNAMIC_COMPONENTS) private components: DynamicComponent[],
-              @Inject(PLATFORM_ID) private platform: Object) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
+    const platform = this.platform;
+
     if (isPlatformServer(platform)) {
       return;
     }

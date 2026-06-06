@@ -1,13 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Directive,
-  ElementRef,
-  HostListener,
-  Input,
-  OnDestroy,
-  Optional,
-  ViewContainerRef
-} from '@angular/core';
+import { ChangeDetectorRef, Directive, ElementRef, HostListener, Input, OnDestroy, ViewContainerRef, inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
@@ -24,6 +15,13 @@ import { XivapiDataService } from '../xivapi-data.service';
     standalone: false
 })
 export class XivapiActionTooltipDirective implements OnDestroy {
+  private _detectorRef = inject(ChangeDetectorRef);
+  private _elementRef = inject(ElementRef);
+  private _tooltipData = inject(XivapiDataService);
+  private _viewContainerRef = inject(ViewContainerRef);
+  private _overlay = inject(Overlay);
+  private _directionality = inject(Directionality, { optional: true })!;
+
 
   // Disable TSLint to follow the style guide for directive inputs aliases.
   // See https://angular.io/guide/styleguide#avoid-aliasing-inputs-and-outputs
@@ -83,12 +81,10 @@ export class XivapiActionTooltipDirective implements OnDestroy {
     this._detectorRef.markForCheck();
   };
 
-  constructor(private _detectorRef: ChangeDetectorRef,
-              private _elementRef: ElementRef,
-              private _tooltipData: XivapiDataService,
-              private _viewContainerRef: ViewContainerRef,
-              private _overlay: Overlay,
-              @Optional() private _directionality: Directionality) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
   }
 
   ngOnDestroy(): void {

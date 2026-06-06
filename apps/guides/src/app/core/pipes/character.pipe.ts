@@ -1,4 +1,4 @@
-import { Inject, Pipe, PipeTransform, PLATFORM_ID } from '@angular/core';
+import { Pipe, PipeTransform, PLATFORM_ID, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Character } from '@xivapi/angular-client';
 import { switchMap } from 'rxjs/operators';
@@ -11,9 +11,15 @@ import { firstIfServer } from '../rxjs/first-if-server';
     standalone: false
 })
 export class CharacterPipe implements PipeTransform {
+  private lodestone = inject(LodestoneService);
+  private usersService = inject(UsersService);
+  private platform = inject<Object>(PLATFORM_ID);
 
-  constructor(private lodestone: LodestoneService, private usersService: UsersService,
-              @Inject(PLATFORM_ID) private platform: Object) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+
+  constructor() {
   }
 
   transform(userId: string): Observable<Pick<Character, 'Avatar' | 'Name' | 'Title'>> {

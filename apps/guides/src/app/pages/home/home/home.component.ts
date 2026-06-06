@@ -1,4 +1,4 @@
-import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, PLATFORM_ID, inject } from '@angular/core';
 import { GuidesFacade } from '../../../database/+state/guides.facade';
 import { map } from 'rxjs/operators';
 import { CategorizedGuides, HomePageDisplay } from './home-page-display';
@@ -15,6 +15,9 @@ import { GuideSubCategory } from '../../../database/+state/model/guide-sub-categ
     standalone: false
 })
 export class HomeComponent {
+  private guidesFacade = inject(GuidesFacade);
+  private platform = inject<Object>(PLATFORM_ID);
+
 
   display$: Observable<HomePageDisplay> = this.guidesFacade.allGuides$.pipe(
     map(guides => {
@@ -30,8 +33,10 @@ export class HomeComponent {
 
   platformBrowser = isPlatformBrowser(this.platform);
 
-  constructor(private guidesFacade: GuidesFacade,
-              @Inject(PLATFORM_ID) private platform: Object) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
   }
 
   getGuidesForCategory(guides: Guide[], category: GuideCategory): CategorizedGuides[] {

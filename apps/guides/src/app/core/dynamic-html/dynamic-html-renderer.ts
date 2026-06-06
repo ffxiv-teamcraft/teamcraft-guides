@@ -1,12 +1,4 @@
-import {
-  ComponentRef,
-  ElementRef,
-  Inject,
-  Injectable,
-  Injector, PLATFORM_ID,
-  Renderer2,
-  ViewContainerRef
-} from '@angular/core';
+import { ComponentRef, ElementRef, Injectable, Injector, PLATFORM_ID, Renderer2, ViewContainerRef, inject } from '@angular/core';
 import { OnMount } from './on-mount';
 import { DYNAMIC_COMPONENTS, DynamicComponent } from './dynamic-component';
 import { isPlatformBrowser } from '@angular/common';
@@ -18,13 +10,18 @@ export interface DynamicHTMLRef {
 
 @Injectable()
 export class DynamicHTMLRenderer {
+  private components = inject(DYNAMIC_COMPONENTS);
+  private platform = inject<Object>(PLATFORM_ID);
+  private injector = inject(Injector);
+  private renderer = inject(Renderer2);
+
 
   private componentRefs = new Map<any, Array<ComponentRef<any>>>();
 
-  constructor(@Inject(DYNAMIC_COMPONENTS) private components: DynamicComponent[],
-              @Inject(PLATFORM_ID) private platform: Object,
-              private injector: Injector,
-              private renderer: Renderer2) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
   }
 
   renderInnerHTML(elementRef: ElementRef, html: string, vcr: ViewContainerRef): DynamicHTMLRef {

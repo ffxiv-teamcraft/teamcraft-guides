@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CustomMarkdownElement } from '../custom-markdown-element';
 import { combineLatest, Observable, of } from 'rxjs';
 import { XivapiDataService } from '../../xivapi/xivapi-data.service';
@@ -15,6 +15,10 @@ import { LazyDataService } from '../../lazy-data.service';
     standalone: false
 })
 export class GearsetComponent extends CustomMarkdownElement implements OnInit {
+  private gearsetsService = inject(GearsetsService);
+  private xivapiData = inject(XivapiDataService);
+  private lazyData = inject(LazyDataService);
+
 
   gearset$: Observable<Partial<TeamcraftGearset>>;
 
@@ -62,8 +66,10 @@ export class GearsetComponent extends CustomMarkdownElement implements OnInit {
     crystal: '&#xF093;'
   };
 
-  constructor(private gearsetsService: GearsetsService, private xivapiData: XivapiDataService,
-              private lazyData: LazyDataService) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
     super();
   }
 

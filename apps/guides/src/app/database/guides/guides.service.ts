@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FirestoreService } from '../firestore.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Guide } from '../+state/model/guide';
@@ -8,7 +8,13 @@ import { Guide } from '../+state/model/guide';
 })
 export class GuidesService extends FirestoreService<Guide> {
 
-  constructor(af: AngularFirestore) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+
+  constructor() {
+    const af = inject(AngularFirestore);
+
     super(af);
   }
 

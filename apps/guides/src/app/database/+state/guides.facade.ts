@@ -1,4 +1,4 @@
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 
 import { select, Store } from '@ngrx/store';
 import { combineLatest } from 'rxjs';
@@ -11,6 +11,9 @@ import { Guide } from './model/guide';
 
 @Injectable()
 export class GuidesFacade {
+  private store = inject(Store);
+  private platform = inject<Object>(PLATFORM_ID);
+
 
   loading$ = this.store.pipe(
     select(GuidesSelectors.getLoaded),
@@ -38,8 +41,10 @@ export class GuidesFacade {
 
   dirty = false;
 
-  constructor(private store: Store,
-              @Inject(PLATFORM_ID) private platform: Object) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
   }
 
   /**

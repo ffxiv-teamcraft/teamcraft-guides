@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CustomMarkdownElement } from '../custom-markdown-element';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
@@ -9,10 +9,15 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
     standalone: false
 })
 export class YoutubeVideoComponent extends CustomMarkdownElement implements OnInit {
+  private sanitizer = inject(DomSanitizer);
+
 
   link: SafeResourceUrl;
 
-  constructor(private sanitizer: DomSanitizer) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
     super();
   }
 

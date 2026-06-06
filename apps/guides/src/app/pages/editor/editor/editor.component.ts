@@ -1,4 +1,4 @@
-import { Component, HostListener, OnDestroy } from '@angular/core';
+import { Component, HostListener, OnDestroy, inject } from '@angular/core';
 import { NzConfigService } from 'ng-zorro-antd/core/config';
 import { ActivatedRoute } from '@angular/router';
 import { GuidesFacade } from '../../../database/+state/guides.facade';
@@ -27,6 +27,16 @@ import { NzMessageService } from 'ng-zorro-antd/message';
     standalone: false
 })
 export class EditorComponent implements OnDestroy {
+  private nzConfigService = inject(NzConfigService);
+  guidesFacade = inject(GuidesFacade);
+  private route = inject(ActivatedRoute);
+  private xivapi = inject(XivapiDataService);
+  private modal = inject(NzModalService);
+  private usersService = inject(UsersService);
+  private authService = inject(AuthService);
+  private afs = inject(AngularFireStorage);
+  private message = inject(NzMessageService);
+
 
   selectedTab = 0;
 
@@ -111,11 +121,10 @@ export class EditorComponent implements OnDestroy {
 
   public featuredGuides$ = this.guidesFacade.featuredGuides$;
 
-  constructor(private nzConfigService: NzConfigService, public guidesFacade: GuidesFacade,
-              private route: ActivatedRoute, private xivapi: XivapiDataService,
-              private modal: NzModalService, private usersService: UsersService,
-              private authService: AuthService, private afs: AngularFireStorage,
-              private message: NzMessageService) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
     const defaultEditorOption = this.nzConfigService.getConfigForComponent('codeEditor')?.defaultEditorOption || {};
     this.nzConfigService.set('codeEditor', {
       defaultEditorOption: {

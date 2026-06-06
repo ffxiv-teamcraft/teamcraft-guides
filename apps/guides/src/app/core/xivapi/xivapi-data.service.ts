@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
 import { distinctUntilChanged, filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { XivAction } from './xiv-action';
@@ -13,12 +13,17 @@ import { XivActionSearch } from './xiv-action-search';
   providedIn: 'root'
 })
 export class XivapiDataService {
+  private http = inject(HttpClient);
+
 
   private actions: { [index: number]: Observable<any> } = {};
 
   private cache$ = new BehaviorSubject<Partial<Record<string, Record<number, any>>>>({});
 
-  constructor(private http: HttpClient) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
   }
 
   private preload<T = unknown>(endpoint: DataEndpoint, ids: number[]): Observable<T[]> {

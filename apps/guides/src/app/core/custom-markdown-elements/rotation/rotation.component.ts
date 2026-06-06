@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { RotationsService } from '../../../database/rotation/rotations.service';
 import { map, switchMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
@@ -17,12 +17,19 @@ import { XivAction } from '../../xivapi/xiv-action';
     standalone: false
 })
 export class RotationComponent extends CustomMarkdownElement implements OnInit {
+  private rotationsService = inject(RotationsService);
+  private xivapiData = inject(XivapiDataService);
+  private clipboardService = inject(Clipboard);
+  private message = inject(NzMessageService);
+
 
   rotation$: Observable<TeamcraftRotation | { notFound: true }>;
   rotationDisplay$: Observable<any>;
 
-  constructor(private rotationsService: RotationsService, private xivapiData: XivapiDataService,
-              private clipboardService: Clipboard, private message: NzMessageService) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
     super();
   }
 

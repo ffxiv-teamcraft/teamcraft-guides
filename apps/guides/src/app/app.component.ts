@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, PLATFORM_ID, ViewChild } from '@angular/core';
+import { Component, ElementRef, PLATFORM_ID, ViewChild, inject } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AuthService } from './database/auth.service';
 import { GuidesFacade } from './database/+state/guides.facade';
@@ -19,6 +19,12 @@ import { Pirsch } from 'pirsch-sdk/web';
     standalone: false
 })
 export class AppComponent {
+  private nzModal = inject(NzModalService);
+  private authService = inject(AuthService);
+  private guidesFacade = inject(GuidesFacade);
+  private iconService = inject(NzIconService);
+  private platform = inject<Object>(PLATFORM_ID);
+
 
   user$ = this.authService.user$;
 
@@ -45,12 +51,12 @@ export class AppComponent {
   @ViewChild('scrollContainerRef', { static: false })
   scrollContainer: ElementRef;
 
-  constructor(private nzModal: NzModalService,
-              private authService: AuthService,
-              private guidesFacade: GuidesFacade,
-              router: Router,
-              private iconService: NzIconService,
-              @Inject(PLATFORM_ID) private platform: Object) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
+    const router = inject(Router);
+
     this.guidesFacade.init();
     router.events.pipe(
       filter(e => e instanceof NavigationEnd)

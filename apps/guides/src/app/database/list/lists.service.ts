@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FirestoreService } from '../firestore.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { TeamcraftList } from './teamcraft-list';
@@ -8,7 +8,13 @@ import { TeamcraftList } from './teamcraft-list';
 })
 export class ListsService extends FirestoreService<TeamcraftList> {
 
-  constructor(af: AngularFirestore) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+
+  constructor() {
+    const af = inject(AngularFirestore);
+
     super(af);
   }
 

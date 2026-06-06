@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as GuidesActions from './guides.actions';
 import { GuidesService } from '../guides/guides.service';
@@ -8,6 +8,11 @@ import { AuthService } from '../auth.service';
 
 @Injectable()
 export class GuidesEffects {
+  private actions$ = inject(Actions);
+  private guidesService = inject(GuidesService);
+  private message = inject(NzMessageService);
+  private authService = inject(AuthService);
+
   loadGuides$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GuidesActions.init),
@@ -49,7 +54,9 @@ export class GuidesEffects {
     )
   );
 
-  constructor(private actions$: Actions, private guidesService: GuidesService,
-              private message: NzMessageService, private authService: AuthService) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
   }
 }

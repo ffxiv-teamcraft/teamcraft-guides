@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
@@ -14,15 +14,20 @@ import 'firebase/compat/auth';
     standalone: false
 })
 export class LoginPopupComponent {
+  private fb = inject(FormBuilder);
+  private modalRef = inject(NzModalRef);
+  private message = inject(NzMessageService);
+  private af = inject(AngularFireAuth);
+
 
   form: FormGroup;
 
   errorMessageCode: string;
 
-  constructor(private fb: FormBuilder,
-              private modalRef: NzModalRef,
-              private message: NzMessageService,
-              private af: AngularFireAuth) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]

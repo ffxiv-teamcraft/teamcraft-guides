@@ -1,4 +1,4 @@
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { Character } from '@xivapi/angular-client';
 import { interval, Observable, of, Subject } from 'rxjs';
 import { map, shareReplay, switchMapTo } from 'rxjs/operators';
@@ -8,13 +8,20 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class LodestoneService {
+  private http = inject(HttpClient);
+  private platform = inject<Object>(PLATFORM_ID);
+
 
   private cache: Record<number, Observable<Character>> = {};
 
   private queue: Subject<void>[] = [];
 
-  constructor(private http: HttpClient,
-              @Inject(PLATFORM_ID) private platform: Object) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
+    const platform = this.platform;
+
     if (isPlatformBrowser(platform)) {
       interval(500).subscribe(() => {
         const req = this.queue.shift();

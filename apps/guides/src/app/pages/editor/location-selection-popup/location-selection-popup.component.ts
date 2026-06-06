@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { map, shareReplay } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzModalRef } from 'ng-zorro-antd/modal';
@@ -11,6 +11,10 @@ import { XivapiDataService } from '../../../core/xivapi/xivapi-data.service';
     standalone: false
 })
 export class LocationSelectionPopupComponent {
+  private fb = inject(FormBuilder);
+  private modalRef = inject(NzModalRef);
+  private dataService = inject(XivapiDataService);
+
 
   public maps$ = this.dataService.getMaps([]).pipe(
     map(maps => maps.filter(m => !!m.name)),
@@ -24,7 +28,10 @@ export class LocationSelectionPopupComponent {
     tooltip: [false]
   });
 
-  constructor(private fb: FormBuilder, private modalRef: NzModalRef, private dataService: XivapiDataService) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
   }
 
   submit(): void {

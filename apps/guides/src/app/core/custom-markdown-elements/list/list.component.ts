@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ListsService } from '../../../database/list/lists.service';
 import { CustomMarkdownElement } from '../custom-markdown-element';
 import { TeamcraftList } from '../../../database/list/teamcraft-list';
@@ -13,12 +13,18 @@ import { XivapiDataService } from '../../xivapi/xivapi-data.service';
     standalone: false
 })
 export class ListComponent extends CustomMarkdownElement implements OnInit {
+  private listsService = inject(ListsService);
+  private xivapiData = inject(XivapiDataService);
+
 
   list$: Observable<Partial<TeamcraftList>>;
 
   listDisplay$: Observable<any>;
 
-  constructor(private listsService: ListsService, private xivapiData: XivapiDataService) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
     super();
   }
 

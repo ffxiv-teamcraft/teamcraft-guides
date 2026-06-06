@@ -1,5 +1,5 @@
 
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { GuidesFacade } from '../../database/+state/guides.facade';
 import { Observable, of, Subject } from 'rxjs';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -8,8 +8,14 @@ import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class DirtyGuard  {
+  private guidesFacade = inject(GuidesFacade);
+  private dialog = inject(NzModalService);
 
-  constructor(private guidesFacade: GuidesFacade, private dialog: NzModalService) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+
+  constructor() {
   }
 
   canDeactivate(): Observable<boolean> {

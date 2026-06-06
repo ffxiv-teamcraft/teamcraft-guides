@@ -1,5 +1,5 @@
 import { ActivatedRouteSnapshot } from '@angular/router';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { GuidesFacade } from '../../database/+state/guides.facade';
 import { combineLatest, Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
@@ -8,8 +8,14 @@ import { AuthService } from '../../database/auth.service';
 
 @Injectable()
 export class GuideContributorGuard  {
+  private guidesFacade = inject(GuidesFacade);
+  private auth = inject(AuthService);
 
-  constructor(private guidesFacade: GuidesFacade, private auth: AuthService) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+
+  constructor() {
   }
 
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {

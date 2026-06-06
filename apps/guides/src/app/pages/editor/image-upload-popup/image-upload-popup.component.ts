@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { NzUploadXHRArgs } from 'ng-zorro-antd/upload';
@@ -22,13 +22,19 @@ function getBase64(file: File): Promise<string | ArrayBuffer | null> {
     standalone: false
 })
 export class ImageUploadPopupComponent {
+  private afs = inject(AngularFireStorage);
+  private modalRef = inject(NzModalRef);
+
 
   fileList: NzUploadFile[] = [];
 
   previewImage: string | undefined = '';
   previewVisible = false;
 
-  constructor(private afs: AngularFireStorage, private modalRef: NzModalRef) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
   }
 
   handlePreview = async (file: NzUploadFile) => {

@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, Inject, PLATFORM_ID } from '@angular/core';
+import { AfterContentInit, Component, PLATFORM_ID, inject } from '@angular/core';
 import { combineLatest, Observable, Subject } from 'rxjs';
 import { delay, first, map, startWith, switchMapTo, tap } from 'rxjs/operators';
 import { GuidesFacade } from '../../../database/+state/guides.facade';
@@ -20,6 +20,15 @@ import { NzMessageService } from 'ng-zorro-antd/message';
     standalone: false
 })
 export class GuideComponent extends SeoComponent implements AfterContentInit {
+  private guidesFacade = inject(GuidesFacade);
+  private authService = inject(AuthService);
+  private route = inject(ActivatedRoute);
+  private platform = inject<Object>(PLATFORM_ID);
+  private document = inject<Document>(DOCUMENT);
+  private location = inject(Location);
+  private message = inject(NzMessageService);
+  private clipboard = inject(Clipboard);
+
 
   public guide$: Observable<Guide> = this.route.paramMap.pipe(
     map(params => params.get('slug')),
@@ -39,13 +48,13 @@ export class GuideComponent extends SeoComponent implements AfterContentInit {
 
   public tableOfContents$ = new Subject<TableOfContentEntry[]>();
 
-  constructor(private guidesFacade: GuidesFacade,
-              private authService: AuthService,
-              private route: ActivatedRoute,
-              @Inject(PLATFORM_ID) private platform: Object,
-              @Inject(DOCUMENT) private document: Document,
-              private location: Location, private message: NzMessageService,
-              private clipboard: Clipboard, meta: Meta, title: Title) {
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+
+  constructor() {
+    const meta = inject(Meta);
+    const title = inject(Title);
+
     super(meta, title);
     this.guidesFacade.init();
   }
