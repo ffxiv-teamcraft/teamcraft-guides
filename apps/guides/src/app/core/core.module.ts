@@ -12,7 +12,6 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { CharacterPipe } from './pipes/character.pipe';
-import { XivapiClientModule } from '@xivapi/angular-client';
 import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 import { ListComponent } from './custom-markdown-elements/list/list.component';
 import { RotationComponent } from './custom-markdown-elements/rotation/rotation.component';
@@ -20,7 +19,6 @@ import { CUSTOM_MARKDOWN_ELEMENTS } from './custom-markdown-elements';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzMessageService } from 'ng-zorro-antd/message';
 import { XivapiActionTooltipDirective } from './xivapi/xivapi-action-tooltip/xivapi-action-tooltip.directive';
 import { XivapiActionTooltipComponent } from './xivapi/xivapi-action-tooltip/xivapi-action-tooltip.component';
 import { IfMobilePipe } from './pipes/if-mobile.pipe';
@@ -40,54 +38,55 @@ import { GuideBannerComponent } from './components/guide-banner/guide-banner.com
 import { YoutubeVideoComponent } from './custom-markdown-elements/youtube-video/youtube-video.component';
 
 @NgModule({
-    exports: [
-        GuideContentComponent,
-        LoginPopupComponent,
-        CharacterPipe,
-        IfMobilePipe,
-        GuideCardComponent,
-        PositionComponent,
-        PositionTooltipComponent,
-        DividerComponent,
-        XivHorizontalTabsComponent,
-        GuideBannerComponent
-    ], imports: [CommonModule,
-        NzAlertModule,
-        NzDividerModule,
-        NzButtonModule,
-        NzFormModule,
-        ReactiveFormsModule,
-        NzInputModule,
-        // XivapiClientModule,
-        NzTooltipModule,
-        FlexLayoutModule,
-        NzEmptyModule,
-        NzIconModule,
-        NzCardModule,
-        NzBadgeModule,
-        NzAvatarModule,
-        RouterModule,
-        NzTagModule, GuideContentComponent,
-        ActionComponent,
-        LoginPopupComponent,
-        CharacterPipe,
-        ListComponent,
-        RotationComponent,
-        XivapiActionTooltipDirective,
-        XivapiActionTooltipComponent,
-        IfMobilePipe,
-        GuideCardComponent,
-        PositionComponent,
-        MapPositionComponent,
-        PositionTooltipComponent,
-        DividerComponent,
-        XivHorizontalTabsComponent,
-        GearsetComponent,
-        GuideBannerComponent,
-        YoutubeVideoComponent], providers: [
-        ...CUSTOM_MARKDOWN_ELEMENTS,
-        DynamicHTMLRenderer,
-        provideHttpClient(withInterceptorsFromDi())
-    ] })
+  exports: [
+    GuideContentComponent,
+    LoginPopupComponent,
+    CharacterPipe,
+    IfMobilePipe,
+    GuideCardComponent,
+    PositionComponent,
+    PositionTooltipComponent,
+    DividerComponent,
+    XivHorizontalTabsComponent,
+    GuideBannerComponent
+  ], imports: [CommonModule,
+    NzAlertModule,
+    NzDividerModule,
+    NzButtonModule,
+    NzFormModule,
+    ReactiveFormsModule,
+    NzInputModule,
+    // XivapiClientModule,
+    NzTooltipModule,
+    FlexLayoutModule,
+    NzEmptyModule,
+    NzIconModule,
+    NzCardModule,
+    NzBadgeModule,
+    NzAvatarModule,
+    RouterModule,
+    NzTagModule, GuideContentComponent,
+    ActionComponent,
+    LoginPopupComponent,
+    CharacterPipe,
+    ListComponent,
+    RotationComponent,
+    XivapiActionTooltipDirective,
+    XivapiActionTooltipComponent,
+    IfMobilePipe,
+    GuideCardComponent,
+    PositionComponent,
+    MapPositionComponent,
+    PositionTooltipComponent,
+    DividerComponent,
+    XivHorizontalTabsComponent,
+    GearsetComponent,
+    GuideBannerComponent,
+    YoutubeVideoComponent], providers: [
+    ...CUSTOM_MARKDOWN_ELEMENTS,
+    DynamicHTMLRenderer,
+    provideHttpClient(withInterceptorsFromDi())
+  ]
+})
 export class CoreModule {
 }

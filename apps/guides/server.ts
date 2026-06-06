@@ -1,4 +1,5 @@
 import 'zone.js/node';
+import 'source-map-support/register';
 
 import { APP_BASE_HREF } from '@angular/common';
 import { CommonEngine } from '@angular/ssr';

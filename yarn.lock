@@ -2223,10 +2223,10 @@
   resolved "https://registry.yarnpkg.com/@fastify/busboy/-/busboy-3.2.0.tgz#13ed8212f3b9ba697611529d15347f8528058cea"
   integrity sha512-m9FVDXU3GT2ITSe0UaMA5rU3QkfC/UXtCU8y0gSN/GugTqtVldOBWIB5V6V3sbmenVZUIpU6f+mPEO2+m5iTaA==
 
-"@ffxiv-teamcraft/simulator@^3.5.6":
-  version "3.5.6"
-  resolved "https://registry.npmjs.org/@ffxiv-teamcraft/simulator/-/simulator-3.5.6.tgz"
-  integrity sha512-oJ/yxhQIWtK+04oBEA73n8Pv510jabXV48Tz/NR2p+iNevcb2ogxRFIi44Vx4kMM1xwR5L/Bok16rXzaqNtgoQ==
+"@ffxiv-teamcraft/simulator@^3.7.3":
+  version "3.7.3"
+  resolved "https://registry.yarnpkg.com/@ffxiv-teamcraft/simulator/-/simulator-3.7.3.tgz#38cb2bb4605665a9cd20cd86c265f6ec81485ed4"
+  integrity sha512-hXr0YwGwEFwNqkoBrQiJ4q/+nKRHVzIPSKQxGNeykT8o+ymyT/bufZx9ioB1nwb1e7wse9Tt8PTehaYBIfhSTA==
   dependencies:
     "@kaiu/serializer" "^1.4.0"
 
@@ -4181,10 +4181,10 @@
   dependencies:
     tslib "^2.0.0"
 
-"@ngrx/store@^21.0.0":
-  version "21.1.0"
-  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-21.1.0.tgz#dc31b8fbf800555fb752e87aeefb9fce47205a58"
-  integrity sha512-XnpzqmmENOQGtIzFSDX4qq7zVB2WwfMZWoK78yt36lIeDvtgZuUvxyIiGo5mla7e7+KlsSAeNDUvi9zmqIezfw==
+"@ngrx/store@21.0.0":
+  version "21.0.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-21.0.0.tgz#58ba9e890bb7dc0a88446071ca45e5f84f1c8577"
+  integrity sha512-IQ+s0I4z8zkzlilFBr0Xpu/b5sjVbQOKhn0clRU4er82k1WUEyHSMT2Qksu2DNwTHCbWjagBhyBW3n3kQdOrTw==
   dependencies:
     tslib "^2.0.0"
 

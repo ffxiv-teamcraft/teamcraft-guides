@@ -14,8 +14,6 @@
         "main": "apps/guides/src/main.ts",
         "polyfills": "apps/guides/src/polyfills.ts",
         "tsConfig": "apps/guides/tsconfig.app.json",
-        "aot": true,
-        "sourceMap": true,
         "assets": [
           "apps/guides/src/favicon.ico",
           "apps/guides/src/assets",
@@ -43,10 +41,14 @@
           ],
           "optimization": true,
           "outputHashing": "all",
-          "sourceMap": true,
-          "namedChunks": false,
+          "sourceMap": {
+            "scripts": true,
+            "styles": true,
+            "vendor": true
+          },
+          "namedChunks": true,
           "extractLicenses": true,
-          "vendorChunk": false,
+          "vendorChunk": true,
           "buildOptimizer": true,
           "budgets": [
             {
@@ -60,20 +62,30 @@
               "maximumError": "10kb"
             }
           ]
+        },
+        "dev": {
+          "optimization": false,
+          "sourceMap": true,
+          "namedChunks": true,
+          "aot": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": false
         }
-      }
+      },
+      "defaultConfiguration": "dev"
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@nx/angular:dev-server",
       "options": {
         "buildTarget": "guides:build"
       },
       "configurations": {
-        "production": {
-          "buildTarget": "guides:build:production"
+        "dev": {
+          "buildTarget": "guides:build:dev"
         }
       },
-      "continuous": true
+      "defaultConfiguration": "dev"
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
@@ -97,7 +109,11 @@
         "outputPath": "dist/guides/server",
         "main": "apps/guides/server.ts",
         "tsConfig": "apps/guides/tsconfig.server.json",
-        "sourceMap": true,
+        "sourceMap": {
+          "scripts": true,
+          "styles": true,
+          "vendor": true
+        },
         "externalDependencies": [
           "firebase",
           "@firebase/app",
@@ -124,7 +140,11 @@
               "with": "apps/guides/src/environments/environment.prod.ts"
             }
           ],
-          "sourceMap": true,
+          "sourceMap": {
+            "scripts": true,
+            "styles": true,
+            "vendor": true
+          },
           "optimization": true,
           "buildOptimizer": true
         }
@@ -137,7 +157,11 @@
             "with": "apps/guides/src/environments/environment.prod.ts"
           }
         ],
-        "sourceMap": true,
+        "sourceMap": {
+          "scripts": true,
+          "styles": true,
+          "vendor": true
+        },
         "optimization": true
       }
     },
