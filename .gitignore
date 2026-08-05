@@ -43,3 +43,6 @@ Thumbs.db
 .firebase
 *-debug.log
 .runtimeconfig.json
+
+# local environment files, for example containing `NODE_OPTIONS="--openssl-legacy-provider"`
+.env

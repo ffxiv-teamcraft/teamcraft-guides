@@ -7,7 +7,7 @@
       <div class="tc-card-content" fxLayout="column" fxLayoutGap="5px">
         <ng-template #pieceTpl let-piece let-property="property">
           <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="flex-start center" *ngIf="piece">
-            <img src="https://xivapi.com/{{display.items[piece.itemId].icon}}" alt="" class="item-icon">
+            <img src="https://v2.xivapi.com{{display.items[piece.itemId].icon}}" alt="" class="item-icon">
             <div fxLayout="column" fxLayoutGap="2px">
               <div fxLayout="row">
                 <div>{{display.items[piece.itemId].name.en}}</div>
